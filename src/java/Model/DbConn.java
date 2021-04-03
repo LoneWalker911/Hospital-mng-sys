@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class DbConn {
     
     
-    private final static String conn_string = "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6403212";
+    private final static String conn_string = "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6403212?useSSL=true&requireSSL=false&autoReconnect=true";
     private final static String username = "sql6403212";
     private final static String password = "1GQFJqC9LI";
     

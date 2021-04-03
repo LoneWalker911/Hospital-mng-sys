@@ -219,19 +219,17 @@ public class Login {
         }
     }
     
-    public void ChkCookie() throws SQLException
+    public boolean ChkCookie() throws SQLException
     {
             PreparedStatement st = con.prepareStatement("SELECT 1 FROM login WHERE login.loginstring=? AND login.exptime > ?");
             st.setString(1, this.getLoginstring());
             st.setString(2, String.valueOf(System.currentTimeMillis() / 1000L));
             
             ResultSet rs = st.executeQuery();
-            
-            if(rs.next()){
-                System.out.println("GG");
-            }
-            else
-                System.out.println("PP");
+            boolean ret = rs.next();
             st.close();
+            
+            return ret;
+            
     }
 }

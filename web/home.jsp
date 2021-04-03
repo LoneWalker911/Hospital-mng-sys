@@ -15,10 +15,25 @@
     <body>
         <%
             Cookie[] cookies = request.getCookies();
-            
+            if( cookies != null ) {
+            Cookie usr = null;
+            for(int i = 0; i < cookies.length; i++)
+            {
+                if(cookies[i].getName().equals("usr"))
+                {
+                    usr=cookies[i];
+                }
+            }
+                
             Login login = new Login();
-            login.setLoginstring(cookies[1].getValue());
-            System.out.println(cookies[1].getValue());
+            login.setLoginstring(usr.getValue());
+            if(!login.ChkCookie())
+            {
+                usr.setMaxAge(0);
+                response.addCookie(usr);
+                response.sendRedirect("index.jsp");
+            }
+            }
         %>
         <h1>Hello World!</h1>
     </body>
