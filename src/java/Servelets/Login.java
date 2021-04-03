@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,13 +29,10 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    Backend.Login login = new Backend.Login();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {           
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,7 +47,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -63,6 +61,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Backend.Login login = new Backend.Login();
         login.setUsername(request.getParameter("username"));
         login.setPassword(Encrypt.MD5(login.getUsername()+request.getParameter("psw")));
         if(request.getParameter("rem")!=null)
@@ -73,10 +72,10 @@ public class Login extends HttpServlet {
         String nextJSP = "/index.jsp";
         String error="";
         login.Login();
-        int id = login.getUser_type_id();
+        System.out.println(login.getUser_type_id());
         
-        switch(id){
-            case 0:error="Invalid credentials";response.sendRedirect(request.getContextPath()+"/index.jsp");break;
+        switch(login.getUser_type_id()){
+            case 0:error="Invalid credentials";break;
             case 1:nextJSP = "/home.jsp"; break; //Receptionist HOME
             case 2:nextJSP = "/home.jsp"; break;//Patient HOME
             case 3:nextJSP = "/home.jsp"; break;//Pharmacy HOME
@@ -85,11 +84,28 @@ public class Login extends HttpServlet {
             case 6:nextJSP = "/home.jsp"; break;//Admin HOME
             default: error="Something went WRONG!!!";
         }
+        if(error!=""){
         request.setAttribute("error",error);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request,response);
-        processRequest(request, response);
         this.destroy();
+        }
+        else {
+            Cookie cookie = new Cookie("usr", login.getLoginstring());
+            cookie.setComment("This cookie stores a random string to identify the user");
+            if(login.isRem())
+                cookie.setMaxAge( 24 * 60 * 60);
+            else
+                cookie.setMaxAge( 15 * 60);
+          
+            response.addCookie(cookie);
+            response.sendRedirect(request.getContextPath() + nextJSP);
+            this.destroy();
+        }
+        
+        //request.getRequestDispatcher(nextJSP).forward(request, response);
+        //processRequest(request, response);
+        
     }
 
     /**

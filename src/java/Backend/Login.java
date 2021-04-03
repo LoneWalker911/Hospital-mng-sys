@@ -9,13 +9,11 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Model.DbConn;
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Backend.EventLog;
 
 /**
  *
@@ -42,7 +40,7 @@ public class Login {
     private boolean rem;
     private Date reg_date;
     DbConn db = new DbConn();
-    Connection con = DbConn.CreateConn();
+    static Connection con = DbConn.CreateConn();
 
     public Login() {
         this.user_type_id = 0;
@@ -182,7 +180,7 @@ public class Login {
                 do{
                     int leftLimit = 97; // letter 'a'
                     int rightLimit = 122; // letter 'z'
-                    int targetStringLength = 10;
+                    int targetStringLength = 30;
                     Random random = new Random();
                     StringBuilder buffer = new StringBuilder(targetStringLength);
                     for (int i = 0; i < targetStringLength; i++) {
@@ -220,5 +218,20 @@ public class Login {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    public void ChkCookie() throws SQLException
+    {
+            PreparedStatement st = con.prepareStatement("SELECT 1 FROM login WHERE login.loginstring=? AND login.exptime > ?");
+            st.setString(1, this.getLoginstring());
+            st.setString(2, String.valueOf(System.currentTimeMillis() / 1000L));
+            
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                System.out.println("GG");
+            }
+            else
+                System.out.println("PP");
+            st.close();
+    }
 }
