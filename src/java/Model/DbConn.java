@@ -14,25 +14,22 @@ import java.sql.SQLException;
  * @author thisa
  */
 public class DbConn {
-    
-    
-    private final static String conn_string = "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6403212?useSSL=true&requireSSL=false&autoReconnect=true";
-    private final static String username = "sql6403212";
-    private final static String password = "1GQFJqC9LI";
-    
+          
 public static Connection CreateConn() 
 {  
     try
     {  
+        String conn_string = "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6403212?autoReconnect=true";
+        String username = "sql6403212";
+        String password = "1GQFJqC9LI";
         Class.forName("com.mysql.cj.jdbc.Driver"); 
-        Connection con = DriverManager.getConnection(conn_string,username,password);
-        return con;
+        return DriverManager.getConnection(conn_string,username,password);
     }
-    catch(SQLException | ClassNotFoundException e)
+    catch(SQLException | ClassNotFoundException ex)
     {
-        System.out.println(e); 
-        return null;
-        
+        System.out.println(ex.getMessage());
+        System.out.println("couldn't connect!");
+        throw new RuntimeException(ex);
     }  
 }
     

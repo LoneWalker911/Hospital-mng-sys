@@ -32,7 +32,10 @@ public class Login extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");      
+            /* TODO output your page here. You may use following sample code. */
+           RequestDispatcher view = request.getRequestDispatcher("/login.jsp");      
+           view.include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,7 +50,18 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
+        if(request.getParameter("register").equals("1"))
+        {
+            response.setContentType("text/html;charset=UTF-8");    
+            try (PrintWriter out = response.getWriter()) {
+            
+                out.println("<ul class=\"info\">");
+                out.println("<li>Sign in with your mobile number and password.</li>");
+                out.println("</ul>");
+            }
+        }
+        
     }
 
     /**
@@ -68,21 +82,20 @@ public class Login extends HttpServlet {
             login.setRem(true);
         else
             login.setRem(false);
-        System.out.println(login.isRem());
-        String nextJSP = "/index.jsp";
+        String nextJSP = "/login.jsp";
         String error="";
         login.Login();
         System.out.println(login.getUser_type_id());
         
         switch(login.getUser_type_id()){
-            case 0:error="Invalid credentials";break;
-            case 1:nextJSP = "/home.jsp"; break; //Receptionist HOME
-            case 2:nextJSP = "/home.jsp"; break;//Patient HOME
-            case 3:nextJSP = "/home.jsp"; break;//Pharmacy HOME
-            case 4:nextJSP = "/home.jsp"; break;//Nurse HOME
-            case 5:nextJSP = "/home.jsp"; break;//Doctor HOME
-            case 6:nextJSP = "/home.jsp"; break;//Admin HOME
-            default: error="Something went WRONG!!!";
+            case 0:error="<li>Invalid credentials</li>";break;
+            case 1:nextJSP = "/reception/home.jsp"; break; //Receptionist HOME
+            case 2:nextJSP = "/patient/home.jsp"; break;//Patient HOME
+            case 3:nextJSP = "/pharmacy/home.jsp"; break;//Pharmacy HOME
+            case 4:nextJSP = "/department/home.jsp"; break;//Nurse HOME
+            case 5:nextJSP = "/doctor/home.jsp"; break;//Doctor HOME
+            case 6:nextJSP = "/admin/home.jsp"; break;//Admin HOME
+            default: error="<li>Something went WRONG!!!</li>";
         }
         if(error!=""){
         request.setAttribute("error",error);
@@ -103,8 +116,8 @@ public class Login extends HttpServlet {
             this.destroy();
         }
         
-        //request.getRequestDispatcher(nextJSP).forward(request, response);
-        //processRequest(request, response);
+        
+        processRequest(request, response);
         
     }
 

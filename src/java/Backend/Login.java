@@ -219,6 +219,17 @@ public class Login {
         }
     }
     
+    public boolean createLogin() throws SQLException
+    {
+            PreparedStatement st = con.prepareStatement("INSERT INTO `login`(`username`, `password`, `user_type_id`, `user_id`) VALUES (?,?,?,?)");
+            st.setString(1, this.getUsername());
+            st.setString(2, this.getPassword());
+            st.setInt(3, this.getUser_type_id());
+            st.setString(4, this.getUser_id());
+            
+            return st.executeUpdate() > 0;
+    }
+    
     public boolean ChkCookie() throws SQLException
     {
             PreparedStatement st = con.prepareStatement("SELECT 1 FROM login WHERE login.loginstring=? AND login.exptime > ?");
@@ -229,7 +240,6 @@ public class Login {
             boolean ret = rs.next();
             st.close();
             
-            return ret;
-            
+            return ret; 
     }
 }

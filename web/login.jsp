@@ -5,7 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Object error = (String)request.getAttribute("error"); %>
+<% Object error = (String)request.getAttribute("error");
+   Object info = (String)request.getAttribute("info");
+%>
 <html>
     <head>
         <title>Sign-in</title>
@@ -22,6 +24,10 @@
             <ul class="error">
                 <% if(error!=null) out.print(error);%>
             </ul>
+             <a href="PatientRegister">Register</a>
         </form>
+            <ul class="info">
+                <% if(info!=null) out.print(info);%>
+            </ul>
     </body>
 </html>
