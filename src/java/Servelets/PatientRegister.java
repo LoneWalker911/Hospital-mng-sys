@@ -82,11 +82,11 @@ public class PatientRegister extends HttpServlet {
         try {
             if(!pt.Register())
             {
-                error="<li>Something went wrong with registration.</li>";
+                error="<li>Something went wrong with registration. Try Again.</li>";
                 nextJSP = "/PatientRegister.jsp";
                 request.setAttribute("error",error);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-                dispatcher.include(request,response);
+                dispatcher.forward(request,response);
                 this.destroy();
             }
             else

@@ -203,9 +203,10 @@ public class Login {
                 else
                     this.setExptime(String.valueOf((System.currentTimeMillis() / 1000L) + 60 * 15));
                 
-                st = con.prepareStatement("UPDATE login SET loginstring=?, exptime=?");
+                st = con.prepareStatement("UPDATE login SET loginstring=?, exptime=? WHERE username=?");
                 st.setString(1, this.getLoginstring());
                 st.setString(2, this.getExptime());
+                st.setString(3, this.getUsername());
                 
                 st.executeUpdate();
                 EventLog.Write("User: "+this.getUsername()+" successfully logged in.");
