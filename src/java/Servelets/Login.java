@@ -55,7 +55,6 @@ public class Login extends HttpServlet {
         {
             response.setContentType("text/html;charset=UTF-8");    
             try (PrintWriter out = response.getWriter()) {
-            
                 out.println("<ul class=\"info\">");
                 out.println("<li>Sign in with your mobile number and password.</li>");
                 out.println("</ul>");
@@ -99,6 +98,7 @@ public class Login extends HttpServlet {
         }
         if(error!=""){
         request.setAttribute("error",error);
+        request.setAttribute("username",login.getUsername());
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request,response);
         this.destroy();

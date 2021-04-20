@@ -16,5 +16,6 @@
     <body>
 
         <button class="btn-danger btn btn-block rounded-pill" type="button" onclick="document.cookie = 'usr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/Hospital-mng-sys;'; location.reload();">LOG OUT</button>
+        <a href="AddEmp">add EMP</a>
     </body>
 </html>

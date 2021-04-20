@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Object error = (String)request.getAttribute("error");
    Object info = (String)request.getAttribute("info");
+   Object username = (String)request.getAttribute("username");
 %>
 <html>
     <head>
@@ -16,7 +17,7 @@
     </head>
     <body>
         <form action="Login" method="post">
-            <input type="text" name="username"/>
+            <input type="text" name="username" value="<% if(username!=null) out.print(username);%>"/>
             <br/>
             <input type="password" name="psw"/>
             <input type="checkbox" name="rem" value="remember"><br/>
