@@ -22,7 +22,7 @@ public static Connection CreateConn()
 //        String conn_string = "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6403212?autoReconnect=true";
 //        String username = "sql6403212";
 //        String password = "1GQFJqC9LI";
-        String conn_string = "jdbc:mysql://localhost:3306/javaweb?autoReconnect=true";
+        String conn_string = "jdbc:mysql://localhost:3306/javaweb?autoReconnect=true&serverTimezone=UTC";
         String username = "root";
         String password = "";
         Class.forName("com.mysql.cj.jdbc.Driver"); 

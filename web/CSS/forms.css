@@ -84,9 +84,9 @@ button{
 .aabb{
   display: flex;
 }
-image{
+/* image{
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(5px);
+  filter: blur(5px); */
 }
 .form-signin{
   max-width: 400px;
@@ -94,4 +94,10 @@ image{
 .district01{
   width: 100%;
   font-size: 18px;
+}
+.image-bg{
+  width: 75%;
+  background-image: url(../images/registerbg.jpg);
+background-size: cover;
+  background-position: center;
 }
