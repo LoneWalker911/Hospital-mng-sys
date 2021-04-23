@@ -5,6 +5,7 @@
  */
 package Servelets;
 
+import Backend.Encrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Backend.UserType;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -66,7 +71,125 @@ public class AddEmp extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ArrayList el = new ArrayList();
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        String name = request.getParameter("name");
+        String psw = request.getParameter("psw");
+        String username = request.getParameter("uname");
+        String mobile1 = request.getParameter("mobile");
+        String address = request.getParameter("address");
+        String email = request.getParameter("address");
+        String usertype1 = request.getParameter("type");
+        String dep1 = request.getParameter("dep");
+        String fee1 = request.getParameter("fee");
+        
+        float fee = 0;
+        int dep = 0;
+        int usertype = 0;
+        int mobile = 0;
+        
+        if ((mobile1 == null) || (mobile1.equals(""))) {
+            el.add("Provide mobile number...");
+        } else {
+            try {
+                mobile = Integer.parseInt(mobile1);
+            } catch (NumberFormatException nfe) {
+                el.add("Invalid mobile number");
+            }
+        }
+        
+        if ((usertype1 == null) || (usertype1.equals("")) ) {
+            el.add("Provide valid type...");
+        } else {
+            try {
+                usertype = Integer.parseInt(usertype1);
+                if(usertype<1 && usertype>6)
+                    el.add("Invalid type");
+            } catch (NumberFormatException nfe) {
+                el.add("Invalid type");
+            }
+        }
+        
+        if ((dep1 == null) || (dep1.equals(""))) {
+            el.add("Provide valid department...");
+        } else {
+            try {
+                dep = Integer.parseInt(dep1);
+                if(dep<1 && dep>3)
+                    el.add("Invalid department");
+            } catch (NumberFormatException nfe) {
+                el.add("Invalid department");
+            }
+        }
+  
+        if ((name == null) || (name.equals(""))) {
+            el.add("Provide a name...");
+        }
+        
+        if ((psw == null) || (psw.equals(""))) {
+            el.add("Provide a password...");
+        }
+        
+        if ((username == null) || (username.equals(""))) {
+            el.add("Provide an username...");
+        }
+        
+        if ((address == null) || (address.equals(""))) {
+            el.add("Provide a address...");
+        }
+        
+        if ((email == null) || (email.equals(""))) {
+            el.add("Provide an email...");
+        }
+        
+        if ((fee1 == null) || (fee1.equals(""))) {
+            el.add("Provide a fee...");
+        } else {
+            try {
+                fee = Float.parseFloat(fee1);
+            } catch (NumberFormatException nfe) {
+                el.add("Invalid fee");
+            }
+        }
+        
+        if (!el.isEmpty()) {
+            request.setAttribute("error",(ArrayList) el);
+            request.setAttribute("types",(HashMap<Integer, String>) UserType.getTypes());
+            RequestDispatcher view = request.getRequestDispatcher("/admin/AddEmp.jsp");      
+            view.include(request, response);
+            this.destroy();
+        }
+        else{
+            try {
+                Backend.Employee emp = new Backend.Employee();
+                emp.setAddress(address);
+                emp.setDept(dep);
+                emp.setEmail(email);
+                emp.setMobile(String.valueOf(mobile));
+                emp.setName(name);
+                emp.setPassword(Encrypt.MD5(name+psw));
+                emp.setUser_type(usertype);
+                emp.setUsername(username);
+                
+                if(emp.Register())
+                {
+                    response.sendRedirect("/Hospital-mng-sys/Login?register=1");
+                    this.destroy();
+                }
+                else{
+                    el.add("Something went wrong with registration. Try Again.");
+                    request.setAttribute("error",(ArrayList) el);
+                    RequestDispatcher view = request.getRequestDispatcher("/admin/AddEmp.jsp");
+                    view.include(request, response);
+                    this.destroy();
+                }
+                processRequest(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(AddEmp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**

@@ -7,6 +7,10 @@ package Servelets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +33,6 @@ public class staff_register extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
   
@@ -49,9 +52,39 @@ public class staff_register extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-        if(Integer.valueOf(request.getParameter("id"))>4)
+        if(request.getParameter("id")!=null && Integer.valueOf(request.getParameter("id"))==4)
         {
-
+               HashMap<Integer, String> Deps = Backend.Department.getDeps();
+               out.println("<label for=\"dep\">Department:</label>\n"+"<select id=\"dep\"  name=\"dep\" >");
+               for (Integer id: Deps.keySet()) {
+                    out.print("<option value=\""+id.toString()+"\">"+Deps.get(id)+"</option>");
+                    }
+               out.println("</select>");
+        }
+        if(request.getParameter("id")!=null && Integer.valueOf(request.getParameter("id"))==5)
+        {
+               HashMap<Integer, String> Deps = Backend.Department.getDeps();
+               out.println("<label for=\"dep\">Department:</label>\n"+"<select id=\"dep\"  name=\"dep\" >");
+               for (Integer id: Deps.keySet()) {
+                    out.print("<option value=\""+id.toString()+"\">"+Deps.get(id)+"</option>");
+                    }
+               out.println("</select><br>");
+               out.println("<label for=\"mobile\">Channel Fee:</label>\n" +
+"            <input type=\"number\" id=\"fee\" name=\"fee\">");
+        }
+            System.out.println(request.getParameter("user"));
+        if(!request.getParameter("user").isEmpty())
+        {
+               Backend.Login login = new Backend.Login();
+               login.setUsername(request.getParameter("user"));
+            try {
+                if(login.ChkUname())
+                {out.print("1");}
+                else
+                { out.print("0");}
+                } catch (SQLException ex) {
+                Logger.getLogger(staff_register.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         }
         processRequest(request, response);

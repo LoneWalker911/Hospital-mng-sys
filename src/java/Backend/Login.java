@@ -243,4 +243,17 @@ public class Login {
             
             return ret; 
     }
+    
+    public boolean ChkUname() throws SQLException
+    {
+            boolean ret = false;
+            PreparedStatement st = con.prepareStatement("SELECT 1 FROM login WHERE login.username=? ");
+            st.setString(1, this.getUsername());
+            
+            ResultSet rs = st.executeQuery();
+            ret = rs.next();
+            st.close();
+            
+            return ret; 
+    }
 }

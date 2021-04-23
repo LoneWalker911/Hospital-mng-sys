@@ -36,39 +36,40 @@ public class Department {
     }
 
     /**
-     * @return the type
+     * @return the name
      */
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param type the type to set
+     * @param name the name to set
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
     private int id;
-    private String type;
+    private String name;
+    
     DbConn db = new DbConn();
     static Connection con = DbConn.CreateConn();
     
-    public static HashMap<Integer, String> getTypes()
+    public static HashMap<Integer, String> getDeps()
     {
-        HashMap<Integer, String> Types = new HashMap<>();
+        HashMap<Integer, String> Deps = new HashMap<>();
         try {
-            try (PreparedStatement st = con.prepareStatement("SELECT type,id FROM user_type")) {
+            try (PreparedStatement st = con.prepareStatement("SELECT id,name FROM department")) {
                 ResultSet rs = st.executeQuery();
                 
                 while(rs.next()){
-                    Types.put(rs.getInt("id"), rs.getString("type"));
+                    Deps.put(rs.getInt("id"), rs.getString("name"));
                 }
             }
         } catch (SQLException ex) {
             EventLog.Write("getTypes() process failed.");
             Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return Types;
+        return Deps;
     }
     
 }
