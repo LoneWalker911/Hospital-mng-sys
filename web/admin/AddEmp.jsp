@@ -44,7 +44,7 @@ if(request.getAttribute("error")!=null)
             <input type="text" id="uname" name="uname">
             <button type="button" id="chkbtn" onclick="checkUsr();">Check</button><br>
             <label for="psw">password:</label>
-            <input type="password" id="psw" name="psw" disabled><br>
+            <input type="password" id="psw" name="psw" readonly><br>
             
             <input type="submit" id="sub" name="submit" value="Register" disabled>
             <ul id="error">
