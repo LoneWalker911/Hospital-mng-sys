@@ -26,11 +26,15 @@
     </servlet>
     <servlet>
         <servlet-name>AddEmp</servlet-name>
-        <servlet-class>Servelets.AddEmp</servlet-class>
+        <servlet-class>Servelets.admin.AddEmp</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>staff_register</servlet-name>
-        <servlet-class>Servelets.staff_register</servlet-class>
+        <servlet-class>Servelets.admin.staff_register</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>eApp</servlet-name>
+        <servlet-class>Servelets.Patient.eApp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>staff_register</servlet-name>
         <url-pattern>/staff_register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>eApp</servlet-name>
+        <url-pattern>/patient/eApp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

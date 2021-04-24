@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servelets;
+package Servelets.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,7 +70,7 @@ public class staff_register extends HttpServlet {
                     }
                out.println("</select><br>");
                out.println("<label for=\"mobile\">Channel Fee:</label>\n" +
-"            <input type=\"number\" id=\"fee\" name=\"fee\">");
+"            <input type=\"number\" step=\".01\" id=\"fee\" name=\"fee\">");
                out.println("<label for=\"spec\">Speciality:</label>\n" +
 "            <input type=\"text\" id=\"spec\" name=\"spec\">");
         }

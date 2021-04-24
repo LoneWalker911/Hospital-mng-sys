@@ -44,7 +44,7 @@ if(request.getAttribute("error")!=null)
             <input type="text" id="uname" name="uname">
             <button type="button" id="chkbtn" onclick="checkUsr();">Check</button><br>
             <label for="psw">password:</label>
-            <input type="password" id="psw" name="psw" readonly><br>
+            <input type="password" id="psw" name="psw" disabled><br>
             
             <input type="submit" id="sub" name="submit" value="Register" disabled>
             <ul id="error">
@@ -85,14 +85,14 @@ if(request.getAttribute("error")!=null)
                     {
                         document.getElementById('error').innerHTML="Invalid username or this username already exsits. Please use a different one and try again.";
                         document.getElementById("uname").value="";
-                        document.getElementById("psw").readOnly=true;
+                        document.getElementById("psw").disabled=true;
                         document.getElementById("sub").disabled=true;
                     }
                     else
                     {
                         document.getElementById('error').innerHTML="";
                         document.getElementById("uname").readOnly=true;
-                        document.getElementById("psw").readOnly=false;
+                        document.getElementById("psw").disabled=false;
                         document.getElementById("sub").disabled=false;
                         document.getElementById('chkbtn').innerHTML="Reset";
                     }
@@ -106,7 +106,7 @@ if(request.getAttribute("error")!=null)
                   document.getElementById("uname").value="";
                   document.getElementById("psw").value="";
                   document.getElementById("uname").readOnly=false;
-                  document.getElementById("psw").readOnly=true;
+                  document.getElementById("psw").disabled=true;
                   document.getElementById("sub").disabled=true;
                   document.getElementById('error').innerHTML="";
                   document.getElementById('chkbtn').innerHTML="Check";

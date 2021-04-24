@@ -256,4 +256,22 @@ public class Login {
             
             return ret; 
     }
+    
+    public void getType()
+    {
+           
+        try (PreparedStatement st = con.prepareStatement("SELECT user_type_id FROM login WHERE login.loginstring=? ")) {
+            st.setString(1, this.getLoginstring());
+            
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                this.setUser_type_id(rs.getInt("user_type_id"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+    }
 }
