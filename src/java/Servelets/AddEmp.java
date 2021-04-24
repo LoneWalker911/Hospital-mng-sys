@@ -5,7 +5,9 @@
  */
 package Servelets;
 
+import Backend.Doctor;
 import Backend.Encrypt;
+import Backend.Nurse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -73,9 +75,10 @@ public class AddEmp extends HttpServlet {
             throws ServletException, IOException {
         ArrayList el = new ArrayList();
         response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
         
         String name = request.getParameter("name");
+        String spec = request.getParameter("spec");
         String psw = request.getParameter("psw");
         String username = request.getParameter("uname");
         String mobile1 = request.getParameter("mobile");
@@ -111,7 +114,7 @@ public class AddEmp extends HttpServlet {
                 el.add("Invalid type");
             }
         }
-        
+        if(usertype==4){
         if ((dep1 == null) || (dep1.equals(""))) {
             el.add("Provide valid department...");
         } else {
@@ -123,6 +126,36 @@ public class AddEmp extends HttpServlet {
                 el.add("Invalid department");
             }
         }
+        }
+        
+        if(usertype==5){
+        if ((dep1 == null) || (dep1.equals(""))) {
+            el.add("Provide valid department...");
+        } else {
+            try {
+                dep = Integer.parseInt(dep1);
+                if(dep<1 && dep>3)
+                    el.add("Invalid department");
+            } catch (NumberFormatException nfe) {
+                el.add("Invalid department");
+            }
+        }
+        
+        if ((fee1 == null) || (fee1.equals(""))) {
+            el.add("Provide a fee...");
+        } else {
+            try {
+                fee = Float.parseFloat(fee1);
+            } catch (NumberFormatException nfe) {
+                el.add("Invalid fee");
+            }
+        }
+        
+        if ((spec == null) || (spec.equals(""))) {
+            el.add("Provide a password...");
+        }
+        }
+        
   
         if ((name == null) || (name.equals(""))) {
             el.add("Provide a name...");
@@ -131,6 +164,7 @@ public class AddEmp extends HttpServlet {
         if ((psw == null) || (psw.equals(""))) {
             el.add("Provide a password...");
         }
+        
         
         if ((username == null) || (username.equals(""))) {
             el.add("Provide an username...");
@@ -144,15 +178,7 @@ public class AddEmp extends HttpServlet {
             el.add("Provide an email...");
         }
         
-        if ((fee1 == null) || (fee1.equals(""))) {
-            el.add("Provide a fee...");
-        } else {
-            try {
-                fee = Float.parseFloat(fee1);
-            } catch (NumberFormatException nfe) {
-                el.add("Invalid fee");
-            }
-        }
+        
         
         if (!el.isEmpty()) {
             request.setAttribute("error",(ArrayList) el);
@@ -165,16 +191,32 @@ public class AddEmp extends HttpServlet {
             try {
                 Backend.Employee emp = new Backend.Employee();
                 emp.setAddress(address);
-                emp.setDept(dep);
                 emp.setEmail(email);
                 emp.setMobile(String.valueOf(mobile));
                 emp.setName(name);
-                emp.setPassword(Encrypt.MD5(name+psw));
+                emp.setPassword(Encrypt.MD5(username+psw));
                 emp.setUser_type(usertype);
                 emp.setUsername(username);
                 
+                
                 if(emp.Register())
                 {
+                    if(emp.getUser_type()==5)
+                    {
+                        Doctor doc =  new Doctor();
+                        doc.setId(emp.getId());
+                        doc.setDep(dep);
+                        doc.setSpec(spec);
+                        doc.setFee(fee);
+                        doc.Register();
+                    }
+                    if(emp.getUser_type()==4)
+                    {
+                        Nurse nu = new Nurse();
+                        nu.setId(emp.getId());
+                        nu.setDep(dep);
+                        nu.Register();
+                    }
                     response.sendRedirect("/Hospital-mng-sys/Login?register=1");
                     this.destroy();
                 }

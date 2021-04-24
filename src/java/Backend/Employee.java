@@ -104,7 +104,6 @@ public class Employee {
     
     private int id;
     private int user_type;
-    private int dept;
     private String name;
     private String mobile;
     private String address;
@@ -123,6 +122,7 @@ public class Employee {
             st.setString(3, this.getAddress());
             st.setString(4, this.getEmail());
             
+            
             success = st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
             
@@ -137,6 +137,7 @@ public class Employee {
                 login.setUser_type_id(this.getUser_type());
                 login.setUsername(this.getUsername());
                 login.setPassword(this.getPassword());
+                
                 
                 if(login.createLogin())
                     return true;
@@ -199,20 +200,6 @@ public class Employee {
      */
     public void setUser_type(int user_type) {
         this.user_type = user_type;
-    }
-
-    /**
-     * @return the dept
-     */
-    public int getDept() {
-        return dept;
-    }
-
-    /**
-     * @param dept the dept to set
-     */
-    public void setDept(int dept) {
-        this.dept = dept;
     }
 
 }

@@ -83,7 +83,7 @@ if(request.getAttribute("error")!=null)
                 if (this.readyState === 4 && this.status === 200) {
                     if(this.responseText==="1")
                     {
-                        document.getElementById('error').innerHTML="This username already exsits. Please use a different one and try again.";
+                        document.getElementById('error').innerHTML="Invalid username or this username already exsits. Please use a different one and try again.";
                         document.getElementById("uname").value="";
                         document.getElementById("psw").readOnly=true;
                         document.getElementById("sub").disabled=true;
@@ -104,6 +104,7 @@ if(request.getAttribute("error")!=null)
           
              if(document.getElementById('chkbtn').innerHTML==="Reset"){
                   document.getElementById("uname").value="";
+                  document.getElementById("psw").value="";
                   document.getElementById("uname").readOnly=false;
                   document.getElementById("psw").readOnly=true;
                   document.getElementById("sub").disabled=true;

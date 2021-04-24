@@ -71,9 +71,11 @@ public class staff_register extends HttpServlet {
                out.println("</select><br>");
                out.println("<label for=\"mobile\">Channel Fee:</label>\n" +
 "            <input type=\"number\" id=\"fee\" name=\"fee\">");
+               out.println("<label for=\"spec\">Speciality:</label>\n" +
+"            <input type=\"text\" id=\"spec\" name=\"spec\">");
         }
             System.out.println(request.getParameter("user"));
-        if(!request.getParameter("user").isEmpty())
+        if(!request.getParameter("user").replaceAll("\\s", "").isEmpty())
         {
                Backend.Login login = new Backend.Login();
                login.setUsername(request.getParameter("user"));
@@ -86,6 +88,7 @@ public class staff_register extends HttpServlet {
                 Logger.getLogger(staff_register.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        out.print("0");
         }
         processRequest(request, response);
     }
