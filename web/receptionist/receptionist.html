@@ -2,7 +2,7 @@
 <html lang="en" dir="">
     <head>
 
-        <title>Receptionist Dashboard - Bayanno Hospital Management System</title>
+        <title>Receptionist - Hospital Management System</title>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,52 +12,20 @@
 
 
 
-        <link rel="stylesheet" href="../assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+<link rel="stylesheet" href="../assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
 <link rel="stylesheet" href="../assets/css/font-icons/entypo/css/entypo.css">
-<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">-->
-<!--<link href="Test001/fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">-->
 <link href="Test001/fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/bootstrap.css">
 <link rel="stylesheet" href="../assets/css/neon-core.css">
 <link rel="stylesheet" href="../assets/css/neon-theme.css">
 <link rel="stylesheet" href="../assets/css/neon-forms.css">
 <link rel="stylesheet" href="../assets/css/custom.css">
-<!--<link rel="stylesheet" href="assets/css/skins/green.css">-->
-
-
-        <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-        <script src="Test001/oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="Test001/oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 <link rel="shortcut icon" href="../uploads/favicon.png">
 <link rel="stylesheet" href="../assets/css/font-icons/font-awesome/css/font-awesome.min.css">
-
-
-
-
 <link rel="stylesheet" href="../assets/js/vertical-timeline/css/component.css">
 <link rel="stylesheet" href="../assets/js/datatables/responsive/css/datatables.responsive.css">
 <script src="../assets/frontend/default/vendor/jquery/jquery.min.js"></script>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-<script src="script.js"></script>-->
 
-<script>
-    function checkDelete()
-    {
-        var chk=confirm("Are You Sure To Delete This !");
-        if(chk)
-        {
-          return true;
-        }
-        else{
-            return false;
-        }
-    }
-</script>
 
 <style>
     .tile-stats .icon
@@ -78,15 +46,6 @@
             </a>
         </div>
 
-        <!-- logo collapse icon -->
-        <div class="sidebar-collapse" style="">
-            <a href="#" class="sidebar-collapse-icon with-animation">
-
-                <i class="entypo-menu"></i>
-            </a>
-        </div>
-
-
     </header>
     <div class="sidebar-user-info">
 
@@ -94,13 +53,10 @@
 
                 <span>Welcome,</span>
                 <strong>Jane Doe                </strong>
-
         </div>
     </div>
 
     <ul id="main-menu" class="">
-        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 
         <!-- DASHBOARD -->
         <li class="">
@@ -144,28 +100,21 @@
 
                 <div class="row">
     <div class="col-md-12 col-sm-12 clearfix" style="text-align:center;">
-        <h2 style="font-weight:200; margin:0px;">Bayanno Hospital Management System</h2>
+        <h2 style="font-weight:200; margin:0px;">Hospital Management System</h2>
     </div>
 
-    <!-- Raw Links -->
     <div class="col-md-12 col-sm-12 clearfix ">
-
         <ul class="list-inline links-list pull-left">
-            <!-- Language Selector -->
             <li class="dropdown language-selector">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                <a class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
                     <i class="entypo-user"></i> receptionist                </a>
             </li>
-
-            <!-- Message Notifications -->
-                    </ul>
+        </ul>
 
 
         <ul class="list-inline links-list pull-right">
-
-
             <li class="sep"></li>
-            <li>
+              <li>
                 <a href="../index.php/login/logout">
                     Logout &nbsp;<i class="fa fa-sign-out"></i>
                 </a>
@@ -176,13 +125,14 @@
 </div>
 
 <hr style="margin-top:0px;" />
-                <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
-                    <i class="entypo-right-circled"></i>
-                    Receptionist Dashboard                </h3>
+
 
 
     <!-- Table for receptionist Dashboard-->
-    <div class="receptionist-dashboard">
+    <div class="receptionist-dashboard" style="display:none">
+      <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
+          <i class="entypo-right-circled"></i>
+          Receptionist Dashboard                </h3>
 
     <table class="table table-striped">
   <thead>
@@ -204,15 +154,181 @@
 </table>
 </div>
 
+<!-- Add Appointment -->
+<div class="receptionist-addAppoinment" style="display:none">
+
+  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
+      <i class="entypo-right-circled"></i>
+      Add Appointment                </h3>
+
+<form class="form-default" role="form"
+    action="../index.php/home/make_an_appointment"
+        method="post"
+            enctype="multipart/form-data">
 
 
+
+
+        <div class="form-group">
+            <label for="" class="text-uppercase  c-gray-light">
+                ID                            </label>
+            <input type="text" class="form-control input-lg" placeholder="012510"
+                   name="id">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="text-uppercase  c-gray-light">
+                Name                            </label>
+            <input type="text" class="form-control input-lg" placeholder="Enter Name"
+                   name="name">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="text-uppercase c-gray-light">
+                Phone                            </label>
+            <input type="number" class="form-control input-lg" placeholder="07X-XXXXXXX"
+                   name="phone">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="text-uppercase c-gray-light">
+                Age                            </label>
+            <input type="number" class="form-control input-lg" placeholder=""
+                   name="age">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="text-uppercase c-gray-light">
+                Gender                            </label> <br>
+                <select class="form-control  input-lg" name="" id=""
+                    onchange="">
+                    <option value="0">Select A Gender</option>
+                                                    <option value="1"
+                                                            >
+                            Male                                </option>
+                                                    <option value="2"
+                                                            >
+                            Female                               </option>
+                                            </select>
+        </div><br>
+
+
+    <button type="submit" class="btn btn-primary btn-lg"
+            style="cursor: pointer;">
+        <i class="fa fa-calendar mr-1"></i> Add Now                    </button>
+</form>
+
+</div>
+
+<!-- receptionist-Channeling -->
+<div class="receptionist-channeling" style="display:none">
+
+  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
+      <i class="entypo-right-circled"></i>
+      Channeling                </h3>
+
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Reference No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Number</th>
+        <th scope="col">Doctor(Dept)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">12527</th>
+        <td>Thisara Gunathilaka</td>
+        <td>01</td>
+        <td>Dr.Thisara(ENT)</td>
+      </tr>
+      <tr>
+        <th scope="row">12527</th>
+        <td>Thisara Gunathilaka</td>
+        <td>01</td>
+        <td>Dr.Thisara(ENT)</td>
+      </tr>
+      <tr>
+        <th scope="row">12527</th>
+        <td>Thisara Gunathilaka</td>
+        <td>01</td>
+        <td>Dr.Thisara(ENT)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Patient -->
+<div class="receptionist-patient" style="display:none">
+  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
+      <i class="entypo-right-circled"></i>
+      Patient Information                </h3>
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Thisara Gunathilaka</td>
+        <td>No:128,Isuru Mw,Yakkala</td>
+        <td>thisara.gunathilaka@gmail.com</td>
+        <td>078-1245789</td>
+        <td>Female</td>
+        <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Thisara Gunathilaka</td>
+        <td>No:128,Isuru Mw,Yakkala</td>
+        <td>thisara.gunathilaka@gmail.com</td>
+        <td>078-1245789</td>
+        <td>Female</td>
+        <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Active Doctors -->
+<div class="receptionist-actDr">
+  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
+      <i class="entypo-right-circled"></i>
+      Active Doctors                 </h3>
+      <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Thisara Gunathilaka</th>
+        <td>ENT</td>
+        <td><input type="submit" class="btn btn-danger btn-sm" name="cancel" value="With a patient" style="cursor:default;"/><td>
+          <td><input type="submit" class="btn btn-warning btn-sm" name="cancel" value="Waiting" style="cursor:default; display:none;"/><td>
+            <td><input type="submit" class="btn btn-success btn-sm" name="cancel" value="Available" style="cursor:default; display:none;"/><td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
 
 
 
                 <!-- Footer -->
 <footer class="main">
 	&copy; 2017 <strong> Hospital Management System</strong>
-    <!-- <strong class="pull-right"> VERSION 4.0</strong> -->
     Developed by
 
 </footer>
@@ -390,7 +506,6 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
 <script src="../assets/js/jquery.form.js"></script>
 
 <script src="../assets/js/ajax-form-submission.js"></script>
-<!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
 
 
 <script>
