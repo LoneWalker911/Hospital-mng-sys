@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)https://creativeitem.com/demo/bayanno/index.php/receptionist/patient -->
+<html lang="en" dir=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>Patient - Bayanno Hospital Management System</title>
+
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Bayanno Hospital Management System - Creativeitem">
+        <meta name="author" content="Creativeitem">
+
+
+
+        <style>.file-input-wrapper { overflow: hidden; position: relative; cursor: pointer; z-index: 1; }.file-input-wrapper input[type=file], .file-input-wrapper input[type=file]:focus, .file-input-wrapper input[type=file]:hover { position: absolute; top: 0; left: 0; cursor: pointer; opacity: 0; filter: alpha(opacity=0); z-index: 99; outline: 0; }.file-input-name { margin-left: 8px; }</style><link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/jquery-ui-1.10.3.custom.min.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/entypo.css">
+<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">-->
+<!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">-->
+<link href="./Patient - Bayanno Hospital Management System_files/css" rel="stylesheet">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/bootstrap.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/neon-core.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/neon-theme.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/neon-forms.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/custom.css">
+<!--<link rel="stylesheet" href="assets/css/skins/green.css">-->
+
+<script src="./Patient - Bayanno Hospital Management System_files/jquery-1.11.0.min.js.download"></script>
+
+        <!--[if lt IE 9]><script src="https://creativeitem.com/demo/bayanno/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut icon" href="https://creativeitem.com/demo/bayanno/uploads/favicon.png">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/font-awesome.min.css">
+
+
+
+
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/component.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/datatables.responsive.css">
+
+<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script src="script.js"></script>-->
+
+<script>
+    function checkDelete()
+    {
+        var chk=confirm("Are You Sure To Delete This !");
+        if(chk)
+        {
+          return true;  
+        }
+        else{
+            return false;
+        }
+    }
+</script>
+
+<style>
+    .tile-stats .icon
+    {
+        bottom: 30px;
+    }
+</style>
+    </head>
+    <body class="page-body loaded expansion-alids-init" style="">
+        <div class="page-container             ">
+            <div class="sidebar-menu" style="min-height: 568px;">
+    <header class="logo-env">
+
+        <!-- logo -->
+        <div class="logo" style="">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/login">
+                <img src="./Patient - Bayanno Hospital Management System_files/logo.png" style="max-height:60px;">
+            </a>
+        </div>
+
+        <!-- logo collapse icon -->
+        <div class="sidebar-collapse" style="">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#" class="sidebar-collapse-icon with-animation">
+
+                <i class="entypo-menu"></i>
+            </a>
+        </div>
+
+        <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+        <div class="sidebar-mobile-menu visible-xs">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#" class="with-animation">
+                <i class="entypo-menu"></i>
+            </a>
+        </div>
+    </header>
+    <div class="sidebar-user-info">
+
+        <div class="sui-normal">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#" class="user-link">
+                <img src="./Patient - Bayanno Hospital Management System_files/user.jpg" alt="" class="img-circle" style="height:44px;">
+
+                <span>Welcome,</span>
+                <strong>Jane Doe                </strong>
+            </a>
+        </div>
+
+        <div class="sui-hover inline-links animate-in"><!-- You can remove "inline-links" class to make links appear vertically, class "animate-in" will make A elements animateable when click on user profile -->				
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/manage_profile">
+                <i class="entypo-pencil"></i>
+                Edit Profile            </a>
+
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/manage_profile">
+                <i class="entypo-lock"></i>
+                Change Password            </a>
+
+            <span class="close-sui-popup">×</span><!-- this is mandatory -->			
+        </div>
+    </div>
+
+    <ul id="main-menu" class="" style="">
+        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+
+        <!-- DASHBOARD -->
+        <li class="root-level">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist">
+                <i class="fa fa-desktop"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="root-level has-sub">
+                <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#">
+                    <i class="fa fa-edit"></i>
+                    <span>Appointment</span>
+                </a>
+                <ul>
+                    <li class=" ">
+                        <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/appointment">
+                            <i class="entypo-dot"></i>
+                            <span>Appointment List</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/appointment_requested">
+                            <i class="entypo-dot"></i>
+                            <span>Requested Appointments</span>
+                        </a>
+                    </li>
+                </ul>
+        </li>
+          <li class="active  root-level">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient">
+                <i class="fa fa-user"></i>
+                <span>Patient</span>
+            </a>
+        </li>
+
+        <!-- PAYROLL -->
+        <li class="root-level">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/payroll_list">
+                <span><i class="entypo-tag"></i> Payroll</span>
+            </a>
+        </li>
+        
+        <li class="root-level">
+            <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/manage_profile">
+                <i class="entypo-lock"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+
+    </ul>
+
+</div>            <div class="main-content" style="min-height: 568px;">
+
+                <div class="row">
+    <div class="col-md-12 col-sm-12 clearfix" style="text-align:center;">
+        <h2 style="font-weight:200; margin:0px;">Bayanno Hospital Management System</h2>
+    </div>
+
+    <!-- Raw Links -->
+    <div class="col-md-12 col-sm-12 clearfix ">
+
+        <ul class="list-inline links-list pull-left">
+            <!-- Language Selector -->			
+            <li class="dropdown language-selector">
+                <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                    <i class="entypo-user"></i> receptionist                </a>
+            </li>
+            
+            <!-- Message Notifications -->
+                    </ul>
+
+
+        <ul class="list-inline links-list pull-right">
+
+            <li>
+                <a href="https://creativeitem.com/demo/bayanno/index.php/home" target="_blank">
+                    <i class="fa fa-globe"></i> &nbsp;Website                </a>
+            </li>
+            <li class="sep"></li>
+            <li>
+                <a href="https://creativeitem.com/demo/bayanno/index.php/login/logout">
+                    Logout &nbsp;<i class="fa fa-sign-out"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<hr style="margin-top:0px;">
+                <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
+                    <i class="entypo-right-circled"></i>
+                    Patient                </h3>
+
+                <button onclick="showAjaxModal(&#39;https://creativeitem.com/demo/bayanno/index.php/modal/popup/add_patient&#39;);" class="btn btn-primary pull-right">
+        <i class="fa fa-plus"></i> &nbsp;Add Patient</button>
+<div style="clear:both;"></div>
+<br>
+<div id="table-2_wrapper" class="dataTables_wrapper form-inline" role="grid"><div class="row"><div class="col-xs-3 col-left"><div id="table-2_length" class="dataTables_length"><label><div class="select2-container" id="s2id_autogen1"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">10</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"><div class="select2-drop select2-display-none">   <div class="select2-search select2-search-hidden select2-offscreen">       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input">   </div>   <ul class="select2-results">   </ul></div></div><select size="1" name="table-2_length" aria-controls="table-2" tabindex="-1" class="select2-offscreen"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> per page</label></div></div><div class="col-xs-9 col-right"><div class="export-data"><div class="DTTT btn-group"><a class="btn btn-white DTTT_button_copy" id="ToolTables_table-2_0"><span>Copy</span><div style="position: absolute; left: 0px; top: 0px; width: 58px; height: 31px; z-index: 99;"><embed id="ZeroClipboard_TableToolsMovie_1" src="assets/js/datatables/copy_csv_xls_pdf.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="58" height="31" name="ZeroClipboard_TableToolsMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=58&amp;height=31" wmode="transparent"></div></a><a class="btn btn-white DTTT_button_csv" id="ToolTables_table-2_1"><span>CSV</span><div style="position: absolute; left: 0px; top: 0px; width: 50px; height: 31px; z-index: 99;"><embed id="ZeroClipboard_TableToolsMovie_2" src="assets/js/datatables/copy_csv_xls_pdf.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="50" height="31" name="ZeroClipboard_TableToolsMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=50&amp;height=31" wmode="transparent"></div></a><a class="btn btn-white DTTT_button_xls" id="ToolTables_table-2_2"><span>Excel</span><div style="position: absolute; left: 0px; top: 0px; width: 56px; height: 31px; z-index: 99;"><embed id="ZeroClipboard_TableToolsMovie_3" src="assets/js/datatables/copy_csv_xls_pdf.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="56" height="31" name="ZeroClipboard_TableToolsMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=56&amp;height=31" wmode="transparent"></div></a><a class="btn btn-white DTTT_button_pdf" id="ToolTables_table-2_3"><span>PDF</span><div style="position: absolute; left: 0px; top: 0px; width: 47px; height: 31px; z-index: 99;"><embed id="ZeroClipboard_TableToolsMovie_4" src="assets/js/datatables/copy_csv_xls_pdf.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="47" height="31" name="ZeroClipboard_TableToolsMovie_4" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=4&amp;width=47&amp;height=31" wmode="transparent"></div></a><a class="btn btn-white DTTT_button_print" id="ToolTables_table-2_4" title="View print view"><span>Print</span></a></div></div><div class="dataTables_filter" id="table-2_filter"><label>Search: <input type="text" aria-controls="table-2"></label></div></div></div><table class="table table-bordered table-striped datatable dataTable" id="table-2" aria-describedby="table-2_info">
+    <thead>
+        <tr role="row"><th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Image: activate to sort column descending" style="width: 55px;">Image</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 93px;">Name</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 161px;">Email</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Address: activate to sort column ascending" style="width: 102px;">Address</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Phone: activate to sort column ascending" style="width: 57px;">Phone</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Sex: activate to sort column ascending" style="width: 37px;">Sex</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Birth Date: activate to sort column ascending" style="width: 77px;">Birth Date</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 30px;">Age</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Blood Group: activate to sort column ascending" style="width: 90px;">Blood Group</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="table-2" rowspan="1" colspan="1" aria-label="Options: activate to sort column ascending" style="width: 163px;">Options</th></tr>
+    </thead>
+
+    
+<tbody role="alert" aria-live="polite" aria-relevant="all"><tr class="odd">
+                <td class="  sorting_1"><img src="./Patient - Bayanno Hospital Management System_files/user.jpg" class="img-circle" width="40px" height="40px"></td>
+                <td class=" ">Tanvir Hasan</td>
+                <td class=" ">patient@example.com</td>
+                <td class=" ">Some address</td>
+                <td class=" ">1234567</td>
+                <td class=" ">male</td>
+                <td class=" ">08/10/1990</td>
+                <td class=" ">27</td>
+                <td class=" ">B+</td>
+                <td class=" ">
+                    <a onclick="showAjaxModal(&#39;https://creativeitem.com/demo/bayanno/index.php/modal/popup/edit_patient/2&#39;);" class="btn btn-info btn-sm">
+                            <i class="fa fa-pencil"></i> &nbsp;
+                            Edit                    </a>
+                    <a onclick="confirm_modal(&#39;https://creativeitem.com/demo/bayanno/index.php/receptionist/patient/delete/2&#39;)" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash-o"></i> &nbsp;
+                            Delete                    </a>
+                </td>
+            </tr></tbody></table><div class="row"><div class="col-xs-3 col-left"><div class="dataTables_info" id="table-2_info">Showing 1 to 1 of 1 entries</div></div><div class="col-xs-9 col-right"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination pagination-sm"><li class="prev disabled"><a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#"><i class="entypo-left-open"></i></a></li><li class="active"><a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#">1</a></li><li class="next disabled"><a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#"><i class="entypo-right-open"></i></a></li></ul></div></div></div></div>
+
+<script type="text/javascript">
+    jQuery(window).load(function ()
+    {
+        var $ = jQuery;
+
+        $("#table-2").dataTable({
+            "sPaginationType": "bootstrap",
+            "sDom": "<'row'<'col-xs-3 col-left'l><'col-xs-9 col-right'<'export-data'T>f>r>t<'row'<'col-xs-3 col-left'i><'col-xs-9 col-right'p>>"
+        });
+
+        $(".dataTables_wrapper select").select2({
+            minimumResultsForSearch: -1
+        });
+
+        // Highlighted rows
+        $("#table-2 tbody input[type=checkbox]").each(function (i, el)
+        {
+            var $this = $(el),
+                    $p = $this.closest('tr');
+
+            $(el).on('change', function ()
+            {
+                var is_checked = $this.is(':checked');
+
+                $p[is_checked ? 'addClass' : 'removeClass']('highlight');
+            });
+        });
+
+        // Replace Checboxes
+        $(".pagination a").click(function (ev)
+        {
+            replaceCheckboxes();
+        });
+    });
+</script>
+                <!-- Footer -->
+<footer class="main">
+	© 2017 <strong>Bayanno Hospital Management System</strong>
+    <strong class="pull-right"> VERSION 4.0</strong>
+    Developed by
+	<a href="http://creativeitem.com/" target="_blank">Creativeitem</a>
+</footer>
+
+            </div>
+
+        </div>
+        <script type="text/javascript">
+function showAjaxModal(url)
+{
+$('.customized-modal').css('margin-top', window.scrollY);
+// SHOWING AJAX PRELOADER IMAGE
+jQuery('#modal_ajax .modal-body').html('<div style="text-align:center;margin-top:200px;"><img src="assets/images/preloader.gif" style="height:25px;" /></div>');
+
+// LOADING THE AJAX MODAL
+jQuery('#modal_ajax').modal('show', {backdrop: 'true'});
+
+// SHOW AJAX RESPONSE ON REQUEST SUCCESS
+$.ajax({
+  url: url,
+  success: function(response)
+  {
+    jQuery('#modal_ajax .modal-body').html(response);
+  }
+});
+}
+</script>
+
+<!-- (Ajax Modal)-->
+<div class="modal fade customized-modal" id="modal_ajax">
+    <div class="modal-dialog">
+        <div class="modal-content" style="">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Bayanno Hospital Management System</h4>
+            </div>
+
+            <div class="modal-body" style="height:500px; overflow:auto;">
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+function confirm_modal(delete_url)
+{
+jQuery('#modal-4').modal('show', {backdrop: 'static'});
+document.getElementById('delete_link').setAttribute('href' , delete_url);
+}
+</script>
+
+<!-- (Normal Modal)-->
+<div class="modal fade" id="modal-4">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top:100px;">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" style="text-align:center;">Are you sure to delete this information ?</h4>
+            </div>
+
+
+            <div class="modal-footer" style="margin:0px; border-top:0px; text-align:center;">
+                <a href="https://creativeitem.com/demo/bayanno/index.php/receptionist/patient#" class="btn btn-danger" id="delete_link">Delete</a>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    custom width modal -->
+
+<script type="text/javascript">
+    function showCustomWidthModal(url)
+    {
+        // SHOWING AJAX PRELOADER IMAGE
+        jQuery('#modal-2 .modal-body').html('<div style="text-align:center;margin-top:200px;"><img src="assets/images/preloader.gif" style="height:25px;" /></div>');
+
+        // LOADING THE AJAX MODAL
+        jQuery('#modal-2').modal('show', {backdrop: 'true'});
+
+        // SHOW AJAX RESPONSE ON REQUEST SUCCESS
+        $.ajax({
+            url: url,
+            success: function(response)
+            {
+                jQuery('#modal-2 .modal-body').html(response);
+            }
+        });
+    }
+</script>
+
+<div class="modal fade custom-width" id="modal-2">
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Bayanno Hospital Management System</h4>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+        <link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/daterangepicker-bs3.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/jquery.selectBoxIt.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/bootstrap-wysihtml5.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/jquery.selectBoxIt.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/datatables.responsive.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/select2-bootstrap.css">
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/select2.css">
+
+<!-- Bottom Scripts -->
+<script src="./Patient - Bayanno Hospital Management System_files/main-gsap.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery-ui-1.10.3.minimal.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/bootstrap.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/joinable.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/resizeable.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/neon-api.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/bootstrap-switch.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/toastr.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.validate.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/fullcalendar.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/bootstrap-datepicker.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/bootstrap-timepicker.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/fileinput.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/wysihtml5-0.4.0pre.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/bootstrap-wysihtml5.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.multi-select.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.knob.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.selectBoxIt.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.inputmask.bundle.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/moment.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/daterangepicker.js.download"></script>
+
+<link rel="stylesheet" href="./Patient - Bayanno Hospital Management System_files/dropzone.css">
+<script src="./Patient - Bayanno Hospital Management System_files/dropzone.js.download"></script>
+
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.dataTables.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/TableTools.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/dataTables.bootstrap.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.dataTables.columnFilter.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/lodash.min.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/datatables.responsive.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/select2.min.js.download"></script>
+
+<script src="./Patient - Bayanno Hospital Management System_files/neon-calendar.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/neon-chat.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/neon-custom.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/neon-demo.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/neon-notes.js.download"></script>
+<script src="./Patient - Bayanno Hospital Management System_files/jquery.form.js.download"></script>
+
+<script src="./Patient - Bayanno Hospital Management System_files/ajax-form-submission.js.download"></script>
+
+<script>
+    $(".html5editor").wysihtml5();
+</script>
+
+
+
+    
+
+<script type="text/javascript" src="./Patient - Bayanno Hospital Management System_files/buy_bayanno.js.download"></script></body></html>

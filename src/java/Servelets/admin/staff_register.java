@@ -55,7 +55,7 @@ public class staff_register extends HttpServlet {
         if(request.getParameter("id")!=null && Integer.valueOf(request.getParameter("id"))==4)
         {
                HashMap<Integer, String> Deps = Backend.Department.getDeps();
-               out.println("<label for=\"dep\">Department:</label>\n"+"<select id=\"dep\"  name=\"dep\" >");
+               out.println("<label class=\"text-uppercase c-gray-light\" for=\"dep\">Department:</label>\n"+"<select id=\"dep\" class=\"form-control\" name=\"dep\" >");
                for (Integer id: Deps.keySet()) {
                     out.print("<option value=\""+id.toString()+"\">"+Deps.get(id)+"</option>");
                     }
@@ -64,15 +64,15 @@ public class staff_register extends HttpServlet {
         if(request.getParameter("id")!=null && Integer.valueOf(request.getParameter("id"))==5)
         {
                HashMap<Integer, String> Deps = Backend.Department.getDeps();
-               out.println("<label for=\"dep\">Department:</label>\n"+"<select id=\"dep\"  name=\"dep\" >");
+               out.println("<label class=\"text-uppercase c-gray-light\" for=\"dep\">Department:</label>\n"+"<select class=\"form-control\" id=\"dep\"  name=\"dep\" >");
                for (Integer id: Deps.keySet()) {
                     out.print("<option value=\""+id.toString()+"\">"+Deps.get(id)+"</option>");
                     }
                out.println("</select><br>");
-               out.println("<label for=\"mobile\">Channel Fee:</label>\n" +
-"            <input type=\"number\" step=\".01\" id=\"fee\" name=\"fee\">");
-               out.println("<label for=\"spec\">Speciality:</label>\n" +
-"            <input type=\"text\" id=\"spec\" name=\"spec\">");
+               out.println("<label class=\"text-uppercase c-gray-light\" for=\"mobile\">Channel Fee:</label>\n" +
+"            <input type=\"number\" class=\"form-control input-lg\" step=\".01\" id=\"fee\" name=\"fee\">");
+               out.println("<label class=\"text-uppercase c-gray-light\" for=\"spec\">Speciality:</label>\n" +
+"            <input type=\"text\" class=\"form-control input-lg\" id=\"spec\" name=\"spec\">");
         }
 
         if(!request.getParameter("user").replaceAll("\\s", "").isEmpty())
