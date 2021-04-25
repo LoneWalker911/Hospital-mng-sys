@@ -6,6 +6,8 @@
 package Servelets.Patient;
 
 import Backend.Login;
+import java.io.*;
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -20,6 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 import Backend.Appointment;
 import Backend.Patient;
 import java.util.HashMap;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.output.*;
 
 /**
  *
@@ -36,6 +44,18 @@ public class eApp extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    private boolean isMultipart;
+    private String filePath;
+    private int maxFileSize = 50 * 1024;
+    private int maxMemSize = 4 * 1024;
+    private File file ;
+    
+    public void init( ){
+      // Get the file location where it would be stored.
+      filePath = getServletContext().getInitParameter("file-upload"); 
+   }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException  {
         response.setContentType("text/html;charset=UTF-8");
@@ -102,6 +122,11 @@ public class eApp extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Check that we have a file upload request
+        isMultipart = ServletFileUpload.isMultipartContent(request);
+        response.setContentType("text/html");
+        java.io.PrintWriter out = response.getWriter( );
+        
         processRequest(request, response);
     }
 

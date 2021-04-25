@@ -87,7 +87,7 @@
     <div class="container">
         <div class="section-title section-title--style-1 text-center mb-3">
             <h3 class="heading heading-2 strong-400">
-                Make An Appointment            </h3>
+                Make An eAppointment            </h3>
             <span class="section-title-delimiter clearfix d-none"></span>
         </div>
     </div>
@@ -97,7 +97,7 @@
         <div class="row">
             <div class="col">
                 <form class="form-default" role="form"
-                    action="patient/eApp"
+                    action="eApp"
                         method="post"
                             enctype="multipart/form-data">
 
@@ -130,14 +130,14 @@
                         <label for="" class="text-uppercase c-gray-light">
                             Date                        </label>
                         <input type="text" class="form-control input-lg datepicker" placeholder=""
-                            name="timestamp">
+                            name="timestamp" required>
                     </div>
 
                     <div class="form-group">
                         <label for="" class="text-uppercase c-gray-light">
                             Department                        </label>
                         <select class="form-control" name="department_id" id="dept_select"
-                            onchange="get_doctors(this.value)">
+                            onchange="get_doctors(this.value)" required>
                             <option value="0">Select A Department</option>
                             <% 
                for (Integer id: Deps.keySet()) {
@@ -155,12 +155,21 @@
                                 value="Select A Department First" disabled>
                                                     </div>
                     </div>
+                     
+                    <div id="img_upload">
+                        <label for="" class="text-uppercase c-gray-light">Upload Image files (if needed)</label>
+                        <input class="form-control form-control-file" type = "file" name = "img_1" size = "5000000" /><br/>
+                        <input class="form-control form-control-file" type = "file" name = "img_2" size = "5000000" /><br/>
+                        <input class="form-control form-control-file" type = "file" name = "img_3" size = "5000000" /><br/>
+                        <input class="form-control form-control-file" type = "file" name = "img_4" size = "5000000" /><br/>
+                        <input class="form-control form-control-file" type = "file" name = "img_5" size = "5000000" /><br/>
+                    </div>
 
                     <div class="form-group">
                         <label for="" class="text-uppercase c-gray-light">
                             Message                        </label>
                         <textarea class="form-control no-resize" rows="5" name="message"
-                                  placeholder="Your Message To The Doctor"></textarea>
+                                  placeholder="Your Message To The Doctor" required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-styled btn-base-1"
@@ -188,37 +197,6 @@
         else
             document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
         }
-
-
-
-    $(document).ready(function () {
-       $('#old_patient').hide();
-        $('#code_error').hide();
-
-       $('input[type=radio][name=patient_type]').change(function () {
-           if (this.value == 'new') {
-               $('#old_patient').hide();
-               $('#new_patient').fadeIn();
-           } else if (this.value == 'old') {
-               $('#new_patient').hide();
-               $('#old_patient').fadeIn();
-           }
-       });
-
-    });
-
-
-    function check_code(code) {
-        $.ajax({
-            url: 'index.php/home/check_patient_code/' + code
-        }).done(function (response) {
-            if (response == 1) {
-                $('#code_error').hide();
-            } else if (response == 0) {
-                $('#code_error').fadeIn();
-            }
-        });
-    }
 
 </script>
 
