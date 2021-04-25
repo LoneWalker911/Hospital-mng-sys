@@ -4,15 +4,10 @@
     Author     : thisa
 --%>
 
-<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  String NextId =(String) request.getAttribute("NextId"); 
-    String Name =(String) request.getAttribute("Name");
-    String Mobile =(String) request.getAttribute("Mobile");
-    HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
-%>
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,49 +22,49 @@
 
 <!-- Page loader -->
 <script
-    src="/Hospital-mng-sys/assets/frontend/default/vendor/pace/js/pace.min.js"></script>
+    src="assets/frontend/default/vendor/pace/js/pace.min.js"></script>
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/vendor/pace/css/pace-minimal.css" type="text/css">
+    href="assets/frontend/default/vendor/pace/css/pace-minimal.css" type="text/css">
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/css/bootstrap.min.css" type="text/css">
+    href="assets/frontend/default/vendor/bootstrap/css/bootstrap.min.css" type="text/css">
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
 <!-- Plugins -->
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/vendor/swiper/css/swiper.min.css">
+    href="assets/frontend/default/vendor/swiper/css/swiper.min.css">
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/vendor/hamburgers/hamburgers.min.css" type="text/css">
+    href="assets/frontend/default/vendor/hamburgers/hamburgers.min.css" type="text/css">
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/vendor/animate/animate.min.css" type="text/css">
+    href="assets/frontend/default/vendor/animate/animate.min.css" type="text/css">
 <link rel="stylesheet"
-      href="/Hospital-mng-sys/assets/common/izitoast/css/iziToast.min.css" type="text/css">
+      href="assets/common/izitoast/css/iziToast.min.css" type="text/css">
 <!-- Icons -->
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/fonts/font-awesome/css/font-awesome.min.css" type="text/css">
+    href="assets/frontend/default/fonts/font-awesome/css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/fonts/ionicons/css/ionicons.min.css" type="text/css">
+    href="assets/frontend/default/fonts/ionicons/css/ionicons.min.css" type="text/css">
 <link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/fonts/line-icons-pro/line-icons-pro.css" type="text/css">
+    href="assets/frontend/default/fonts/line-icons-pro/line-icons-pro.css" type="text/css">
 
 
 <!-- Global style (main) -->
 <link id="stylesheet" type="text/css"
-    href="/Hospital-mng-sys/assets/frontend/default/css/global-style.css" rel="stylesheet" media="screen">
+    href="assets/frontend/default/css/global-style.css" rel="stylesheet" media="screen">
 
 <!-- Custom style - Remove if not necessary -->
 <link type="text/css"
-    href="/Hospital-mng-sys/assets/frontend/default/css/custom-style.css" rel="stylesheet">
+    href="assets/frontend/default/css/custom-style.css" rel="stylesheet">
 
 <!-- Favicon -->
-<link href="/Hospital-mng-sys/uploads/favicon.png" rel="icon" type="image/png">
+<link href="uploads/favicon.png" rel="icon" type="image/png">
 
 <!-- recaptcha -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<script src="/Hospital-mng-sys/assets/frontend/default/vendor/jquery/jquery.min.js"></script>
+<script src="assets/frontend/default/vendor/jquery/jquery.min.js"></script>
 </head>
 
     <body>
@@ -97,7 +92,7 @@
         <div class="row">
             <div class="col">
                 <form class="form-default" role="form"
-                    action="patient/eApp"
+                    action="../index.php/home/make_an_appointment"
                         method="post"
                             enctype="multipart/form-data">
 
@@ -106,23 +101,23 @@
 
                         <div class="form-group">
                             <label for="" class="text-uppercase  c-gray-light">
-                                Appointment ID                            </label>
-                            <input type="text" class="form-control input-lg" value="<%out.print(NextId);%>" placeholder=""
-                                   name="name" disabled="true">
+                                ID                            </label>
+                            <input type="text" class="form-control input-lg" placeholder=""
+                                   name="name">
                         </div>
 
                         <div class="form-group">
                             <label for="" class="text-uppercase  c-gray-light">
                                 Name                            </label>
-                            <input type="text" class="form-control input-lg" value="<%out.print(Name);%>" placeholder=""
-                                   name="name" disabled="true">
+                            <input type="text" class="form-control input-lg" placeholder=""
+                                   name="name">
                         </div>
 
                         <div class="form-group">
                             <label for="" class="text-uppercase c-gray-light">
                                 Phone                            </label>
-                            <input type="text" class="form-control input-lg" value="<%out.print(Mobile);%>" placeholder=""
-                                   name="phone" disabled="true">
+                            <input type="text" class="form-control input-lg" placeholder=""
+                                   name="phone">
                         </div>
 
 
@@ -139,11 +134,15 @@
                         <select class="form-control" name="department_id" id="dept_select"
                             onchange="get_doctors(this.value)">
                             <option value="0">Select A Department</option>
-                            <% 
-               for (Integer id: Deps.keySet()) {
-                    out.print("<option value=\""+id.toString()+"\">"+Deps.get(id)+"</option>");
-                    }
-                            %>                  
+                                                            <option value="1"
+                                                                    >
+                                    Anesthetics                                </option>
+                                                            <option value="2"
+                                                                    >
+                                    Cardiology                                </option>
+                                                            <option value="3"
+                                                                    >
+                                    Gastroenterology                                </option>
                                                     </select>
                     </div>
 
@@ -173,23 +172,6 @@
 </section>
 
 <script>
-    function get_doctors(department_id)
-        {
-          if(department_id!=="0"){
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById('doctor_list').innerHTML=this.responseText;
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/DocFilter?dep=" + department_id, true);
-          xmlhttp.send();
-        }
-        else
-            document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
-        }
-
-
 
     $(document).ready(function () {
        $('#old_patient').hide();
@@ -207,10 +189,19 @@
 
     });
 
+    function get_doctors(department_id) {
+
+        $.ajax({
+            url: '../index.php/home/get_doctors_of_department/' + department_id,
+            success: function (response) {
+                jQuery('#doctor_list').html(response);
+            }
+        });
+    }
 
     function check_code(code) {
         $.ajax({
-            url: 'index.php/home/check_patient_code/' + code
+            url: '../index.php/home/check_patient_code/' + code
         }).done(function (response) {
             if (response == 1) {
                 $('#code_error').hide();
@@ -232,23 +223,23 @@
 <a href="#" class="back-to-top btn-back-to-top"></a>
 
 <!-- Core -->
-<script src="/Hospital-mng-sys/assets/frontend/default/vendor/popper/popper.min.js"></script>
-<script src="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="/Hospital-mng-sys/assets/frontend/default/js/vendor/jquery.easing.js"></script>
-<script src="/Hospital-mng-sys/assets/frontend/default/js/ie10-viewport-bug-workaround.js"></script>
-<script src="/Hospital-mng-sys/assets/frontend/default/js/slidebar/slidebar.js"></script>
-<script src="/Hospital-mng-sys/assets/frontend/default/js/classie.js"></script>
+<script src="../assets/frontend/default/vendor/popper/popper.min.js"></script>
+<script src="../assets/frontend/default/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/frontend/default/js/vendor/jquery.easing.js"></script>
+<script src="../assets/frontend/default/js/ie10-viewport-bug-workaround.js"></script>
+<script src="../assets/frontend/default/js/slidebar/slidebar.js"></script>
+<script src="../assets/frontend/default/js/classie.js"></script>
 
 <!-- Bootstrap Extensions -->
-<script src="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap-dropdown-hover/js/bootstrap-dropdown-hover.js"></script>
+<script src="../assets/frontend/default/vendor/bootstrap-dropdown-hover/js/bootstrap-dropdown-hover.js"></script>
 
 <!-- Plugins -->
-<script src="/Hospital-mng-sys/assets/frontend/default/vendor/flatpickr/flatpickr.min.js"></script>
-<script src="/Hospital-mng-sys/assets/frontend/default/vendor/swiper/js/swiper.min.js"></script>
-<script src="/Hospital-mng-sys/assets/common/izitoast/js/iziToast.min.js"></script>
+<script src="../assets/frontend/default/vendor/flatpickr/flatpickr.min.js"></script>
+<script src="../assets/frontend/default/vendor/swiper/js/swiper.min.js"></script>
+<script src="../assets/common/izitoast/js/iziToast.min.js"></script>
 
 <!-- App JS -->
-<script src="/Hospital-mng-sys/assets/frontend/default/js/wpx.app.js"></script>
+<script src="../assets/frontend/default/js/wpx.app.js"></script>
 
 
     </body>

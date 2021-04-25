@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -102,14 +104,14 @@ public class Patient {
         this.reg_date = reg_date;
     }
     
-    private int id;
+    private int id=0;
     private final int user_type = 2;
-    private String name;
-    private String mobile;
-    private String address;
-    private String email;
-    private String password;
-    private Date reg_date;
+    private String name="";
+    private String mobile="";
+    private String address="";
+    private String email="";
+    private String password="";
+    private Date reg_date=null;
     
     public boolean Register() throws SQLException
     {
@@ -140,6 +142,26 @@ public class Patient {
                 return false;
             }
             return false;
+    }
+    
+    public void getData()
+    {
+        try (PreparedStatement st = con.prepareStatement("SELECT name,mobile,address,email,reg_date FROM patient WHERE id=? ")) {
+            st.setInt(1, this.getId());
+            
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                this.setName(rs.getString("name"));
+                this.setMobile(rs.getString("mobile"));
+                this.setAddress(rs.getString("address"));
+                this.setEmail(rs.getString("email"));
+                this.setReg_date(rs.getDate("reg_date"));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -101,9 +101,9 @@ if(request.getAttribute("error")!=null)
         <div class="row">
             <div class="col">
                 <form class="form-default" role="form"
-                    action="../index.php/home/make_an_appointment"
+                    action="/Hospital-mng-sys/admin/AddEmp"
                         method="post"
-                            enctype="multipart/form-data">
+                            >
 
 
 
@@ -111,26 +111,26 @@ if(request.getAttribute("error")!=null)
                         <div class="form-group">
                             <label for="" class="text-uppercase  c-gray-light">
                                 Name                            </label>
-                            <input type="text" class="form-control input-lg" placeholder=""
+                            <input type="text" class="form-control input-lg" placeholder="Joe Smith"
                               id="name"     name="name">
                         </div>
 
                         <div class="form-group">
                             <label for="" class="text-uppercase c-gray-light">
                                 Phone                            </label>
-                            <input type="number" class="form-control input-lg" placeholder=""
-                              id="mobile"     name="mobile">
+                            <input type="text" pattern="\d*" maxlength="10" class="form-control input-lg" placeholder="07xxxxxxxx"
+                              id="mobile" name="mobile">
                         </div>
                         <div class="form-group">
                             <label for="" class="text-uppercase c-gray-light">
                                 Address                            </label>
-                            <input type="number" class="form-control input-lg" placeholder=""
+                            <input type="text" class="form-control input-lg" placeholder=""
                               id="address" name="address">
                         </div>
                         <div class="form-group">
-                            <label for="" class="text-uppercase c-gray-light">
+                            <label for="email" class="text-uppercase c-gray-light">
                                 E-mail                            </label>
-                            <input type="number" class="form-control input-lg" placeholder=""
+                            <input type="text" class="form-control input-lg" placeholder="someone@hospital.lk"
                               id="email" name="email">
                         </div>
 
@@ -154,7 +154,7 @@ if(request.getAttribute("error")!=null)
                         <label for="" class="text-uppercase  c-gray-light">
                             Username                            </label>
                         <input type="text"  class="form-control input-lg" placeholder=""
-                          id="name"     name="name">
+                          id="uname"     name="uname">
                     </div>
                     <button type="button" id="chkbtn" onclick="checkUsr();">Check</button><br>
 

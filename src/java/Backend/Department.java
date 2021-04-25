@@ -72,4 +72,25 @@ public class Department {
         return Deps;
     }
     
+    public HashMap<Integer, String> getDocs()
+    {
+        HashMap<Integer, String> Docs = new HashMap<>();
+        try {
+            try (PreparedStatement st = con.prepareStatement("SELECT emp.name,doctor.empid FROM emp,doctor WHERE doctor.empid=emp.id AND doctor.dept_no=?")) {
+                st.setInt(1, this.getId());
+                ResultSet rs = st.executeQuery();
+                
+                while(rs.next()){
+                    Docs.put(rs.getInt("empid"), rs.getString("name"));
+                }
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getDocs() process failed.");
+            Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Docs;
+    }
+    
+    
+    
 }

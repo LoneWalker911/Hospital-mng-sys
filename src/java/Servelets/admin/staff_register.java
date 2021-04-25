@@ -74,7 +74,7 @@ public class staff_register extends HttpServlet {
                out.println("<label for=\"spec\">Speciality:</label>\n" +
 "            <input type=\"text\" id=\"spec\" name=\"spec\">");
         }
-            System.out.println(request.getParameter("user"));
+
         if(!request.getParameter("user").replaceAll("\\s", "").isEmpty())
         {
                Backend.Login login = new Backend.Login();

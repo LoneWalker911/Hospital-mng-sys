@@ -5,27 +5,20 @@
  */
 package Servelets.Patient;
 
-import Backend.Login;
+import Backend.Department;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import java.util.HashMap;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Backend.Appointment;
-import Backend.Patient;
-import java.util.HashMap;
 
 /**
  *
  * @author thisa
  */
-public class eApp extends HttpServlet {
+public class DocFilter extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,42 +30,11 @@ public class eApp extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException  {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = null;
-            Cookie usr = null;
-            Login login = new Login();
-            cookies = request.getCookies();
-            if( cookies != null ) {
-            for(int i = 0; i < cookies.length; i++)
-            {
-                if(cookies[i].getName().equals("usr"))
-                {
-                    usr=cookies[i];
-
-                    login.setLoginstring(usr.getValue());
-                    login.getType();
-                }
-            }
-            }
-            if(login.getUser_type_id()!=2 && login.getUser_type_id()!=6) //change this after development is complete
-                response.sendRedirect("/Hospital-mng-sys/Login");
-            else{
-                Appointment app = new Appointment();
-                Patient pt = new Patient();
-                pt.setId(Integer.parseInt(login.getUser_id()));
-                pt.getData();              
-                HashMap<Integer, String> Deps = Backend.Department.getDeps();
-                
-                request.setAttribute("Name",pt.getName());
-                request.setAttribute("Mobile",pt.getMobile());
-                request.setAttribute("NextId",String.valueOf(app.nextId()));
-                request.setAttribute("Deps", Deps);
-                RequestDispatcher view = request.getRequestDispatcher("/patient/eApp/eApp.jsp");
-                view.include(request, response);
-            }
+            
         }
     }
 
@@ -88,7 +50,22 @@ public class eApp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try (PrintWriter out = response.getWriter()) {
+         if(request.getParameter("dep")!=null && Integer.valueOf(request.getParameter("dep"))!=0)
+        {
+               Department dep = new Department();
+               dep.setId(Integer.valueOf(request.getParameter("dep")));
+               HashMap<Integer, String> Docs = dep.getDocs();
+               out.println("<select class=\"form-control\" name=\"doctor_id\">");
+               for (Integer id: Docs.keySet()) {
+                    out.print("<option value=\""+id.toString()+"\">"+Docs.get(id)+"</option>");
+                    }
+               out.println("</select>");
+        }
+
         processRequest(request, response);
+        }
+        
     }
 
     /**
@@ -103,7 +80,7 @@ public class eApp extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    }
+        }
 
     /**
      * Returns a short description of the servlet.

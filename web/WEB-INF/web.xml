@@ -36,6 +36,10 @@
         <servlet-name>eApp</servlet-name>
         <servlet-class>Servelets.Patient.eApp</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DocFilter</servlet-name>
+        <servlet-class>Servelets.Patient.DocFilter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>eApp</servlet-name>
         <url-pattern>/patient/eApp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DocFilter</servlet-name>
+        <url-pattern>/patient/DocFilter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
