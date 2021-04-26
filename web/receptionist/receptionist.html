@@ -260,10 +260,20 @@
 </div>
 
 <!-- Patient -->
-<div class="receptionist-patient" style="display:none">
-  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
-      <i class="entypo-right-circled"></i>
-      Patient Information                </h3>
+<div class="receptionist-patient" style="">
+  <ul class="list-inline links-list pull-left">
+    <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
+        <i class="entypo-right-circled"></i>
+        Patient Information                </h3>
+  </ul>
+      <ul class="list-inline links-list pull-right">
+          <li class="sep"></li>
+            <li>
+              <input type="text" class="input-sm" name="search" value="" placeholder="Search here.. ">
+          </li>
+      </ul>
+
+
       <table class="table table-striped">
     <thead>
       <tr>
@@ -299,7 +309,7 @@
 </div>
 
 <!-- Active Doctors -->
-<div class="receptionist-actDr">
+<div class="receptionist-actDr" style="display:none">
   <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
       <i class="entypo-right-circled"></i>
       Active Doctors                 </h3>
