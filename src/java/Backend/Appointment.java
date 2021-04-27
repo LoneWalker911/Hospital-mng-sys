@@ -5,6 +5,7 @@
  */
 package Backend;
 
+import static Backend.Department.con;
 import static Backend.Login.con;
 import Model.DbConn;
 import java.sql.Connection;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -293,6 +296,34 @@ public class Appointment {
             Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
         }
         return !ret;
+    }
+    
+    public JSONObject getApps()
+    {   JSONObject ret = null;
+        try {
+            ret = new JSONObject();
+            try (PreparedStatement st = con.prepareStatement("SELECT DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,emp.name,department.name AS dep_name,appointment.status FROM emp,doctor,appointment,department,payment WHERE doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.Pid=? GROUP BY appointment.app_time")) {
+                st.setInt(1, this.getPid());
+                ResultSet rs = st.executeQuery();
+                JSONObject obj = null;
+                int i = 0;
+                while(rs.next()){
+                    obj = new JSONObject();
+                    obj.put("app_time", rs.getString("app_time"));
+                    obj.put("dr_name", rs.getString("name"));
+                    obj.put("dep_name", rs.getString("dep_name"));
+                    obj.put("status", rs.getString("status"));
+                    ret.put(i, obj);
+                    obj=null;
+                    
+                }
+                st.close();
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getDocs() process failed.");
+            Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
     
 }
