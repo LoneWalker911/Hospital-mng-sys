@@ -90,9 +90,9 @@
         </li>
 
         <li class="">
-            <a href="">
+            <a href="eApp">
                 <i class="fa fa-edit"></i>
-                <span>Add Appointment</span>
+                <span>Add e-Appointment</span>
             </a>
         </li>
 

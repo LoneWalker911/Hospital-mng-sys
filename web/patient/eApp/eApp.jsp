@@ -4,12 +4,16 @@
     Author     : thisa
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%  String NextId =(String) request.getAttribute("NextId"); 
     String Name =(String) request.getAttribute("Name");
     String Mobile =(String) request.getAttribute("Mobile");
     HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
+    ArrayList el=null;
+    if(request.getAttribute("error")!=null)
+    {el = (ArrayList)request.getAttribute("error");}
 %>
 <!DOCTYPE html>
 <html>
@@ -70,6 +74,9 @@
 <!-- recaptcha -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="/Hospital-mng-sys/assets/frontend/default/vendor/jquery/jquery.min.js"></script>
+
+    
+</script>
 </head>
 
     <body>
@@ -101,7 +108,18 @@
                         method="post"
                             enctype="multipart/form-data">
 
-
+                        <div class="info">
+                                                 <ul id="error">
+                                        <%
+                                            if(el!=null){
+                                            for(Object str : el)
+                                            {
+                                                out.println("<li>"+str+"</li>");
+                                            }
+                                            }
+                                        %>
+                                    </ul>
+                                    </div>
 
 
                         <div class="form-group">
@@ -129,8 +147,11 @@
                     <div class="form-group">
                         <label for="" class="text-uppercase c-gray-light">
                             Date                        </label>
-                        <input type="text" class="form-control input-lg datepicker" placeholder=""
+                        <input type="text" id="time" class="form-control input-lg datepicker" placeholder=""
                             name="timestamp" required>
+                        <button type="button" id="chkbtn" onclick="checkTime();">Check</button>
+                        <br>
+                        <p id="timechk"></p>
                     </div>
 
                     <div class="form-group">
@@ -157,7 +178,7 @@
                     </div>
                      
                     <div id="img_upload">
-                        <label for="" class="text-uppercase c-gray-light">Upload Image files (if needed)</label>
+                        <label for="" class="text-uppercase c-gray-light">Upload Image files (optional)</label>
                         <input class="form-control form-control-file" type = "file" name = "img_1" size = "5000000" /><br/>
                         <input class="form-control form-control-file" type = "file" name = "img_2" size = "5000000" /><br/>
                         <input class="form-control form-control-file" type = "file" name = "img_3" size = "5000000" /><br/>
@@ -181,24 +202,7 @@
     </div>
 </section>
 
-<script>
-    function get_doctors(department_id)
-        {
-          if(department_id!=="0"){
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById('doctor_list').innerHTML=this.responseText;
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/DocFilter?dep=" + department_id, true);
-          xmlhttp.send();
-        }
-        else
-            document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
-        }
 
-</script>
 
                         </div>
                     </div>
@@ -210,6 +214,54 @@
 <a href="#" class="back-to-top btn-back-to-top"></a>
 
 <!-- Core -->
+<script>
+    
+    function get_doctors(department_id)
+        {
+          if(department_id!=="0"){
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('doctor_list').innerHTML=this.responseText;
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?dep=" + department_id, true);
+          xmlhttp.send();
+        }
+        else
+            document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
+       }
+        
+        function checkTime()
+            {
+              
+              var time = document.getElementById("time").value;
+              var doc = document.getElementById("doc").value;
+              if(time!==""&&doc!==""){
+              var xmlhttp = new XMLHttpRequest();
+              xmlhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    if(this.responseText==="1")
+                    {
+                        document.getElementById("timechk").innerHTML="This time is available";
+                    }
+                    else
+                    {
+                        document.getElementById("timechk").innerHTML="We are sorry. This time is already reserved.";
+                    }
+                }
+              };
+              xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?time=" + time+"&doc=" + doc, true);
+              xmlhttp.send();
+            }
+            else
+            {
+                document.getElementById("timechk").innerHTML="Please select datetime and doctor.";
+            }
+        }
+
+</script>
+</script>
 <script src="/Hospital-mng-sys/assets/frontend/default/vendor/popper/popper.min.js"></script>
 <script src="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/Hospital-mng-sys/assets/frontend/default/js/vendor/jquery.easing.js"></script>

@@ -182,8 +182,8 @@ if(request.getAttribute("error")!=null)
                     }
                     }
                 %>
-              </div>
             </ul>
+            </div>
                 </form>
             </div>
         </div>

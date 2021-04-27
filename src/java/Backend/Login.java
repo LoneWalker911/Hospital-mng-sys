@@ -201,7 +201,7 @@ public class Login {
                 if(rem)
                     this.setExptime(String.valueOf((System.currentTimeMillis() / 1000L) + 86400));
                 else
-                    this.setExptime(String.valueOf((System.currentTimeMillis() / 1000L) + 60 * 15));
+                    this.setExptime(String.valueOf((System.currentTimeMillis() / 1000L) + 60 * 60 * 15));
                 
                 st = con.prepareStatement("UPDATE login SET loginstring=?, exptime=? WHERE username=?");
                 st.setString(1, this.getLoginstring());
@@ -257,7 +257,7 @@ public class Login {
             return ret; 
     }
     
-    public void getType()
+    public void getTypenID()
     {
            
         try (PreparedStatement st = con.prepareStatement("SELECT user_type_id,user_id FROM login WHERE login.loginstring=? ")) {
