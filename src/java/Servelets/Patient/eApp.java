@@ -244,7 +244,7 @@ public class eApp extends HttpServlet {
                        buffer.append((char) randomLimitedInt);
                    }
                    rndmfilename=buffer.toString()+extention;
-                   System.out.println(extention);
+                   
                    file = new File("C:\\Users\\thisa\\Documents\\NetBeansProjects\\Hospital-mng-sys\\web\\patient\\uploads"+  rndmfilename) ;
 
                }while(file.exists() && !file.isDirectory());
@@ -309,7 +309,7 @@ public class eApp extends HttpServlet {
              if(app.Add()>0){
                  Payment pay = new Payment();
                  pay.setApp_id(app.getId());
-                 response.sendRedirect("https://carparknsbm.000webhostapp.com/?order_id="+ app.getId() +"&amount="+ pay.Calculate());
+                 response.sendRedirect("https://carparknsbm.000webhostapp.com?order_id="+ app.getId() +"&amount="+ pay.Calculate());
                  
              }
              else

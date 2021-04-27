@@ -69,15 +69,16 @@
 // }
     function test456()
     {
-
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Patient E - Channeling</h3>"+this.responseText;
-        }
-      };
-      xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp", true);
-      xmlhttp.send();
+document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\">";
+      // var xmlhttp = new XMLHttpRequest();
+      // xmlhttp.onreadystatechange = function() {
+      //   if (this.readyState === 4 && this.status === 200) {
+      //       document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Patient E - Channeling</h3>"+this.responseText;
+      //   }
+      // };
+      // xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp", true);
+      // xmlhttp.send();
+      document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/eApp\" style=\"border:none\" width=\"100%\" height=\"1175px\"></iframe>";
     }
 
 
@@ -85,6 +86,7 @@
         {
 
           var xmlhttp = new XMLHttpRequest();
+          document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
@@ -92,18 +94,22 @@
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history.jsp", true);
           xmlhttp.send();
+          // document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
+
         }
         function ChngPwd()
         {
 
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Update Profile</h3>"+this.responseText;
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp", true);
-          xmlhttp.send();
+          // var xmlhttp = new XMLHttpRequest();
+          // xmlhttp.onreadystatechange = function() {
+          //   if (this.readyState === 4 && this.status === 200) {
+          //       document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Update Profile</h3>"+this.responseText;
+          //   }
+          // };
+          // xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp", true);
+          // xmlhttp.send();
+          document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
+
         }
 </script>
 
@@ -145,7 +151,7 @@
             <a onclick="test456();" href="#">
                 <i class="fa fa-stethoscope"></i>
                 <span>E-channeling</span></a>
-            
+
         </li>
 
           <li class="">
@@ -198,7 +204,8 @@
 
 
     <!-- Form for E-Appointment-->
-    <div id="test" class="" style="">
+      <div id="test" >
+
 
     </div>
 
@@ -206,80 +213,94 @@
 
     <div class="container">
   <!-- Trigger the modal with a button -->
-  <div class="modal shade in" id="myModal" role="dialog" style="display:none">
+  <div class="modal shade in" id="myModal" role="dialog" style="">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Patient Information</h4>
+          <h3 class="modal-title">Patient Information</h3>
         </div>
         <div class="modal-body">
-          <form class="form-default" role="form"
-              action="../index.php/home/make_an_appointment"
-                  method="post"
-                      enctype="multipart/form-data">
+
+          <table class="table table-striped">
+
+          <tr>
+            <th scope="col">ID</th>
+            <td>01252</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Name</th>
+            <td>Thisara Gunathilaka</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Date</th>
+            <td>12/01/2021</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Time</th>
+            <td>20:12:02</td>
+          </tr>
+
+          <tr>
+            <th scope="row">No</th>
+            <td>001</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Doctor Name</th>
+            <td>Dr. Thisra Gunathialaka</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Department</th>
+            <td>ENT</td>
+          </tr>
 
 
+        </table>
+                      <hr>
+        <table class="table table-striped">
+          <h3>Prescription</h3>
+          <tr>
+            <th scope="row">Name</th>
+            <th scope="row">Qty</th>
+          </tr>
+          <tr>
+            <td>Paracetamol 500mg</td>
+            <td>30</td>
+          </tr>
+          </table>
+                      <hr>
+          <table class="table table-striped">
+            <h3>Payment Information</h3>
+            <tr>
+              <th scope="row">Doctor Charges</th>
+              <td>LKR 1200</td>
+            </tr>
 
+            <tr>
+              <th scope="row">Prescription</th>
+              <td>LKR 2000</td>
+            </tr>
 
-                  <div class="form-group flex-row">
-                      <label for="" class="text-uppercase  c-gray-light">
-                          ID :                            </label>
-                          <label for="" class="text-uppercase  c-gray-light">
-                              ID                            </label>
-                  </div>
-
-                  <div class="form-group">
-                      <label for="" class="text-uppercase  c-gray-light">
-                          Name :                           </label>
-                          <label for="" class="text-uppercase  c-gray-light">
-                              Name                            </label>
-                  </div>
-
-                  <div class="form-group">
-                      <label for="" class="text-uppercase c-gray-light">
-                          Date                            </label>
-                      <input type="number" class="form-control input-lg" placeholder="07X-XXXXXXX"
-                             name="phone">
-                  </div>
-
-                  <div class="form-group">
-                      <label for="" class="text-uppercase c-gray-light">
-                          Age                            </label>
-                      <input type="number" class="form-control input-lg" placeholder=""
-                             name="age">
-                  </div>
-
-                  <div class="form-group">
-                      <label for="" class="text-uppercase c-gray-light">
-                          Gender                            </label> <br>
-                          <select class="form-control  input-lg" name="" id=""
-                              onchange="">
-                              <option value="0">Select A Gender</option>
-                                                              <option value="1"
-                                                                      >
-                                      Male                                </option>
-                                                              <option value="2"
-                                                                      >
-                                      Female                               </option>
-                                                      </select>
-                  </div><br>
-
-
-              <button type="submit" class="btn btn-primary btn-lg"
-                      style="cursor: pointer;">
-                  <i class="fa fa-calendar mr-1"></i> Add Now                    </button>
-          </form>
-
+            <tr>
+              <th scope="row">Total</th>
+              <td scope="col">LKR 3200</td>
+            </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+
       </div>
     </div>
   </div>
-  </div>
+
 
                 <!-- Footer -->
 <footer class="main">
@@ -292,10 +313,8 @@
 
         </div>
         <script type="text/javascript">
-function getApp()
-{
-  console.log("Shanthi");
-}
+
+
 
 function showAjaxModal(url)
 {
@@ -372,48 +391,8 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
 <!--    custom width modal -->
 
 <script type="text/javascript">
-    function checkTime()
-            {
-              
-              var time = document.getElementById("time").value;
-              var doc = document.getElementById("doc").value;
-              if(time!==""&&doc!==""){
-              var xmlhttp = new XMLHttpRequest();
-              xmlhttp.onreadystatechange = function() {
-                if (this.readyState === 4 && this.status === 200) {
-                    if(this.responseText==="1")
-                    {
-                        document.getElementById("timechk").innerHTML="This time is available";
-                    }
-                    else
-                    {
-                        document.getElementById("timechk").innerHTML="We are sorry. This time is already reserved.";
-                    }
-                }
-              };
-              xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?time=" + time+"&doc=" + doc, true);
-              xmlhttp.send();
-            }
-            else
-            {
-                document.getElementById("timechk").innerHTML="Please select datetime and doctor.";
-            }
-        }
-        function get_doctors(department_id)
-        {
-          if(department_id!=="0"){
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById('doctor_list').innerHTML=this.responseText;
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?dep=" + department_id, true);
-          xmlhttp.send();
-        }
-        else
-            document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
-       }
+    
+
 
     function showCustomWidthModal(url)
     {

@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -298,24 +299,23 @@ public class Appointment {
         return !ret;
     }
     
-    public JSONObject getApps()
-    {   JSONObject ret = null;
+    public HashMap<Integer, String[]> getApps()
+    {   HashMap<Integer, String[]> ret = new HashMap<>();
         try {
-            ret = new JSONObject();
+                
             try (PreparedStatement st = con.prepareStatement("SELECT DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,emp.name,department.name AS dep_name,appointment.status FROM emp,doctor,appointment,department,payment WHERE doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.Pid=? GROUP BY appointment.app_time")) {
                 st.setInt(1, this.getPid());
                 ResultSet rs = st.executeQuery();
-                JSONObject obj = null;
+                String[] obj;
                 int i = 0;
                 while(rs.next()){
-                    obj = new JSONObject();
-                    obj.put("app_time", rs.getString("app_time"));
-                    obj.put("dr_name", rs.getString("name"));
-                    obj.put("dep_name", rs.getString("dep_name"));
-                    obj.put("status", rs.getString("status"));
+                    obj = new String[4];
+                    obj[0]=rs.getString("app_time");
+                    obj[1]=rs.getString("name");
+                    obj[2]=rs.getString("dep_name");
+                    obj[3]=rs.getString("status");
                     ret.put(i, obj);
                     obj=null;
-                    
                 }
                 st.close();
             }

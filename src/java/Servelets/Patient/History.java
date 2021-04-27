@@ -10,6 +10,7 @@ import Backend.Login;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -61,17 +62,9 @@ public class History extends HttpServlet {
             else{
                 Appointment app = new Appointment();
                 app.setPid(Integer.parseInt(login.getUser_id()));
-                JSONObject info = app.getApps();
-                System.out.println(info.toJSONString());
+                HashMap<Integer, String[]> info = app.getApps();
                 StringWriter out = new StringWriter();
-                info.writeJSONString(out);
-                
-                String jsonText = out.toString();
-                System.out.println(info.toString());
-                JSONParser parser = new JSONParser();
-                Object obj = parser.parse("["+jsonText+"]");
-                JSONArray array = (JSONArray)obj;
-                System.out.println(array.get(0));
+
             }
     }
 
