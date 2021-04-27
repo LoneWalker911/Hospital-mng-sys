@@ -160,6 +160,9 @@
             <a onclick="test456();" href="#">
                 <i class="fa fa-stethoscope"></i>
                 <span>E-channeling</span>
+            <a href="eApp">
+                <i class="fa fa-edit"></i>
+                <span>Add e-Appointment</span>
             </a>
         </li>
 
