@@ -38,7 +38,23 @@
 <!-- Bootstrap -->
 <%-- <link rel="stylesheet"
     href="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/css/bootstrap.min.css" type="text/css"> --%>
-
+    <link rel="stylesheet" href="../assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="../assets/css/font-icons/entypo/css/entypo.css">
+    <link href="Test001/fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/neon-core.css">
+    <link rel="stylesheet" href="../assets/css/neon-theme.css">
+    <link rel="stylesheet" href="../assets/css/neon-forms.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" href="../uploads/favicon.png">
+    <link rel="stylesheet" href="../assets/css/font-icons/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/js/vertical-timeline/css/component.css">
+    <link rel="stylesheet" href="../assets/js/datatables/responsive/css/datatables.responsive.css">
+    <script src="../assets/frontend/default/vendor/jquery/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --%>
+    <%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --%>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
@@ -73,7 +89,7 @@
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="/Hospital-mng-sys/assets/frontend/default/vendor/jquery/jquery.min.js"></script>
 
-    
+
 </script>
 </head>
 
@@ -202,10 +218,10 @@
 
 <!-- Core -->
 <script>
-    
-    
-        
-        
+
+
+
+
 
 </script>
 </script>

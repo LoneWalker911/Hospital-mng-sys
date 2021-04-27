@@ -16,6 +16,24 @@
 <meta name="keywords" content="bootstrap, responsive, template, website, html, theme, ux, ui, web, design, developer, support, business, corporate, real estate, education, medical, school, education, demo, css, framework">
 <meta name="author" content="Creativeitem">
 
+  <link rel="stylesheet" href="../assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+  <link rel="stylesheet" href="../assets/css/font-icons/entypo/css/entypo.css">
+  <link href="Test001/fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/css/neon-core.css">
+  <link rel="stylesheet" href="../assets/css/neon-theme.css">
+  <link rel="stylesheet" href="../assets/css/neon-forms.css">
+  <link rel="stylesheet" href="../assets/css/custom.css">
+  <link rel="shortcut icon" href="../uploads/favicon.png">
+  <link rel="stylesheet" href="../assets/css/font-icons/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../assets/js/vertical-timeline/css/component.css">
+  <link rel="stylesheet" href="../assets/js/datatables/responsive/css/datatables.responsive.css">
+  <script src="../assets/frontend/default/vendor/jquery/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --%>
+  <%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --%>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
   <script>
 
 
