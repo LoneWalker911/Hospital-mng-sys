@@ -135,7 +135,7 @@
                         <label for="" class="text-uppercase c-gray-light">
                             Date                        </label>
                         <input type="text" id="time" class="form-control input-lg datepicker" placeholder=""
-                            name="timestamp" required>
+                            name="timestamp" required readonly="readonly">
                         <button type="button" id="chkbtn" onclick="checkTime();">Check</button>
                         <br>
                         <p id="timechk"></p>
@@ -203,49 +203,9 @@
 <!-- Core -->
 <script>
     
-    function get_doctors(department_id)
-        {
-          if(department_id!=="0"){
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById('doctor_list').innerHTML=this.responseText;
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?dep=" + department_id, true);
-          xmlhttp.send();
-        }
-        else
-            document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
-       }
+    
         
-        function checkTime()
-            {
-              
-              var time = document.getElementById("time").value;
-              var doc = document.getElementById("doc").value;
-              if(time!==""&&doc!==""){
-              var xmlhttp = new XMLHttpRequest();
-              xmlhttp.onreadystatechange = function() {
-                if (this.readyState === 4 && this.status === 200) {
-                    if(this.responseText==="1")
-                    {
-                        document.getElementById("timechk").innerHTML="This time is available";
-                    }
-                    else
-                    {
-                        document.getElementById("timechk").innerHTML="We are sorry. This time is already reserved.";
-                    }
-                }
-              };
-              xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?time=" + time+"&doc=" + doc, true);
-              xmlhttp.send();
-            }
-            else
-            {
-                document.getElementById("timechk").innerHTML="Please select datetime and doctor.";
-            }
-        }
+        
 
 </script>
 </script>
