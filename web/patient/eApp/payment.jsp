@@ -7,9 +7,9 @@
 <%-- <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    String order_id =String.valueOf(request.getAttribute("order_id"));
+String order_id   =request.getParameter("order_id");
+String amount   =request.getParameter("amount");
 %>
-<!DOCTYPE html>
 
 <html>
 <body>
