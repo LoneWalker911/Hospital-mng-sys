@@ -94,8 +94,7 @@
             <div class="col">
                 <form class="form-default" role="form"
                     action="PatientRegister"
-                        method="post"
-                            enctype="multipart/form-data">
+                        method="post">
 
 
 

@@ -129,7 +129,7 @@ public class Employee {
             if(rs.next()){
                 this.setId(rs.getInt(1));
             }
-            
+            st.close();
             if(success > 0)
             {
                 Backend.Login login = new Backend.Login();

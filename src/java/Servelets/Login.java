@@ -109,8 +109,8 @@ public class Login extends HttpServlet {
             if(login.isRem())
                 cookie.setMaxAge( 24 * 60 * 60);
             else
-                cookie.setMaxAge( 15 * 60);
-          
+                cookie.setMaxAge( 60 * 60 * 60);
+          cookie.setPath("/Hospital-mng-sys");
             response.addCookie(cookie);
             response.sendRedirect(request.getContextPath() + nextJSP);
             this.destroy();

@@ -160,7 +160,8 @@ public class CookieCheck implements Filter {
             try {
                 if(!login.ChkCookie())
                 {
-                    usr.setMaxAge(-1);
+                    usr.setMaxAge(0);
+                    usr.setPath("/Hospital-mng-sys");
                     httpResponse.addCookie(usr);
                     httpResponse.sendRedirect("/Hospital-mng-sys/Login");
                 }

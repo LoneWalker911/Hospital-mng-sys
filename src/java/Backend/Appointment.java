@@ -11,8 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,14 +84,14 @@ public class Appointment {
     /**
      * @return the time
      */
-    public Time getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
     /**
      * @param time the time to set
      */
-    public void setTime(Time time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
@@ -193,17 +196,28 @@ public class Appointment {
     private int empid;
     private int Pid;
     private Timestamp created_time;
-    private Time time;
+    private Timestamp time;
     private String description;
-    private String img_1;
-    private String img_2;
-    private String img_3;
-    private String img_4;
-    private String img_5;
+    private String img_1="";
+    private String img_2="";
+    private String img_3="";
+    private String img_4="";
+    private String img_5="";
     private int virtual;
     
     DbConn db = new DbConn();
     static Connection con = DbConn.CreateConn();
+    
+    public void putImg(String img,int place)
+    {
+        switch(place){
+            case 1:this.setImg_1(img);break;
+            case 2:this.setImg_2(img);break;
+            case 3:this.setImg_3(img);break;
+            case 4:this.setImg_4(img);break;
+            case 5:this.setImg_5(img);break;
+        }
+    }
     
     public int nextId()
     {
@@ -223,6 +237,62 @@ public class Appointment {
             Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ret; 
+    }
+    
+    public int Add()
+    {
+        int ret=0;
+        try {
+                        
+            if(isFree())
+            {
+                PreparedStatement st = con.prepareStatement("INSERT INTO appointment(app_time,empid,Pid,description,img_1,img_2,img_3,img_4,img_5,`virtual`) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                st.setTimestamp(1, this.getTime());
+                st.setInt(2, this.getEmpid());
+                st.setInt(3, this.getPid());
+                st.setString(4, this.getDescription());
+                st.setString(5, this.getImg_1());
+                st.setString(6, this.getImg_2());
+                st.setString(7, this.getImg_3());
+                st.setString(8, this.getImg_4());
+                st.setString(9, this.getImg_5());
+                st.setInt(10, this.getVirtual());
+              
+              
+                ret = st.executeUpdate();
+                ResultSet rs = st.getGeneratedKeys();
+            
+                if(rs.next()){
+                    this.setId(rs.getInt(1));
+                }
+                st.close();
+                EventLog.Write("Appointment made. user"+this.getPid());     
+            }
+         
+        } catch (SQLException ex) {
+            EventLog.Write("Appointment creation process failed.");
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        return ret;
+    }
+    
+    public boolean isFree()
+    {
+        boolean ret=false;
+        try {
+            PreparedStatement st = con.prepareStatement("SELECT 1 FROM appointment WHERE appointment.empid=? AND appointment.app_time BETWEEN TIMESTAMPADD(MINUTE,-14,?) AND TIMESTAMPADD(MINUTE,14,?)");
+            st.setInt(1, this.getEmpid());
+            st.setTimestamp(2, this.getTime());
+            st.setTimestamp(3, this.getTime());
+            
+            ResultSet rs = st.executeQuery();
+            ret=rs.next();
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return !ret;
     }
     
 }
