@@ -69,7 +69,7 @@
 // }
     function test456()
     {
-
+document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\">";
       // var xmlhttp = new XMLHttpRequest();
       // xmlhttp.onreadystatechange = function() {
       //   if (this.readyState === 4 && this.status === 200) {
@@ -86,6 +86,7 @@
         {
 
           var xmlhttp = new XMLHttpRequest();
+          document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
@@ -390,48 +391,8 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
 <!--    custom width modal -->
 
 <script type="text/javascript">
-    function checkTime()
-            {
+    
 
-              var time = document.getElementById("time").value;
-              var doc = document.getElementById("doc").value;
-              if(time!==""&&doc!==""){
-              var xmlhttp = new XMLHttpRequest();
-              xmlhttp.onreadystatechange = function() {
-                if (this.readyState === 4 && this.status === 200) {
-                    if(this.responseText==="1")
-                    {
-                        document.getElementById("timechk").innerHTML="This time is available";
-                    }
-                    else
-                    {
-                        document.getElementById("timechk").innerHTML="We are sorry. This time is already reserved.";
-                    }
-                }
-              };
-              xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?time=" + time+"&doc=" + doc, true);
-              xmlhttp.send();
-            }
-            else
-            {
-                document.getElementById("timechk").innerHTML="Please select datetime and doctor.";
-            }
-        }
-        function get_doctors(department_id)
-        {
-          if(department_id!=="0"){
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById('doctor_list').innerHTML=this.responseText;
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?dep=" + department_id, true);
-          xmlhttp.send();
-        }
-        else
-            document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
-       }
 
     function showCustomWidthModal(url)
     {

@@ -218,8 +218,49 @@
 
 <!-- Core -->
 <script>
+function checkTime()
+        {
 
-
+          var time = document.getElementById("time").value;
+          var doc = document.getElementById("doc").value;
+          if(time!==""&&doc!==""){
+            document.getElementById("timechk").innerHTML="Checking...";
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                if(this.responseText==="1")
+                {
+                    document.getElementById("timechk").innerHTML="This time is available";
+                }
+                else
+                {
+                    document.getElementById("timechk").innerHTML="We are sorry. This time is already reserved.";
+                }
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?time=" + time+"&doc=" + doc, true);
+          xmlhttp.send();
+        }
+        else
+        {
+            document.getElementById("timechk").innerHTML="Please select datetime and doctor.";
+        }
+    }
+function get_doctors(department_id)
+{
+  if(department_id!=="0"){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+        document.getElementById('doctor_list').innerHTML=this.responseText;
+    }
+  };
+  xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?dep=" + department_id, true);
+  xmlhttp.send();
+}
+else
+    document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
+}
 
 
 
