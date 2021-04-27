@@ -48,6 +48,80 @@
 <link rel="stylesheet" href="../assets/js/vertical-timeline/css/component.css">
 <link rel="stylesheet" href="../assets/js/datatables/responsive/css/datatables.responsive.css">
 <script src="../assets/frontend/default/vendor/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<%-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --%>
+<%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --%>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<script>
+// function info()
+// {
+//
+//   var xmlhttp = new XMLHttpRequest();
+//   xmlhttp.onreadystatechange = function() {
+//     if (this.readyState === 4 && this.status === 200) {
+//         document.getElementById('test02').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Patient E - Channeling</h3>"+this.responseText;
+//     }
+//   };
+//   xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/information.jsp", true);
+//   xmlhttp.send();
+// }
+    function test456()
+    {
+
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Patient E - Channeling</h3>"+this.responseText;
+        }
+      };
+      xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp", true);
+      xmlhttp.send();
+    }
+
+    function get_doctors(department_id)
+        {
+          if(department_id!=="0"){
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('doctor_list').innerHTML=this.responseText;
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/DocFilter?dep=" + department_id, true);
+          xmlhttp.send();
+        }
+        else
+            document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
+        }
+
+        function History()
+        {
+
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history.jsp", true);
+          xmlhttp.send();
+        }
+        function ChngPwd()
+        {
+
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Update Profile</h3>"+this.responseText;
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp", true);
+          xmlhttp.send();
+        }
+</script>
+
 
 
 <style>
@@ -81,41 +155,28 @@
 
     <ul id="main-menu" class="">
 
-        <!-- DASHBOARD -->
-        <li class="">
-            <a href="">
-                <i class="fa fa-desktop"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
 
         <li class="">
-            <a href="">
-                <i class="fa fa-edit"></i>
-                <span>Add Appointment</span>
+            <a onclick="test456();" href="#">
+                <i class="fa fa-stethoscope"></i>
+                <span>E-channeling</span>
             </a>
         </li>
 
           <li class="">
-            <a href="">
-              <i class="fa fa-hospital-o"></i>
-                <span>Channeling</span>
+            <a onclick="History();" href="#">
+              <i class="fa fa-desktop"></i>
+                <span>History</span>
             </a>
         </li>
 
         <li class="">
-            <a href="">
-                <i class="fa fa-user">
-                </i>Patient</span>
-            </a>
-        </li>
+          <a onclick="ChngPwd();" href="#">
+            <i class="fa fa-user"></i>
+              <span>Change Password</span>
+          </a>
+      </li>
 
-        <li class="">
-            <a href="">
-                <i class="fa fa-stethoscope"></i>
-                <span>Active Doctors</span>
-            </a>
-        </li>
 
     </ul>
 
@@ -151,213 +212,89 @@
 
 
 
-    <!-- Table for receptionist Dashboard-->
-    <div class="receptionist-dashboard" style="display:none">
-      <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
-          <i class="entypo-right-circled"></i>
-          Receptionist Dashboard                </h3>
+    <!-- Form for E-Appointment-->
+    <div id="test" class="" style="">
 
-    <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Doctor status</th>
-      <th scope="col">Cancel</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Thisara Gunathilaka</td>
-      <td>Dr. Thisara</td>
-      <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    </div>
 
-<!-- Add Appointment -->
-<div class="receptionist-addAppoinment" style="display:none">
+    <%-- Modal for patient history --%>
 
-  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
-      <i class="entypo-right-circled"></i>
-      Add Appointment                </h3>
-
-<form class="form-default" role="form"
-    action="../index.php/home/make_an_appointment"
-        method="post"
-            enctype="multipart/form-data">
-
-
-
-
-        <div class="form-group">
-            <label for="" class="text-uppercase  c-gray-light">
-                ID                            </label>
-            <input type="text" class="form-control input-lg" placeholder="012510"
-                   name="id">
+    <div class="container">
+  <!-- Trigger the modal with a button -->
+  <div class="modal shade in" id="myModal" role="dialog" style="display:none">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Patient Information</h4>
         </div>
+        <div class="modal-body">
+          <form class="form-default" role="form"
+              action="../index.php/home/make_an_appointment"
+                  method="post"
+                      enctype="multipart/form-data">
 
-        <div class="form-group">
-            <label for="" class="text-uppercase  c-gray-light">
-                Name                            </label>
-            <input type="text" class="form-control input-lg" placeholder="Enter Name"
-                   name="name">
+
+
+
+                  <div class="form-group flex-row">
+                      <label for="" class="text-uppercase  c-gray-light">
+                          ID :                            </label>
+                          <label for="" class="text-uppercase  c-gray-light">
+                              ID                            </label>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="" class="text-uppercase  c-gray-light">
+                          Name :                           </label>
+                          <label for="" class="text-uppercase  c-gray-light">
+                              Name                            </label>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="" class="text-uppercase c-gray-light">
+                          Date                            </label>
+                      <input type="number" class="form-control input-lg" placeholder="07X-XXXXXXX"
+                             name="phone">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="" class="text-uppercase c-gray-light">
+                          Age                            </label>
+                      <input type="number" class="form-control input-lg" placeholder=""
+                             name="age">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="" class="text-uppercase c-gray-light">
+                          Gender                            </label> <br>
+                          <select class="form-control  input-lg" name="" id=""
+                              onchange="">
+                              <option value="0">Select A Gender</option>
+                                                              <option value="1"
+                                                                      >
+                                      Male                                </option>
+                                                              <option value="2"
+                                                                      >
+                                      Female                               </option>
+                                                      </select>
+                  </div><br>
+
+
+              <button type="submit" class="btn btn-primary btn-lg"
+                      style="cursor: pointer;">
+                  <i class="fa fa-calendar mr-1"></i> Add Now                    </button>
+          </form>
+
+          </div>
         </div>
-
-        <div class="form-group">
-            <label for="" class="text-uppercase c-gray-light">
-                Phone                            </label>
-            <input type="number" class="form-control input-lg" placeholder="07X-XXXXXXX"
-                   name="phone">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
-
-        <div class="form-group">
-            <label for="" class="text-uppercase c-gray-light">
-                Age                            </label>
-            <input type="number" class="form-control input-lg" placeholder=""
-                   name="age">
-        </div>
-
-        <div class="form-group">
-            <label for="" class="text-uppercase c-gray-light">
-                Gender                            </label> <br>
-                <select class="form-control  input-lg" name="" id=""
-                    onchange="">
-                    <option value="0">Select A Gender</option>
-                                                    <option value="1"
-                                                            >
-                            Male                                </option>
-                                                    <option value="2"
-                                                            >
-                            Female                               </option>
-                                            </select>
-        </div><br>
-
-
-    <button type="submit" class="btn btn-primary btn-lg"
-            style="cursor: pointer;">
-        <i class="fa fa-calendar mr-1"></i> Add Now                    </button>
-</form>
-
-</div>
-
-<!-- receptionist-Channeling -->
-<div class="receptionist-channeling" style="display:none">
-
-  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
-      <i class="entypo-right-circled"></i>
-      Channeling                </h3>
-
-      <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Reference No.</th>
-        <th scope="col">Name</th>
-        <th scope="col">Number</th>
-        <th scope="col">Doctor(Dept)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">12527</th>
-        <td>Thisara Gunathilaka</td>
-        <td>01</td>
-        <td>Dr.Thisara(ENT)</td>
-      </tr>
-      <tr>
-        <th scope="row">12527</th>
-        <td>Thisara Gunathilaka</td>
-        <td>01</td>
-        <td>Dr.Thisara(ENT)</td>
-      </tr>
-      <tr>
-        <th scope="row">12527</th>
-        <td>Thisara Gunathilaka</td>
-        <td>01</td>
-        <td>Dr.Thisara(ENT)</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- Patient -->
-<div class="receptionist-patient" style="">
-  <ul class="list-inline links-list pull-left">
-    <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
-        <i class="entypo-right-circled"></i>
-        Patient Information                </h3>
-  </ul>
-      <ul class="list-inline links-list pull-right">
-          <li class="sep"></li>
-            <li>
-              <input type="text" class="input-sm" name="search" value="" placeholder="Search here.. ">
-          </li>
-      </ul>
-
-
-      <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Address</th>
-        <th scope="col">E-mail</th>
-        <th scope="col">Mobile</th>
-        <th scope="col">Gender</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Thisara Gunathilaka</td>
-        <td>No:128,Isuru Mw,Yakkala</td>
-        <td>thisara.gunathilaka@gmail.com</td>
-        <td>078-1245789</td>
-        <td>Female</td>
-        <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Thisara Gunathilaka</td>
-        <td>No:128,Isuru Mw,Yakkala</td>
-        <td>thisara.gunathilaka@gmail.com</td>
-        <td>078-1245789</td>
-        <td>Female</td>
-        <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- Active Doctors -->
-<div class="receptionist-actDr" style="display:none">
-  <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
-      <i class="entypo-right-circled"></i>
-      Active Doctors                 </h3>
-      <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Department</th>
-        <th scope="col">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Thisara Gunathilaka</th>
-        <td>ENT</td>
-        <td><input type="submit" class="btn btn-danger btn-sm" name="cancel" value="With a patient" style="cursor:default;"/><td>
-          <td><input type="submit" class="btn btn-warning btn-sm" name="cancel" value="Waiting" style="cursor:default; display:none;"/><td>
-            <td><input type="submit" class="btn btn-success btn-sm" name="cancel" value="Available" style="cursor:default; display:none;"/><td>
-      </tr>
-
-    </tbody>
-  </table>
-</div>
-
-
+      </div>
+    </div>
+  </div>
+  </div>
 
                 <!-- Footer -->
 <footer class="main">
@@ -429,7 +366,7 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
 </script>
 
 <!-- (Normal Modal)-->
-<div class="modal fade" id="modal-4">
+<div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content" style="margin-top:100px;">
 
@@ -450,6 +387,8 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
 <!--    custom width modal -->
 
 <script type="text/javascript">
+
+
     function showCustomWidthModal(url)
     {
         // SHOWING AJAX PRELOADER IMAGE

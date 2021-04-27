@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : eApp
     Created on : Apr 24, 2021, 5:55:01 PM
     Author     : thisa
@@ -6,7 +6,7 @@
 
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  String NextId =(String) request.getAttribute("NextId"); 
+<%  String NextId =(String) request.getAttribute("NextId");
     String Name =(String) request.getAttribute("Name");
     String Mobile =(String) request.getAttribute("Mobile");
     HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
@@ -32,8 +32,8 @@
     href="/Hospital-mng-sys/assets/frontend/default/vendor/pace/css/pace-minimal.css" type="text/css">
 
 <!-- Bootstrap -->
-<link rel="stylesheet"
-    href="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/css/bootstrap.min.css" type="text/css">
+<%-- <link rel="stylesheet"
+    href="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/css/bootstrap.min.css" type="text/css"> --%>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -60,9 +60,7 @@
 <link id="stylesheet" type="text/css"
     href="/Hospital-mng-sys/assets/frontend/default/css/global-style.css" rel="stylesheet" media="screen">
 
-<!-- Custom style - Remove if not necessary -->
-<link type="text/css"
-    href="/Hospital-mng-sys/assets/frontend/default/css/custom-style.css" rel="stylesheet">
+
 
 <!-- Favicon -->
 <link href="/Hospital-mng-sys/uploads/favicon.png" rel="icon" type="image/png">
@@ -81,17 +79,6 @@
                     <div class="st-content">
                         <div class="st-content-inner">
 
-
-
-<section class="slice sct-color-2 b-xs-bottom">
-    <div class="container">
-        <div class="section-title section-title--style-1 text-center mb-3">
-            <h3 class="heading heading-2 strong-400">
-                Make An eAppointment            </h3>
-            <span class="section-title-delimiter clearfix d-none"></span>
-        </div>
-    </div>
-</section>
 <section class="slice sct-color-2">
     <div class="container container-xs">
         <div class="row">
@@ -139,11 +126,11 @@
                         <select class="form-control" name="department_id" id="dept_select"
                             onchange="get_doctors(this.value)" required>
                             <option value="0">Select A Department</option>
-                            <% 
+                            <%
                for (Integer id: Deps.keySet()) {
                     out.print("<option value=\""+id.toString()+"\">"+Deps.get(id)+"</option>");
                     }
-                            %>                  
+                            %>
                                                     </select>
                     </div>
 
@@ -155,7 +142,7 @@
                                 value="Select A Department First" disabled>
                                                     </div>
                     </div>
-                     
+
                     <div id="img_upload">
                         <label for="" class="text-uppercase c-gray-light">Upload Image files (if needed)</label>
                         <input class="form-control form-control-file" type = "file" name = "img_1" size = "5000000" /><br/>
