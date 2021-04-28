@@ -73,12 +73,12 @@ public class eApp extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-            if(request.getParameter("order_id")!=null && !request.getParameter("order_id").equals(""))
-           {
-               request.setAttribute("order_id",request.getParameter("order_id"));
-               RequestDispatcher view = request.getRequestDispatcher("/patient/eApp/payment.jsp");
-               view.forward(request, response);
-           }
+            //if(request.getParameter("order_id")!=null && !request.getParameter("order_id").equals(""))
+           //{
+               //request.setAttribute("order_id",request.getParameter("order_id"));
+             //  RequestDispatcher view = request.getRequestDispatcher("/patient/eApp/payment.jsp");
+             //  view.forward(request, response);
+           //}
            if(request.getParameter("time")!=null && request.getParameter("doc")!=null)
            {
                try{
@@ -116,7 +116,7 @@ public class eApp extends HttpServlet {
                else
                    out.print("0");
            }
-           if(request.getParameter("order_id")==null&&request.getParameter("dep")==null&&request.getParameter("time")==null&&request.getParameter("isPaid")==null){
+           if(request.getParameter("orderr_id")==null&&request.getParameter("dep")==null&&request.getParameter("time")==null&&request.getParameter("isPaid")==null){
         
         response.setContentType("text/html;charset=UTF-8");
 
@@ -310,7 +310,7 @@ public class eApp extends HttpServlet {
                  Payment pay = new Payment();
                  pay.setApp_id(app.getId());
                  response.sendRedirect("https://carparknsbm.000webhostapp.com?order_id="+ app.getId() +"&amount="+ pay.Calculate());
-                 
+                 this.destroy();
              }
              else
              {

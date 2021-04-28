@@ -274,6 +274,7 @@ public class Appointment {
             }
          
         } catch (SQLException ex) {
+            System.out.println(ex);
             EventLog.Write("Appointment creation process failed.");
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             return 0;

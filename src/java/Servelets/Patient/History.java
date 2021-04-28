@@ -41,7 +41,7 @@ public class History extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        Cookie[] cookies = null;
+            Cookie[] cookies = null;
             Cookie usr = null;
             Login login = new Login();
             cookies = request.getCookies();
