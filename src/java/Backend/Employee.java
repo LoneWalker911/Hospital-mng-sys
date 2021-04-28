@@ -139,9 +139,7 @@ public class Employee {
                 login.setPassword(this.getPassword());
                 
                 
-                if(login.createLogin())
-                    return true;
-                return false;
+                return login.createLogin();
             }
             return false;
     }

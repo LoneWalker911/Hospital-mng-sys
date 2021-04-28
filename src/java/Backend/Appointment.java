@@ -5,6 +5,7 @@
  */
 package Backend;
 
+import static Backend.Department.con;
 import static Backend.Login.con;
 import Model.DbConn;
 import java.sql.Connection;
@@ -15,9 +16,12 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -293,6 +297,33 @@ public class Appointment {
             Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
         }
         return !ret;
+    }
+    
+    public HashMap<Integer, String[]> getApps()
+    {   HashMap<Integer, String[]> ret = new HashMap<>();
+        try {
+                
+            try (PreparedStatement st = con.prepareStatement("SELECT DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,emp.name,department.name AS dep_name,appointment.status FROM emp,doctor,appointment,department,payment WHERE doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.Pid=? GROUP BY appointment.app_time")) {
+                st.setInt(1, this.getPid());
+                ResultSet rs = st.executeQuery();
+                String[] obj;
+                int i = 0;
+                while(rs.next()){
+                    obj = new String[4];
+                    obj[0]=rs.getString("app_time");
+                    obj[1]=rs.getString("name");
+                    obj[2]=rs.getString("dep_name");
+                    obj[3]=rs.getString("status");
+                    ret.put(i, obj);
+                    obj=null;
+                }
+                st.close();
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getDocs() process failed.");
+            Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
     
 }

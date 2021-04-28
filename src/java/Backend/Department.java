@@ -64,6 +64,7 @@ public class Department {
                 while(rs.next()){
                     Deps.put(rs.getInt("id"), rs.getString("name"));
                 }
+                st.close();
             }
         } catch (SQLException ex) {
             EventLog.Write("getTypes() process failed.");
@@ -83,6 +84,7 @@ public class Department {
                 while(rs.next()){
                     Docs.put(rs.getInt("empid"), rs.getString("name"));
                 }
+                st.close();
             }
         } catch (SQLException ex) {
             EventLog.Write("getDocs() process failed.");
