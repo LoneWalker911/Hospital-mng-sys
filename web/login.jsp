@@ -73,8 +73,8 @@
 <div class="main-content-wrapper">
     <div class="login-area">
         <div class="login-header">
-            <a href="../index.php/login" class="logo">
-                <img src="../uploads/logo.png" height="60" alt="">
+            <a class="logo">
+                  <img src="uploads/logo.png" height="60" alt="">
             </a>
             <h2 class="title">Hospital Management System</h2>
         </div>

@@ -48,19 +48,19 @@
     <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Doctor Name</th>
-      <th scope="col">Department</th>
-      <th scope="col">Current Status</th>
+      <th scope="col">No</th>
+      <th scope="col">Payient Name</th>
+
     </tr>
     </thead>
     <tbody>
-    <tr data-toggle="modal" data-target="#myModal" href="#" style="cursor:pointer">
-      <th scope="row">2019/12/05</th>
+    <tr data-toggle="modal" data-target="#myModal2" href="#" style="cursor:pointer">
+      <th scope="row">01</th>
       <td>Thisara Gunathilaka</td>
-      <td>ENT</td>
-      <td><button class="btn btn-danger btn-sm" name="missed" style="cursor:default">Missed</button><td>
-
+    </tr>
+    <tr data-toggle="modal" data-target="#myModal2" href="#" style="cursor:pointer">
+      <th scope="row">02</th>
+      <td>Prashan Vimantha</td>
     </tr>
     </tbody>
     </table>
