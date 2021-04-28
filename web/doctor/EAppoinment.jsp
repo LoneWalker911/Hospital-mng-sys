@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="robots" content="index, follow">
-<meta name="description" content=" Hospital Management System">
+<meta name="description" content="Hospital Management System">
 <meta name="keywords" content="bootstrap, responsive, template, website, html, theme, ux, ui, web, design, developer, support, business, corporate, real estate, education, medical, school, education, demo, css, framework">
 <meta name="author" content="Creativeitem">
 
@@ -48,19 +48,22 @@
     <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Doctor Name</th>
-      <th scope="col">Department</th>
-      <th scope="col">Current Status</th>
+      <th scope="col">Date - Time</th>
+      <th scope="col">Payient Name</th>
+      <th scope="col">Age</th>
+
     </tr>
     </thead>
     <tbody>
-    <tr data-toggle="modal" data-target="#myModal" href="#" style="cursor:pointer">
-      <th scope="row">2019/12/05</th>
+    <tr data-toggle="modal" data-target="#myModal3" href="#" style="cursor:pointer">
+      <th scope="row">2020/04/21 10:05:02</th>
       <td>Thisara Gunathilaka</td>
-      <td>ENT</td>
-      <td><button class="btn btn-danger btn-sm" name="missed" style="cursor:default">Missed</button><td>
-
+      <td>21 yrs</td>
+    </tr>
+    <tr data-toggle="modal" data-target="#myModal3" href="#" style="cursor:pointer">
+      <th scope="row">2020/04/22 11:25:52</th>
+      <td>Prashan Vimantha</td>
+      <td>22 yrs</td>
     </tr>
     </tbody>
     </table>

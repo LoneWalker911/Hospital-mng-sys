@@ -30,7 +30,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Bayanno Hospital Management System - Creativeitem" />
+        <meta name="description" content=" Hospital Management System - Creativeitem" />
         <meta name="author" content="Creativeitem" />
 
 
@@ -343,7 +343,7 @@ $.ajax({
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Bayanno Hospital Management System</h4>
+                <h4 class="modal-title"> Hospital Management System</h4>
             </div>
 
             <div class="modal-body" style="height:500px; overflow:auto;">
@@ -391,7 +391,7 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
 <!--    custom width modal -->
 
 <script type="text/javascript">
-    
+
 
 
     function showCustomWidthModal(url)
@@ -419,7 +419,7 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Bayanno Hospital Management System</h4>
+                <h4 class="modal-title"> Hospital Management System</h4>
             </div>
 
             <div class="modal-body">

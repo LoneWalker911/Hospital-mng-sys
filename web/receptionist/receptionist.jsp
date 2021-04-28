@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Bayanno Hospital Management System - Creativeitem" />
+        <meta name="description" content=" Hospital Management System - Creativeitem" />
         <meta name="author" content="Creativeitem" />
 
 
@@ -129,7 +129,7 @@
 
 
     <!-- Table for receptionist Dashboard-->
-    <div class="receptionist-dashboard" style="display:none">
+    <div class="receptionist-dashboard" style="">
       <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
           <i class="entypo-right-circled"></i>
           Receptionist Dashboard                </h3>
@@ -147,7 +147,13 @@
     <tr>
       <th scope="row">1</th>
       <td>Thisara Gunathilaka</td>
-      <td>Dr. Thisara</td>
+      <td><button class="btn btn-warning btn-sm"  name="cancel">Waiting</button></td>
+      <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Prashan Vimanths</td>
+      <td><button class="btn btn-warning btn-sm"  name="cancel">Waiting</button></td>
       <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
     </tr>
   </tbody>
@@ -260,7 +266,7 @@
 </div>
 
 <!-- Patient -->
-<div class="receptionist-patient" style="">
+<div class="receptionist-patient" style="display:none">
   <ul class="list-inline links-list pull-left">
     <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
         <i class="entypo-right-circled"></i>
@@ -338,8 +344,8 @@
 
                 <!-- Footer -->
 <footer class="main">
-	&copy; 2017 <strong> Hospital Management System</strong>
-    Developed by
+	&copy; 2021 <strong> Hospital Management System</strong>
+    Developed by DIGITAL WEB LANKAN
 
 </footer>
 
@@ -372,27 +378,7 @@ $.ajax({
 }
 </script>
 
-<!-- (Ajax Modal)-->
-<div class="modal fade customized-modal" id="modal_ajax">
-    <div class="modal-dialog" >
-        <div class="modal-content" style="">
 
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Bayanno Hospital Management System</h4>
-            </div>
-
-            <div class="modal-body" style="height:500px; overflow:auto;">
-
-
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -446,25 +432,7 @@ document.getElementById('delete_link').setAttribute('href' , delete_url);
     }
 </script>
 
-<div class="modal fade custom-width" id="modal-2">
-    <div class="modal-dialog" style="width: 75%;">
-        <div class="modal-content">
 
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Bayanno Hospital Management System</h4>
-            </div>
-
-            <div class="modal-body">
-
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
         <link rel="stylesheet" href="../assets/js/daterangepicker/daterangepicker-bs3.css">
 <link rel="stylesheet" href="../assets/js/selectboxit/jquery.selectBoxIt.css">
 <link rel="stylesheet" href="../assets/js/wysihtml5/bootstrap-wysihtml5.css">
