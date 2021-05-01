@@ -12,7 +12,6 @@
         <title>Home</title>
     </head>
     <body>
-         <a href="PatientRegister">Register</a>
-         <a href="Login">Sign-in</a>
+        <script>window.location.replace("Login");</script>
     </body>
 </html>
