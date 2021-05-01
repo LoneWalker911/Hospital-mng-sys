@@ -161,6 +161,23 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
   float: left;
   width: 25%;
 }
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  /* margin-top: -1px; /* Prevent double borders */
+  /* background-color: #f6f6f6; */
+  /* padding: 12px; */
+  /* text-decoration: none; */
+  /* font-size: 18px; */
+  /* color: black; */
+  display: block;
+
+}
 
 </style>
     </head>
@@ -189,17 +206,17 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
     <ul id="main-menu" class="">
 
 
-        <li class="" style="">
+        <li class="" style="display:none">
             <a onclick="eapp();" href="#">
                 <i class="fa fa-stethoscope"></i>
                 <span>E - Appointments</span></a>
 
         </li>
 
-          <li class="" style="display:none">
+          <li class="" style="">
             <a onclick="channel();" href="#">
               <i class="fa fa-desktop"></i>
-                <span>E - Channeling</span>
+                <span>Channeling</span>
             </a>
         </li>
 
@@ -316,8 +333,22 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             <td>20</td>
           </tr>
           <tr>
-            <td><input type="text" name="" value="" placeholder="Enter Drug Name:"></td>
+
+            <td><input type="text" id="myInput" class="form-control input-sm" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+            <ul id="myUL" style="list-style-type: none">
+              <li><a href="#">Adele</a></li>
+              <li><a href="#">Agnes</a></li>
+
+              <li><a href="#">Billy</a></li>
+              <li><a href="#">Bob</a></li>
+
+              <li><a href="#">Calvin</a></li>
+              <li><a href="#">Christina</a></li>
+              <li><a href="#">Cindy</a></li>
+            </ul></td>
             <td><input type="number" name="" value="" placeholder="Enter Quantity"></td>
+
           </tr>
           </table>
                       <hr>
@@ -466,7 +497,22 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         </div>
         <script type="text/javascript">
-
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 
 
 function showAjaxModal(url)
