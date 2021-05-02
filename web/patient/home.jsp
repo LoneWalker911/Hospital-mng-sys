@@ -84,7 +84,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         function History()
         {
-
+           
           var xmlhttp = new XMLHttpRequest();
           document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
           xmlhttp.onreadystatechange = function() {
@@ -92,10 +92,28 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                 document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
             }
           };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history.jsp", true);
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history", true);
           xmlhttp.send();
           // document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
-
+        }
+               function getHistory(id)
+        {
+          
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var json = JSON.parse(this.responseText);
+                document.getElementById('Pid').innerHTML=json['id'];
+                document.getElementById('Pname').innerHTML=json['name'];
+                document.getElementById('Pdate').innerHTML=json['app_time'];
+                document.getElementById('Pdocname').innerHTML=json['docname'];
+                document.getElementById('Pdept').innerHTML=json['dept'];
+                document.getElementById('Pdoccharge').innerHTML=json['amount']+" LKR";
+                document.getElementById("myModal").style.display="block";
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history?getHistory=" + id, true);
+          xmlhttp.send();
         }
         function ChngPwd()
         {
@@ -189,8 +207,8 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         <ul class="list-inline links-list pull-right">
             <li class="sep"></li>
-              <li>
-                <a href="../index.php/login/logout">
+              <li onclick="document.cookie = 'usr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/Hospital-mng-sys;'; location.reload();">
+                <a href="#">
                     Logout &nbsp;<i class="fa fa-sign-out"></i>
                 </a>
             </li>
@@ -209,97 +227,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
     </div>
 
-    <%-- Modal for patient history --%>
-
-    <div class="container">
-  <!-- Trigger the modal with a button -->
-  <div class="modal shade in" id="myModal" role="dialog" style="">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3 class="modal-title">Patient Information</h3>
-        </div>
-        <div class="modal-body">
-
-          <table class="table table-striped">
-
-          <tr>
-            <th scope="col">ID</th>
-            <td>01252</td>
-          </tr>
-
-          <tr>
-            <th scope="row">Name</th>
-            <td>Thisara Gunathilaka</td>
-          </tr>
-
-          <tr>
-            <th scope="row">Date</th>
-            <td>12/01/2021</td>
-          </tr>
-
-          <tr>
-            <th scope="row">Time</th>
-            <td>20:12:02</td>
-          </tr>
-
-          <tr>
-            <th scope="row">No</th>
-            <td>001</td>
-          </tr>
-
-          <tr>
-            <th scope="row">Doctor Name</th>
-            <td>Dr. Thisra Gunathialaka</td>
-          </tr>
-
-          <tr>
-            <th scope="row">Department</th>
-            <td>ENT</td>
-          </tr>
-
-
-        </table>
-                      <hr>
-        <table class="table table-striped">
-          <h3>Prescription</h3>
-          <tr>
-            <th scope="row">Name</th>
-            <th scope="row">Qty</th>
-          </tr>
-          <tr>
-            <td>Paracetamol 500mg</td>
-            <td>30</td>
-          </tr>
-          </table>
-                      <hr>
-          <table class="table table-striped">
-            <h3>Payment Information</h3>
-            <tr>
-              <th scope="row">Doctor Charges</th>
-              <td>LKR 1200</td>
-            </tr>
-
-            <tr>
-              <th scope="row">Prescription</th>
-              <td>LKR 2000</td>
-            </tr>
-
-            <tr>
-              <th scope="row">Total</th>
-              <td scope="col">LKR 3200</td>
-            </tr>
-            </table>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
+  
 
 
                 <!-- Footer -->

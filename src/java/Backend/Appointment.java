@@ -5,22 +5,16 @@
  */
 package Backend;
 
-import static Backend.Department.con;
-import static Backend.Login.con;
 import Model.DbConn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -276,7 +270,7 @@ public class Appointment {
         } catch (SQLException ex) {
             System.out.println(ex);
             EventLog.Write("Appointment creation process failed.");
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }
         return ret;
@@ -304,25 +298,52 @@ public class Appointment {
     {   HashMap<Integer, String[]> ret = new HashMap<>();
         try {
                 
-            try (PreparedStatement st = con.prepareStatement("SELECT DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,emp.name,department.name AS dep_name,appointment.status FROM emp,doctor,appointment,department,payment WHERE doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.Pid=? GROUP BY appointment.app_time")) {
+            try (PreparedStatement st = con.prepareStatement("SELECT appointment.id,DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,emp.name,department.name AS dep_name,appointment.status FROM emp,doctor,appointment,department,payment WHERE doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.Pid=? GROUP BY appointment.app_time")) {
                 st.setInt(1, this.getPid());
                 ResultSet rs = st.executeQuery();
                 String[] obj;
                 int i = 0;
                 while(rs.next()){
-                    obj = new String[4];
+                    obj = new String[5];
                     obj[0]=rs.getString("app_time");
                     obj[1]=rs.getString("name");
                     obj[2]=rs.getString("dep_name");
                     obj[3]=rs.getString("status");
-                    ret.put(i, obj);
+                    obj[4]=rs.getString("id");
+                    ret.put(i++, obj);
                     obj=null;
                 }
                 st.close();
             }
         } catch (SQLException ex) {
-            EventLog.Write("getDocs() process failed.");
-            Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+            EventLog.Write("getApps() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
+    
+    public String getInfo()
+    {
+        String ret="";
+        JSONObject obj = new JSONObject();
+        try (PreparedStatement st = con.prepareStatement("SELECT appointment.id,DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,patient.name AS patient,emp.name,department.name AS dept,payment.amount,appointment.status FROM emp,doctor,appointment,department,payment,patient WHERE appointment.Pid=patient.id AND doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.id=?")) {
+                st.setInt(1, this.getId());
+                ResultSet rs = st.executeQuery();
+
+                while(rs.next()){
+                    obj.put("id", rs.getString("id"));
+                    obj.put("app_time", rs.getString("app_time"));
+                    obj.put("name", rs.getString("patient"));
+                    obj.put("docname", rs.getString("name"));
+                    obj.put("dept", rs.getString("dept"));
+                    obj.put("amount", rs.getString("amount"));
+                }
+                st.close();
+                ret=obj.toString();
+            }
+        catch (SQLException ex) {
+            EventLog.Write("getInfo() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ret;
     }

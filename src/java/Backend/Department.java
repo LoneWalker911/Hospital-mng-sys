@@ -5,7 +5,6 @@
  */
 package Backend;
 
-import static Backend.Login.con;
 import Model.DbConn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

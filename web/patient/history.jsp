@@ -3,7 +3,7 @@
 <%  String NextId =(String) request.getAttribute("NextId");
     String Name =(String) request.getAttribute("Name");
     String Mobile =(String) request.getAttribute("Mobile");
-    HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
+    HashMap<Integer, String[]> info = (HashMap<Integer, String[]>) request.getAttribute("info");
 %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -34,10 +34,7 @@
   <%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --%>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <script>
 
-
-  </script>
 
 
   </head>
@@ -55,22 +52,131 @@
     </tr>
     </thead>
     <tbody>
-    <tr data-toggle="modal" data-target="#myModal" href="#" style="cursor:pointer">
-      <th scope="row">2019/12/05</th>
-      <td>Thisara Gunathilaka</td>
-      <td>ENT</td>
-      <td><button class="btn btn-danger btn-sm" name="missed" style="cursor:default">Missed</button><td>
-
-    </tr>
+    <%
+        if(!info.isEmpty()){
+               for (Integer id: info.keySet()) {
+                   out.print("<tr  onclick=\"getHistory(");
+                   out.print(info.get(id)[4]);
+                   out.print(");\" href=\"#\" style=\"cursor:pointer\"><th scope=\"row\">");
+                   out.print(info.get(id)[0]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[1]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[2]);
+                   out.print("</th><td>");
+                   if(info.get(id)[3].equals("1"))
+                   {
+                       out.print("<button class=\"btn btn-success btn-sm\" name=\"went\" style=\"cursor:default\">Went</button><td>");
+                   }
+                   if(info.get(id)[3].equals("0"))
+                   {
+                       out.print("<button class=\"btn btn-danger btn-sm\" name=\"missed\" style=\"cursor:default\">Missed</button><td>");                       
+                   }
+                    }
+        }
+    %>
     </tbody>
     </table>
     </div>
+    <%-- Modal for patient history --%>
+
+    <div class="container">
+  <!-- Trigger the modal with a button -->
+  <div class="modal shade in" id="myModal" role="dialog" style="">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" onclick="document.getElementById('myModal').style.display='none';">&times;</button>
+          <h3 class="modal-title">Patient Information</h3>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-striped">
+
+          <tr>
+              <th scope="col">ID</th>
+            <td id="Pid">01252</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Name</th>
+            <td id='Pname'>Thisara Gunathilaka</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Date</th>
+            <td id="Pdate">12/01/2021</td>
+          </tr>
+
+<!--          <tr>
+            <th scope="row">Time</th>
+            <td>20:12:02</td>
+          </tr>
+
+          <tr>
+            <th scope="row">No</th>
+            <td>001</td>
+          </tr>-->
+
+          <tr>
+            <th scope="row">Doctor Name</th>
+            <td id="Pdocname">Dr. Thisra Gunathialaka</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Department</th>
+            <td id="Pdept">ENT</td>
+          </tr>
+
+
+        </table>
+                      <hr>
+        <table class="table table-striped">
+          <h3>Prescription</h3>
+          <tr>
+            <th scope="row">Name</th>
+            <th scope="row">Qty</th>
+          </tr>
+          <tr>
+            <td>Paracetamol 500mg</td>
+            <td>30</td>
+          </tr>
+          </table>
+                      <hr>
+          <table class="table table-striped">
+            <h3>Payment Information</h3>
+            <tr>
+              <th scope="row">Doctor Charges</th>
+              <td id="Pdoccharge">LKR 1200</td>
+            </tr>
+
+            <tr>
+              <th scope="row">Prescription</th>
+              <td>LKR 2000</td>
+            </tr>
+
+            <tr>
+              <th scope="row">Total</th>
+              <td scope="col">LKR 3200</td>
+            </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" onclick="document.getElementById('myModal').style.display='none';">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 
 
     <div id="test02" class="" >
 
     </div>
     <script type="text/javascript">
+ 
     $('#chkwnd').on('load', function() {
         $('#myModal').modal('show');
     });

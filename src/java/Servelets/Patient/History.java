@@ -13,14 +13,12 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -63,8 +61,10 @@ public class History extends HttpServlet {
                 Appointment app = new Appointment();
                 app.setPid(Integer.parseInt(login.getUser_id()));
                 HashMap<Integer, String[]> info = app.getApps();
-                StringWriter out = new StringWriter();
-
+                System.out.println(info.keySet());
+                request.setAttribute("info", info);
+                RequestDispatcher view = request.getRequestDispatcher("/patient/history.jsp");
+                view.include(request, response);
             }
     }
 
@@ -80,6 +80,14 @@ public class History extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException  {
+        if(request.getParameter("getHistory")!=null)
+        {
+            try (PrintWriter out = response.getWriter()) {
+            Appointment app = new Appointment();
+            app.setId(Integer.parseInt( request.getParameter("getHistory")));
+            out.print(app.getInfo());
+            }
+        }
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
