@@ -84,6 +84,20 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         function History()
         {
+<<<<<<< HEAD
+
+          // var xmlhttp = new XMLHttpRequest();
+          // document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
+          // xmlhttp.onreadystatechange = function() {
+          //   if (this.readyState === 4 && this.status === 200) {
+          //       document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
+          //   }
+          // };
+          // xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history.jsp", true);
+          // xmlhttp.send();
+           document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
+
+=======
            
           var xmlhttp = new XMLHttpRequest();
           document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
@@ -114,6 +128,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history?getHistory=" + id, true);
           xmlhttp.send();
+>>>>>>> origin/main
         }
         function ChngPwd()
         {
@@ -193,12 +208,6 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             </a>
         </li>
 
-        <li class="">
-          <a onclick="order();" href="#">
-            <i class='fas fa-briefcase-medical'></i>
-              <span>Onlne Order</span>
-          </a>
-      </li>
 
         <li class="">
           <a onclick="ChngPwd();" href="#">
@@ -244,81 +253,101 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
     <!-- Form for E-Appointment-->
       <div id="test" >
+          </div>
+
+<<<<<<< HEAD
+    <%-- Modal for patient history --%>
+
+  <div class="modal shade in" id="myModal" role="dialog" style="">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title">Patient Information</h3>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-striped">
+
+          <tr>
+            <th scope="col">ID</th>
+            <td>01252</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Name</th>
+            <td>Thisara Gunathilaka</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Date</th>
+            <td>12/01/2021</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Time</th>
+            <td>20:12:02</td>
+          </tr>
+
+          <tr>
+            <th scope="row">No</th>
+            <td>001</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Doctor Name</th>
+            <td>Dr. Thisra Gunathialaka</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Department</th>
+            <td>ENT</td>
+          </tr>
 
 
-    </div>
-
-  
-
-
-<%-- for drug order --%>
-
-<div class="modal shade in" id="drugorder" role="dialog" style="">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">Patient Information</h3>
-      </div>
-      <div class="modal-body">
-
-        <table class="table table-striped">
-
-        <tr>
-          <th scope="col">ID</th>
-          <td>01252</td>
-        </tr>
-
-        <tr>
-          <th scope="row">Name</th>
-          <td>Thisara Gunathilaka</td>
-        </tr>
-
-        <tr>
-          <th scope="row">Date</th>
-          <td>12/01/2021</td>
-        </tr>
-
-
-        <tr>
-          <th scope="row">Doctor Name</th>
-          <td>Dr. Thisra Gunathialaka</td>
-        </tr>
-
-        <tr>
-          <th scope="row">Department</th>
-          <td>ENT</td>
-        </tr>
-
-        <tr>
-          <th scope="row">Price</th>
-          <td>LKR 1200</td>
-        </tr>
-
-
-      </table>
-                    <hr>
-      <table class="table table-striped">
-        <h3>Prescription</h3>
-        <tr>
-          <th scope="row">Name</th>
-          <th scope="row">Qty</th>
-        </tr>
-        <tr>
-          <td>Paracetamol 500mg</td>
-          <td>30</td>
-        </tr>
         </table>
-                    <hr>
-    
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Order</button>
-        </div>
-      </div>
+                      <hr>
+        <table class="table table-striped">
+          <h3>Prescription</h3>
+          <tr>
+            <th scope="row">Name</th>
+            <th scope="row">Qty</th>
+          </tr>
+          <tr>
+            <td>Paracetamol 500mg</td>
+            <td>30</td>
+          </tr>
+          </table>
+                      <hr>
+          <table class="table table-striped">
+            <h3>Payment Information</h3>
+            <tr>
+              <th scope="row">Doctor Charges</th>
+              <td>LKR 1200</td>
+            </tr>
 
+            <tr>
+              <th scope="row">Prescription</th>
+              <td>LKR 2000</td>
+            </tr>
+
+            <tr>
+              <th scope="row">Total</th>
+              <td scope="col">LKR 3200</td>
+            </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
+=======
+  
+>>>>>>> origin/main
+
 
                 <!-- Footer -->
 <footer class="main">

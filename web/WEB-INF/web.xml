@@ -40,6 +40,10 @@
         <servlet-name>History</servlet-name>
         <servlet-class>Servelets.Patient.History</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Drug</servlet-name>
+        <servlet-class>Servelets.Pharmacy.Drug</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>History</servlet-name>
         <url-pattern>/patient/history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Drug</servlet-name>
+        <url-pattern>/pharmacy/drug</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -260,7 +260,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         <ul class="list-inline links-list pull-right">
             <li class="sep"></li>
               <li>
-                <a href="../index.php/login/logout">
+                <a onclick="document.cookie = 'usr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/Hospital-mng-sys;'; location.reload();" href="#">
                     Logout &nbsp;<i class="fa fa-sign-out"></i>
                 </a>
             </li>

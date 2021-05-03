@@ -145,19 +145,24 @@
                             <input type="text" class="form-control input-lg" value="<%out.print(Mobile);%>" placeholder=""
                                    name="phone" disabled="true">
                         </div>
+                               
+                        <div class="form-group">
+                            <label for="" class="text-uppercase c-gray-light">
+                                Choose your                            </label>
 
+                        </div>
 
-                    <div class="form-group">
+                    <div class="form-group eApp eChannel">
                         <label for="" class="text-uppercase c-gray-light">
                             Date                        </label>
                         <input type="text" id="time" class="form-control input-lg datepicker" placeholder=""
                             name="timestamp" required readonly="readonly">
-                        <button type="button" id="chkbtn" onclick="checkTime();">Check</button>
+                        <button class="eApp" type="button" id="chkbtn" onclick="checkTime();">Check</button>
                         <br>
                         <p id="timechk"></p>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group eApp">
                         <label for="" class="text-uppercase c-gray-light">
                             Department                        </label>
                         <select class="form-control" name="department_id" id="dept_select"
@@ -171,7 +176,7 @@
                                                     </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group eApp" >
                         <label for="" class="text-uppercase c-gray-light">
                             Doctor                        </label>
                         <div id="doctor_list">
@@ -180,7 +185,7 @@
                                                     </div>
                     </div>
 
-                    <div id="img_upload">
+                    <div id="img_upload" class="eApp">
                         <label for="" class="text-uppercase c-gray-light">Upload Image files (optional)</label>
                         <input class="form-control form-control-file" type = "file" name = "img_1" size = "5000000" /><br/>
                         <input class="form-control form-control-file" type = "file" name = "img_2" size = "5000000" /><br/>
@@ -189,7 +194,7 @@
                         <input class="form-control form-control-file" type = "file" name = "img_5" size = "5000000" /><br/>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group eApp">
                         <label for="" class="text-uppercase c-gray-light">
                             Message                        </label>
                         <textarea class="form-control no-resize" rows="5" name="message"
@@ -218,6 +223,11 @@
 
 <!-- Core -->
 <script>
+    var elems = document.getElementsByClassName("eApp");
+    var i;
+    for (i = 0; i < elems.length; i++) {
+  elems[i].style.display = "none";
+}
 function checkTime()
         {
 
