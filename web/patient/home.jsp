@@ -111,6 +111,20 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
 
         }
+        function order()
+        {
+
+          // var xmlhttp = new XMLHttpRequest();
+          // xmlhttp.onreadystatechange = function() {
+          //   if (this.readyState === 4 && this.status === 200) {
+          //       document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Update Profile</h3>"+this.responseText;
+          //   }
+          // };
+          // xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp", true);
+          // xmlhttp.send();
+          document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/order.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
+
+        }
 </script>
 
 
@@ -160,6 +174,13 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                 <span>History</span>
             </a>
         </li>
+
+        <li class="">
+          <a onclick="order();" href="#">
+            <i class='fas fa-briefcase-medical'></i>
+              <span>Onlne Order</span>
+          </a>
+      </li>
 
         <li class="">
           <a onclick="ChngPwd();" href="#">
@@ -301,6 +322,75 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
     </div>
   </div>
 
+
+<%-- for drug order --%>
+
+<div class="modal shade in" id="drugorder" role="dialog" style="">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Patient Information</h3>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-striped">
+
+        <tr>
+          <th scope="col">ID</th>
+          <td>01252</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Name</th>
+          <td>Thisara Gunathilaka</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Date</th>
+          <td>12/01/2021</td>
+        </tr>
+
+
+        <tr>
+          <th scope="row">Doctor Name</th>
+          <td>Dr. Thisra Gunathialaka</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Department</th>
+          <td>ENT</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Price</th>
+          <td>LKR 1200</td>
+        </tr>
+
+
+      </table>
+                    <hr>
+      <table class="table table-striped">
+        <h3>Prescription</h3>
+        <tr>
+          <th scope="row">Name</th>
+          <th scope="row">Qty</th>
+        </tr>
+        <tr>
+          <td>Paracetamol 500mg</td>
+          <td>30</td>
+        </tr>
+        </table>
+                    <hr>
+    
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Order</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
                 <!-- Footer -->
 <footer class="main">
