@@ -113,7 +113,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           xmlhttp.send();
 
         }
-        function ChngPwd()
+        function drug()
         {
 
           // var xmlhttp = new XMLHttpRequest();
@@ -124,7 +124,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           // };
           // xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp", true);
           // xmlhttp.send();
-          document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/UpdateProfile.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
+          document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/pharmacy/drugs.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
 
         }
 </script>
@@ -167,6 +167,13 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             <a onclick="pres();" href="#">
                 <i class="fa fa-stethoscope"></i>
                 <span>Prescription</span></a>
+        </li>
+
+        <li class="">
+            <a onclick="drug();" href="#">
+                  <i class="fa fa-desktop"></i>
+                <span>Drug Management</span></a>
+        </li>
 
 
         <li class="">
