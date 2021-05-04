@@ -129,40 +129,44 @@
                             <label for="" class="text-uppercase  c-gray-light">
                                 Appointment ID                            </label>
                             <input type="text" class="form-control input-lg" value="<%out.print(NextId);%>" placeholder=""
-                                   name="name" disabled="true">
+                                   name="name" disabled>
                         </div>
 
                         <div class="form-group">
                             <label for="" class="text-uppercase  c-gray-light">
                                 Name                            </label>
                             <input type="text" class="form-control input-lg" value="<%out.print(Name);%>" placeholder=""
-                                   name="name" disabled="true">
+                                   name="name" disabled>
                         </div>
 
                         <div class="form-group">
                             <label for="" class="text-uppercase c-gray-light">
                                 Phone                            </label>
                             <input type="text" class="form-control input-lg" value="<%out.print(Mobile);%>" placeholder=""
-                                   name="phone" disabled="true">
+                                   name="phone" disabled>
                         </div>
                                
                         <div class="form-group">
                             <label for="" class="text-uppercase c-gray-light">
-                                Choose your                            </label>
-
+                                Choose your appointment type</label><br>
+                            <label>eAppointment</label>
+                            <input onclick="appointment();" class="input-mini" type="radio" name="type" value="2">
+                            <label>e-Channeling</label>
+                            <input onclick="channel();" class="input-mini" type="radio" name="type" value="3">
                         </div>
+                                   
 
-                    <div class="form-group eApp eChannel">
+                    <div class="form-group eChannel">
                         <label for="" class="text-uppercase c-gray-light">
                             Date                        </label>
                         <input type="text" id="time" class="form-control input-lg datepicker" placeholder=""
                             name="timestamp" required readonly="readonly">
-                        <button class="eApp" type="button" id="chkbtn" onclick="checkTime();">Check</button>
+                        <button class="eChannel" type="button" id="chkbtn" onclick="checkTime();">Check</button>
                         <br>
                         <p id="timechk"></p>
                     </div>
 
-                    <div class="form-group eApp">
+                    <div class="form-group eChannel">
                         <label for="" class="text-uppercase c-gray-light">
                             Department                        </label>
                         <select class="form-control" name="department_id" id="dept_select"
@@ -176,7 +180,7 @@
                                                     </select>
                     </div>
 
-                    <div class="form-group eApp" >
+                    <div class="form-group eChannel" >
                         <label for="" class="text-uppercase c-gray-light">
                             Doctor                        </label>
                         <div id="doctor_list">
@@ -226,8 +230,12 @@
     var elems = document.getElementsByClassName("eApp");
     var i;
     for (i = 0; i < elems.length; i++) {
-  elems[i].style.display = "none";
-}
+  elems[i].style.display = "none";}
+  elems = document.getElementsByClassName("eChannel");
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "none";
+    }
+
 function checkTime()
         {
 
@@ -272,6 +280,34 @@ else
     document.getElementById('doctor_list').innerHTML="<input type=\"text\" class=\"form-control input-lg\"value=\"Select A Department First\" disabled>"
 }
 
+function channel()
+{
+    var elems = document.getElementsByClassName("eApp");
+    var i;
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "none";
+    }
+    
+    var elems = document.getElementsByClassName("eChannel");
+    var i;
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "block";
+    }
+}
+
+function appointment()
+{
+    var elems = document.getElementsByClassName("eApp");
+    var i;
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "block";
+    }
+    
+    elems = document.getElementsByClassName("eChannel");
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "none";
+    }
+}
 
 
 </script>

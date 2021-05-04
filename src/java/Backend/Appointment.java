@@ -203,6 +203,7 @@ public class Appointment {
     private String img_5="";
     private int virtual;
     
+    
     DbConn db = new DbConn();
     static Connection con = DbConn.CreateConn();
     

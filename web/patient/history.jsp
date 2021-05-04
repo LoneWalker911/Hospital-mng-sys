@@ -1,8 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  String NextId =(String) request.getAttribute("NextId");
-    String Name =(String) request.getAttribute("Name");
-    String Mobile =(String) request.getAttribute("Mobile");
+<%  
     HashMap<Integer, String[]> info = (HashMap<Integer, String[]>) request.getAttribute("info");
 %>
 <!DOCTYPE html>
@@ -54,6 +52,7 @@
     <tbody>
     <%
         if(!info.isEmpty()){
+            
                for (Integer id: info.keySet()) {
                    out.print("<tr  onclick=\"getHistory(");
                    out.print(info.get(id)[4]);
@@ -73,7 +72,7 @@
                        out.print("<button class=\"btn btn-danger btn-sm\" name=\"missed\" style=\"cursor:default\">Missed</button><td>");                       
                    }
                     }
-        }
+                       }
     %>
     </tbody>
     </table>

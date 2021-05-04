@@ -188,6 +188,7 @@ public class eApp extends HttpServlet {
        String timestamp=null;
        String doc=null;
        String msg=null;
+       String type=null;
        response.setContentType("text/html");
        java.io.PrintWriter out = response.getWriter( );
 
@@ -263,10 +264,13 @@ public class eApp extends HttpServlet {
                if (fi.getFieldName().equals("message")) {
                    msg=fi.getString();
                }
+               if (fi.getFieldName().equals("type")) {
+                   type=fi.getString();
+               }
            }
        }
 
-       if ((doc == null) || (doc.equals(""))) {
+       if (type.equals("3") && doc == null || doc.equals("")) {
            el.add("Select a Doctor.");
        } else {
            try {

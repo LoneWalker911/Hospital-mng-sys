@@ -84,7 +84,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         function History()
         {
-<<<<<<< HEAD
+
 
           // var xmlhttp = new XMLHttpRequest();
           // document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
@@ -95,22 +95,21 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           // };
           // xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history.jsp", true);
           // xmlhttp.send();
-           document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
+           document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
 
-=======
            
-          var xmlhttp = new XMLHttpRequest();
-          document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history", true);
-          xmlhttp.send();
+//          var xmlhttp = new XMLHttpRequest();
+//          document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
+//          xmlhttp.onreadystatechange = function() {
+//            if (this.readyState === 4 && this.status === 200) {
+//                document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
+//            }
+//          };
+//          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history", true);
+//          xmlhttp.send();
           // document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
         }
-               function getHistory(id)
+        function getHistory(id)
         {
           
           var xmlhttp = new XMLHttpRequest();
@@ -128,7 +127,6 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history?getHistory=" + id, true);
           xmlhttp.send();
->>>>>>> origin/main
         }
         function ChngPwd()
         {
@@ -255,7 +253,6 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
       <div id="test" >
           </div>
 
-<<<<<<< HEAD
     <%-- Modal for patient history --%>
 
   <div class="modal shade in" id="myModal" role="dialog" style="">
@@ -344,9 +341,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
       </div>
     </div>
-=======
-  
->>>>>>> origin/main
+
 
 
                 <!-- Footer -->
@@ -360,9 +355,6 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         </div>
         <script type="text/javascript">
-
-
-
 function showAjaxModal(url)
 {
 $('.customized-modal').css('margin-top', window.scrollY);
