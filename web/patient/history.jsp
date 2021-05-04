@@ -1,6 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  
+<%   
     HashMap<Integer, String[]> info = (HashMap<Integer, String[]>) request.getAttribute("info");
 %>
 <!DOCTYPE html>
@@ -32,7 +32,10 @@
   <%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --%>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+  <script>
 
+
+  </script>
 
 
   </head>
@@ -76,16 +79,18 @@
     %>
     </tbody>
     </table>
+  </div>
+    <div id="test02" class="" >
+
     </div>
+
     <%-- Modal for patient history --%>
 
-    <div class="container">
-  <!-- Trigger the modal with a button -->
-  <div class="modal shade in" id="myModal" role="dialog" style="">
+  <div class="modal shade in" id="myModal" style="overflow:inherit" role="dialog" style="">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" onclick="document.getElementById('myModal').style.display='none';">&times;</button>
+          <button type="button" class="close" onclick="document.getElementById('test02').style.display='none'">&times;</button>
           <h3 class="modal-title">Patient Information</h3>
         </div>
         <div class="modal-body">
@@ -161,24 +166,41 @@
             </table>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-default" onclick="document.getElementById('myModal').style.display='none';">Close</button>
+              <button type="button" class="btn btn-primary">Order Prescription</button>
           </div>
         </div>
 
       </div>
     </div>
-  </div>
 
 
 
-    <div id="test02" class="" >
-
-    </div>
     <script type="text/javascript">
- 
-    $('#chkwnd').on('load', function() {
-        $('#myModal').modal('show');
-    });
+        function getHistory(id)
+        {
+          
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var json = JSON.parse(this.responseText);
+                document.getElementById('Pid').innerHTML=json['id'];
+                document.getElementById('Pname').innerHTML=json['name'];
+                document.getElementById('Pdate').innerHTML=json['app_time'];
+                document.getElementById('Pdocname').innerHTML=json['docname'];
+                document.getElementById('Pdept').innerHTML=json['dept'];
+                document.getElementById('Pdoccharge').innerHTML=json['amount']+" LKR";
+                document.getElementById("myModal").style.display="block";
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history?getHistory=" + id, true);
+          xmlhttp.send();
+        }
+    function order(){
+    var myModal = document.getElementById('myModal');
+    document.getElementById('test02').innerHTML = myModal.innerHTML;
+    document.getElementById('test02').style.display = "block";
+}
     </script>
+
   </body>
 </html>

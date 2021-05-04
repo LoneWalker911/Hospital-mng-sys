@@ -85,7 +85,6 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         function History()
         {
 
-
           // var xmlhttp = new XMLHttpRequest();
           // document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
           // xmlhttp.onreadystatechange = function() {
@@ -97,36 +96,6 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           // xmlhttp.send();
            document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
 
-           
-//          var xmlhttp = new XMLHttpRequest();
-//          document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
-//          xmlhttp.onreadystatechange = function() {
-//            if (this.readyState === 4 && this.status === 200) {
-//                document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>History</h3>"+this.responseText;
-//            }
-//          };
-//          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history", true);
-//          xmlhttp.send();
-          // document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
-        }
-        function getHistory(id)
-        {
-          
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                var json = JSON.parse(this.responseText);
-                document.getElementById('Pid').innerHTML=json['id'];
-                document.getElementById('Pname').innerHTML=json['name'];
-                document.getElementById('Pdate').innerHTML=json['app_time'];
-                document.getElementById('Pdocname').innerHTML=json['docname'];
-                document.getElementById('Pdept').innerHTML=json['dept'];
-                document.getElementById('Pdoccharge').innerHTML=json['amount']+" LKR";
-                document.getElementById("myModal").style.display="block";
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history?getHistory=" + id, true);
-          xmlhttp.send();
         }
         function ChngPwd()
         {
@@ -235,8 +204,8 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         <ul class="list-inline links-list pull-right">
             <li class="sep"></li>
-              <li onclick="document.cookie = 'usr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/Hospital-mng-sys;'; location.reload();">
-                <a href="#">
+              <li>
+                <a href="../index.php/login/logout">
                     Logout &nbsp;<i class="fa fa-sign-out"></i>
                 </a>
             </li>
@@ -343,7 +312,6 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
     </div>
 
 
-
                 <!-- Footer -->
 <footer class="main">
 	&copy; 2017 <strong> Hospital Management System</strong>
@@ -355,6 +323,9 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         </div>
         <script type="text/javascript">
+
+
+
 function showAjaxModal(url)
 {
 $('.customized-modal').css('margin-top', window.scrollY);
