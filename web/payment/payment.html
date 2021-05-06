@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+    <title>Payment Complete</title>
+  </head>
+  <body>
+    <div class="topbar"></div>
+    <div class="text">
+      <p2>Your payment has completed successfully.</p2><br>
+      <label for="pid">Your Patient ID :</label>
+      <label id="">ERROR</label><br>
+      <label for="address">Address :</label>
+      <label id="">ERROR</label>
+    </div>
+    <div class="images">
+      <img src="logo.png" class="park"  width="15%"  height="15%">
+      <img src="pay2.png" class="pay2"  width="45%"  height="45%">
+
+    </div>
+
+  </body>
+</html>
