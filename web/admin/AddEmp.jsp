@@ -87,15 +87,7 @@ if(request.getAttribute("error")!=null)
 
 
 
-<section class="slice sct-color-2 b-xs-bottom">
-    <div class="container">
-        <div class="section-title section-title--style-1 text-center mb-3">
-            <h3 class="heading heading-2 strong-400">
-                Add Employee            </h3>
-            <span class="section-title-delimiter clearfix d-none"></span>
-        </div>
-    </div>
-</section>
+
 <section class="slice sct-color-2">
     <div class="container container-xs">
         <div class="row">
