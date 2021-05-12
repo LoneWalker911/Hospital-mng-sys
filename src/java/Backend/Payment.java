@@ -21,6 +21,20 @@ import java.util.logging.Logger;
 public class Payment {
 
     /**
+     * @return the type
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    /**
      * @return the id
      */
     public int getId() {
@@ -160,6 +174,7 @@ public class Payment {
     private String card_no="";
     private double amount;
     private String card_expiry="";
+    private int type=0;
     
     DbConn db = new DbConn();
     static Connection con = DbConn.CreateConn();
@@ -200,18 +215,32 @@ public class Payment {
         double ret = 0.00;
         
         try {
-             PreparedStatement st = con.prepareStatement("SELECT admin_info.hospital_fee+doctor.channel_fee AS amount FROM appointment,doctor,admin_info WHERE appointment.empid=doctor.empid AND appointment.id=?");
-            st.setInt(1, this.getApp_id());
-            
-            ResultSet rs = st.executeQuery();
-            rs.next();
-            ret = (rs.getDouble("amount"));
-            
-            st.close();
-            
+                if(this.getType()==3)
+                {
+                     PreparedStatement st = con.prepareStatement("SELECT admin_info.hospital_fee+doctor.channel_fee AS amount FROM appointment,doctor,admin_info WHERE appointment.empid=doctor.empid AND appointment.id=?");
+                    st.setInt(1, this.getApp_id());
+
+                    ResultSet rs = st.executeQuery();
+                    rs.next();
+                    ret = (rs.getDouble("amount"));
+
+                    st.close();
+                } 
+
+                if(this.getType()==2)
+                {
+                    PreparedStatement st = con.prepareStatement("SELECT admin_info.app_fee AS amount FROM admin_info");
+
+                    ResultSet rs = st.executeQuery();
+                    rs.next();
+                    ret = (rs.getDouble("amount"));
+
+                    st.close();
+                } 
             
         } catch (SQLException ex) {
             Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+        
         }
         return ret; 
     }

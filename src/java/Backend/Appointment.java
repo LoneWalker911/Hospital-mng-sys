@@ -24,6 +24,20 @@ import org.json.simple.JSONObject;
 public class Appointment {
 
     /**
+     * @return the type
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    /**
      * @return the id
      */
     public int getId() {
@@ -177,32 +191,18 @@ public class Appointment {
         this.img_5 = img_5;
     }
 
-    /**
-     * @return the virtual
-     */
-    public int getVirtual() {
-        return virtual;
-    }
-
-    /**
-     * @param virtual the virtual to set
-     */
-    public void setVirtual(int virtual) {
-        this.virtual = virtual;
-    }
     private int id;
-    private int empid;
+    private int empid=0;
     private int Pid;
     private Timestamp created_time;
     private Timestamp time;
-    private String description;
+    private String description="";
     private String img_1="";
     private String img_2="";
     private String img_3="";
     private String img_4="";
     private String img_5="";
-    private int virtual;
-    
+    private int type=0;
     
     DbConn db = new DbConn();
     static Connection con = DbConn.CreateConn();
@@ -245,9 +245,12 @@ public class Appointment {
                         
             if(isFree())
             {
-                PreparedStatement st = con.prepareStatement("INSERT INTO appointment(app_time,empid,Pid,description,img_1,img_2,img_3,img_4,img_5,`virtual`) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement st = con.prepareStatement("INSERT INTO appointment(app_time,empid,Pid,description,img_1,img_2,img_3,img_4,img_5,type,status) VALUES (?,?,?,?,?,?,?,?,?,?,0)", Statement.RETURN_GENERATED_KEYS);
                 st.setTimestamp(1, this.getTime());
-                st.setInt(2, this.getEmpid());
+                if(this.getEmpid()!=0)
+                    st.setInt(2, this.getEmpid());
+                else
+                    st.setNull(2, java.sql.Types.INTEGER);
                 st.setInt(3, this.getPid());
                 st.setString(4, this.getDescription());
                 st.setString(5, this.getImg_1());
@@ -255,9 +258,9 @@ public class Appointment {
                 st.setString(7, this.getImg_3());
                 st.setString(8, this.getImg_4());
                 st.setString(9, this.getImg_5());
-                st.setInt(10, this.getVirtual());
+                st.setInt(10, this.getType());
               
-              
+                System.out.println(st.toString());
                 ret = st.executeUpdate();
                 ResultSet rs = st.getGeneratedKeys();
             
@@ -273,6 +276,33 @@ public class Appointment {
             EventLog.Write("Appointment creation process failed.");
             Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
+        }
+        return ret;
+    }
+    
+    public boolean setStatus(int status,int id)
+    {
+        boolean ret=false;
+        try {
+                        
+            if(isFree())
+            {
+                PreparedStatement st = con.prepareStatement("UPDATE appointment SET status=? WHERE id=?");
+                st.setInt(1, status);
+                st.setInt(2, id);
+                
+                ret = st.executeUpdate()>0;
+
+                st.close();
+                
+                return ret;
+            }
+         
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            EventLog.Write("Set status process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return ret;
     }
@@ -323,11 +353,61 @@ public class Appointment {
         return ret;
     }
     
+    public HashMap<Integer, String[]> getdApps()
+    {   HashMap<Integer, String[]> ret = new HashMap<>();
+        try {
+                
+            try (PreparedStatement st = con.prepareStatement("SELECT appointment.id,DATE_FORMAT(appointment.app_time, '%Y/%m/%d %r') AS app_time, patient.name AS name, TIMESTAMPDIFF(YEAR, bdate, CURDATE()) AS age FROM patient,appointment WHERE appointment.Pid=patient.id AND appointment.type=2 AND appointment.status=1 AND appointment.app_time > NOW()  ORDER BY appointment.app_time ASC ")) {
+                ResultSet rs = st.executeQuery();
+                String[] obj;
+                int i = 0;
+                while(rs.next()){
+                    obj = new String[5];
+                    obj[0]=rs.getString("app_time");
+                    obj[1]=rs.getString("name");
+                    obj[2]=rs.getString("age");
+                    obj[3]=rs.getString("id");
+                    ret.put(i++, obj);
+                    obj=null;
+                }
+                st.close();
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getdApps() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
+    
+    public HashMap<String, String> getPayInfo()
+    {   HashMap<String, String> ret = new HashMap<>();
+        try {
+                
+            try (PreparedStatement st = con.prepareStatement("SELECT appointment.Pid, appointment.id, appointment.created_time AS cretime, DATE_FORMAT(appointment.app_time, '%Y/%m/%d %r') AS app_time, DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS atime, (SELECT name FROM emp WHERE id=appointment.empid) AS emp, appointment.empid AS empb, (SELECT COUNT(id) FROM appointment WHERE appointment.empid=empb AND DATE_FORMAT(appointment.app_time, '%Y/%m/%d') = atime AND appointment.created_time < cretime)+1 AS no FROM appointment WHERE appointment.id=?")) {
+                st.setInt(1, this.getId());
+                ResultSet rs = st.executeQuery();
+                int i = 0;
+                while(rs.next()){
+                    ret.put("pid", rs.getString("Pid"));
+                    ret.put("appid", rs.getString("id"));
+                    ret.put("time", rs.getString("app_time"));
+                    ret.put("emp", rs.getString("emp"));
+                    ret.put("no", rs.getString("no"));
+                }
+                st.close();
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getPayInfo() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
+    
     public String getInfo()
     {
         String ret="";
         JSONObject obj = new JSONObject();
-        try (PreparedStatement st = con.prepareStatement("SELECT appointment.id,DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,patient.name AS patient,emp.name,department.name AS dept,payment.amount,appointment.status FROM emp,doctor,appointment,department,payment,patient WHERE appointment.Pid=patient.id AND doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.id=?")) {
+        try (PreparedStatement st = con.prepareStatement("SELECT patient.id AS pid,appointment.id,DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,patient.name AS patient,emp.name,department.name AS dept,payment.amount,appointment.status FROM emp,doctor,appointment,department,payment,patient WHERE appointment.Pid=patient.id AND doctor.empid=emp.id AND doctor.dept_no=department.id AND appointment.empid=doctor.empid AND appointment.id=payment.app_id AND appointment.id=?")) {
                 st.setInt(1, this.getId());
                 ResultSet rs = st.executeQuery();
 
@@ -346,6 +426,40 @@ public class Appointment {
             EventLog.Write("getInfo() process failed.");
             Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return ret;
+    }
+    
+    public String getappInfo()
+    {
+        String ret="";
+        Boolean update=false;
+        JSONObject obj = new JSONObject();
+        try (PreparedStatement st = con.prepareStatement("SELECT appointment.id,DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_date,DATE_FORMAT(appointment.app_time, '%r') AS app_time,patient.name AS patient,  TIMESTAMPDIFF(YEAR, patient.bdate, CURDATE()) AS age, appointment.description AS msg, img_1,img_2,img_3,img_4 FROM appointment,patient WHERE appointment.Pid=patient.id AND status=1 AND appointment.id=?")) {
+                st.setInt(1, this.getId());
+                ResultSet rs = st.executeQuery();
+
+                while(rs.next()){
+                    obj.put("id", rs.getString("id"));
+                    obj.put("app_date", rs.getString("app_date"));
+                    obj.put("app_time", rs.getString("app_time"));
+                    obj.put("name", rs.getString("patient"));
+                    obj.put("age", rs.getString("age")+" yrs");
+                    obj.put("msg", rs.getString("msg"));
+                    obj.put("img_1", rs.getString("img_1"));
+                    obj.put("img_2", rs.getString("img_2"));
+                    obj.put("img_3", rs.getString("img_3"));
+                    obj.put("img_4", rs.getString("img_4"));
+                    update=true;
+                }
+                st.close();
+                ret=obj.toString();
+            }
+        catch (SQLException ex) {
+            EventLog.Write("getInfo() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(update)
+            this.setStatus(2, this.getId());
         return ret;
     }
     

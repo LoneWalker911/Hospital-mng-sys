@@ -1,10 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  String NextId =(String) request.getAttribute("NextId");
-    String Name =(String) request.getAttribute("Name");
-    String Mobile =(String) request.getAttribute("Mobile");
-    HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
-%>
+<%  HashMap<Integer, String[]> info = (HashMap<Integer, String[]>) request.getAttribute("info"); %>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -49,7 +46,7 @@
     <thead>
     <tr>
       <th scope="col">No</th>
-      <th scope="col">Payient Name</th>
+      <th scope="col">Patient Name</th>
 
     </tr>
     </thead>

@@ -40,7 +40,6 @@
     href="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/css/bootstrap.min.css" type="text/css"> --%>
     <link rel="stylesheet" href="../assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
     <link rel="stylesheet" href="../assets/css/font-icons/entypo/css/entypo.css">
-    <link href="Test001/fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/neon-core.css">
     <link rel="stylesheet" href="../assets/css/neon-theme.css">
@@ -96,7 +95,7 @@
     <body>
         <!-- MAIN WRAPPER -->
         <div class="body-wrap">
-            <div id="st-container" class="st-container">
+            <div id="st-container" class="st-container" style="overflow: visible;">
                 <div id="doctor_details"></div>
                 <div class="st-pusher">
                     <div class="st-content">
@@ -107,12 +106,13 @@
         <div class="row">
             <div class="col">
                 <form class="form-default" role="form"
+                      onsubmit="return validate()"
                     action="eApp"
                         method="post"
                             enctype="multipart/form-data">
 
                         <div class="info">
-                                                 <ul id="error">
+                                    <ul id="error">
                                         <%
                                             if(el!=null){
                                             for(Object str : el)
@@ -150,20 +150,17 @@
                             <label for="" class="text-uppercase c-gray-light">
                                 Choose your appointment type</label><br>
                             <label>eAppointment</label>
-                            <input onclick="appointment();" class="input-mini" type="radio" name="type" value="2">
+                            <input onclick="appointment();" id="app" class="input-mini" type="radio" name="type" value="2">
                             <label>e-Channeling</label>
-                            <input onclick="channel();" class="input-mini" type="radio" name="type" value="3">
+                            <input onclick="channel();" id="chan" class="input-mini" type="radio" name="type" value="3">
                         </div>
                                    
 
-                    <div class="form-group eChannel">
+                    <div class="form-group eChannel eApp">
                         <label for="" class="text-uppercase c-gray-light">
                             Date                        </label>
-                        <input type="text" id="time" class="form-control input-lg datepicker" placeholder=""
-                            name="timestamp" required readonly="readonly">
-                        <button class="eChannel" type="button" id="chkbtn" onclick="checkTime();">Check</button>
-                        <br>
-                        <p id="timechk"></p>
+                        <input type="text" id="date" class="form-control input-lg datepicker" placeholder=""
+                               onchange="Date1(Date.parse(this.value));" name="timestamp" required readonly="readonly">
                     </div>
 
                     <div class="form-group eChannel">
@@ -201,13 +198,13 @@
                     <div class="form-group eApp">
                         <label for="" class="text-uppercase c-gray-light">
                             Message                        </label>
-                        <textarea class="form-control no-resize" rows="5" name="message"
-                                  placeholder="Your Message To The Doctor" required></textarea>
+                        <textarea id="msg" class="form-control no-resize" rows="5" name="message"
+                                  placeholder="Your Message To The Doctor"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-styled btn-base-1"
+                <button type="submit"  class="btn btn-styled btn-base-1"
                             style="cursor: pointer;">
-                        <i class="fa fa-calendar mr-1"></i> Book Now                    </button>
+                        <i class="fa fa-calendar mr-1"></i> Book Now </button>
                 </form>
             </div>
         </div>
@@ -227,6 +224,109 @@
 
 <!-- Core -->
 <script>
+    function Date1(timestamp)
+    {
+       if(document.getElementById("app").checked===true)
+        { 
+        var a = new Date(timestamp);
+        var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        if(a.getHours()>9)
+            var hour = a.getHours();
+        else
+            var hour = '0'+a.getHours();
+            
+        if(a.getMinutes()>9)
+            var min = a.getMinutes();
+        else
+            var min = '0'+a.getMinutes();
+        var sec = a.getSeconds();
+        var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min ;
+        document.getElementById("date").value=time;
+        }
+    
+        if(document.getElementById("chan").checked===true)
+        {
+        var a = new Date(timestamp);
+        var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var time = year + '-' + month + '-' + date ;
+        document.getElementById("date").value=time;
+        }
+    
+    }
+    
+    function validate()
+    {
+        var have=false;
+        if(document.getElementById("error").innerHTML!=="")
+            have = true;
+        if(document.getElementById("app").checked===true)
+        {
+            if(document.getElementById("date").value==="")
+            {
+                if(have)
+                    document.getElementById("error").innerHTML="<li>Please enter a valid date and time.</li>";
+                else
+                    document.getElementById("error").innerHTML+="<li>Please enter a valid date and time.</li>";
+                document.documentElement.scrollTop = 0;
+                return false;
+            }
+            if(document.getElementById("msg").value==="")
+            {
+                if(have)
+                    document.getElementById("error").innerHTML="<li>Please enter a valid date and time.</li>";
+                else
+                    document.getElementById("error").innerHTML+="<li>Please enter a valid date and time.</li>";
+                window.scrollTo(0, 0);
+                return false;
+            }
+            
+            return true;
+        }
+        
+        if(document.getElementById("chan").checked===true)
+        {
+            if(document.getElementById("date").value==="")
+            {
+                if(have)
+                    document.getElementById("error").innerHTML="<li>Please enter a valid date and time.</li>";
+                else
+                    document.getElementById("error").innerHTML+="<li>Please enter a valid date and time.</li>";
+                document.documentElement.scrollTop = 0;
+                return false;
+            }
+            
+            if(document.getElementById("dept_select").value<1)
+            {
+                if(have)
+                    document.getElementById("error").innerHTML="<li>Please select a department.</li>";
+                else
+                    document.getElementById("error").innerHTML+="<li>Please select a department.</li>";
+                window.scrollTo(0, 0);
+                return false;
+            }
+            
+            if(document.getElementById("doc").value<1)
+            {
+                if(have)
+                    document.getElementById("error").innerHTML="<li>Please select a doctor.</li>";
+                else
+                    document.getElementById("error").innerHTML+="<li>Please select a doctor.</li>";
+                window.scrollTo(0, 0);
+                return false;
+            }
+            
+            return true;
+        }
+        document.getElementById("error").innerHTML="<li>Please select a type first.</li>";       
+        return false;
+    }
+    
     var elems = document.getElementsByClassName("eApp");
     var i;
     for (i = 0; i < elems.length; i++) {
@@ -236,34 +336,7 @@
     elems[i].style.display = "none";
     }
 
-function checkTime()
-        {
 
-          var time = document.getElementById("time").value;
-          var doc = document.getElementById("doc").value;
-          if(time!==""&&doc!==""){
-            document.getElementById("timechk").innerHTML="Checking...+";
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                if(this.responseText==="1")
-                {
-                    document.getElementById("timechk").innerHTML="This time is available";
-                }
-                else
-                {
-                    document.getElementById("timechk").innerHTML="We are sorry. This time is already reserved.";
-                }
-            }
-          };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/eApp?time=" + time+"&doc=" + doc, true);
-          xmlhttp.send();
-        }
-        else
-        {
-            document.getElementById("timechk").innerHTML="Please select datetime and doctor.";
-        }
-    }
 function get_doctors(department_id)
 {
   if(department_id!=="0"){
@@ -282,7 +355,15 @@ else
 
 function channel()
 {
+    document.getElementById("msg").required=false;
+    document.getElementById("date").value="";
     var elems = document.getElementsByClassName("eApp");
+    var i;
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "none";
+    }
+    
+    var elems = document.getElementsByClassName("flatpickr-time");
     var i;
     for (i = 0; i < elems.length; i++) {
     elems[i].style.display = "none";
@@ -297,15 +378,23 @@ function channel()
 
 function appointment()
 {
-    var elems = document.getElementsByClassName("eApp");
+    document.getElementById("msg").required=true;
+    document.getElementById("date").value="";
+    elems = document.getElementsByClassName("eChannel");
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "none";
+    }
+    
+    var elems = document.getElementsByClassName("flatpickr-time");
     var i;
     for (i = 0; i < elems.length; i++) {
     elems[i].style.display = "block";
     }
     
-    elems = document.getElementsByClassName("eChannel");
+    var elems = document.getElementsByClassName("eApp");
+    var i;
     for (i = 0; i < elems.length; i++) {
-    elems[i].style.display = "none";
+    elems[i].style.display = "block";
     }
 }
 

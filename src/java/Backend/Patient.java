@@ -112,15 +112,17 @@ public class Patient {
     private String email="";
     private String password="";
     private Date reg_date=null;
+    private Date bdate=null;
     
     public boolean Register() throws SQLException
     {
             int success = 1;
-            PreparedStatement st = con.prepareStatement("INSERT INTO `patient`(`name`, `mobile`, `address`, `email`) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement st = con.prepareStatement("INSERT INTO `patient`(`name`, `mobile`, `address`, `email`, `bdate`) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1, this.getName());
             st.setString(2, this.getMobile());
             st.setString(3, this.getAddress());
             st.setString(4, this.getEmail());
+            st.setDate(5, this.getBdate());
             
             success = st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
@@ -183,6 +185,20 @@ public class Patient {
      */
     public int getUser_type() {
         return user_type;
+    }
+
+    /**
+     * @return the bdate
+     */
+    public Date getBdate() {
+        return bdate;
+    }
+
+    /**
+     * @param bdate the bdate to set
+     */
+    public void setBdate(Date bdate) {
+        this.bdate = bdate;
     }
 
 }

@@ -62,6 +62,12 @@ public class Drug extends HttpServlet {
                else
                    out.print("0");
         }
+        if(request.getParameter("getDrugs")!=null)
+        {
+               Backend.Drug drug = new Backend.Drug();
+               out.print(drug.getDrugs());
+              
+        }
     }}
 
     /**

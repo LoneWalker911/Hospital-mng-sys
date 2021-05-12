@@ -4,15 +4,16 @@
     Author     : thisa
 --%>
 
-<%-- <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+ <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html><%--
 <%
 String order_id   =request.getParameter("order_id");
 String amount   =request.getParameter("amount");
 %>
 
-<html>
+--%><html>
 <body>
+    <h1>JJ</h1><%--
     <form id="form" target="_blank" style="display:none" method="get" action="https://carparknsbm.000webhostapp.com/">
 
     <input type="text" name="order_id" value="<%out.print(order_id); %>">
@@ -28,5 +29,5 @@ String amount   =request.getParameter("amount");
     document.getElementById('form').submit(); // SUBMIT FORM
     document.getElementById('form1').submit();
 </script>
-</body>
-</html> --%>
+--%></body>
+</html> 

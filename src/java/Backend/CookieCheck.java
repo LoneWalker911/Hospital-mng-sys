@@ -140,7 +140,7 @@ public class CookieCheck implements Filter {
         
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
+            if(httpRequest.getParameter("usr")==null){
             Cookie[] cookies = httpRequest.getCookies();
             if( cookies != null ) {
             Cookie usr = null;
@@ -151,7 +151,7 @@ public class CookieCheck implements Filter {
                     usr=cookies[i];
                 }
             }
-            if(usr==null) {
+            if(usr==null&&httpRequest.getParameter("usr")==null) {
                 httpResponse.sendRedirect("/Hospital-mng-sys/Login");
                 return;
             }
@@ -174,6 +174,27 @@ public class CookieCheck implements Filter {
                 httpResponse.sendRedirect("/Hospital-mng-sys/Login");
                 return;
             }
+            }
+            else
+            {
+                String usr = httpRequest.getParameter("usr");
+                Login login = new Login();
+                login.setLoginstring(usr);
+                try {
+                if(login.ChkCookie())
+                {
+                Cookie cookie = new Cookie("usr", login.getLoginstring());
+                cookie.setComment("This cookie stores a random string to identify the user");
+                cookie.setMaxAge( 60 * 60 * 60);
+                cookie.setPath("/Hospital-mng-sys");
+                httpResponse.addCookie(cookie);
+                httpResponse.sendRedirect(httpRequest.getRequestURL().toString()+"?usr="+login.getLoginstring());
+                }
+                }catch (SQLException ex) {
+                Logger.getLogger(CookieCheck.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+            
             //chain.doFilter(request, response);
         if (debug) {
             log("CookieCheck:doFilter()");

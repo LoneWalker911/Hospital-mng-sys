@@ -7,9 +7,12 @@ package Backend;
 
 import static Backend.Login.con;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -76,6 +79,25 @@ public class Drug {
             Logger.getLogger(Drug.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public HashMap<Integer, String> getDrugs()
+    {
+        HashMap<Integer, String> ret = new HashMap<>();
+        try {
+            try (PreparedStatement st = con.prepareStatement("SELECT id,name FROM drug")) {
+               
+                ResultSet rs = st.executeQuery();
+                while(rs.next()){
+                    ret.put(rs.getInt("id"), rs.getString("name"));
+                }
+                st.close();
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getPayInfo() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
     
 }

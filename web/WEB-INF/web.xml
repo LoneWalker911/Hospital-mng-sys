@@ -41,8 +41,28 @@
         <servlet-class>Servelets.Patient.History</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Payment</servlet-name>
+        <servlet-class>Servelets.Patient.Payment</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Drug</servlet-name>
         <servlet-class>Servelets.Pharmacy.Drug</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EAppoinment</servlet-name>
+        <servlet-class>Servelets.Doctor.EAppoinment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <servlet-class>Servelets.Doctor.home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Prescription</servlet-name>
+        <servlet-class>Servelets.Doctor.Prescription</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>channelling</servlet-name>
+        <servlet-class>Servelets.Doctor.channelling</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -65,12 +85,32 @@
         <url-pattern>/patient/eApp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Payment</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>History</servlet-name>
         <url-pattern>/patient/history</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Drug</servlet-name>
         <url-pattern>/pharmacy/drug</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EAppoinment</servlet-name>
+        <url-pattern>/doctor/EAppoinment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/doctor/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Prescription</servlet-name>
+        <url-pattern>/doctor/prescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>channelling</servlet-name>
+        <url-pattern>/doctor/channelling</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

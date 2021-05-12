@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servelets;
+package Servelets.Doctor;
 
-import Backend.Encrypt;
+import Backend.Drug;
+import Backend.Login;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thisa
  */
-public class PatientRegister extends HttpServlet {
+public class home extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,8 +37,31 @@ public class PatientRegister extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           RequestDispatcher view = request.getRequestDispatcher("/PatientRegister.jsp");      
-           view.include(request, response);
+            Cookie[] cookies = null;
+            Cookie usr = null;
+            Login login = new Login();
+            cookies = request.getCookies();
+            if( cookies != null ) {
+            for(int i = 0; i < cookies.length; i++)
+            {
+                if(cookies[i].getName().equals("usr"))
+                {
+                    usr=cookies[i];
+
+                    login.setLoginstring(usr.getValue());
+                    login.getTypenID();
+                }
+            }
+            }
+            if(login.getUser_type_id()!=5 && login.getUser_type_id()!=6) //change this after development is complete
+                response.sendRedirect("/Hospital-mng-sys/Login");
+            else{
+                Drug drug = new Drug();
+                HashMap<Integer, String> drugs = drug.getDrugs();
+                request.setAttribute("drugs", drugs);
+                RequestDispatcher view = request.getRequestDispatcher("/doctor/home.jsp");
+                view.include(request, response);
+            }
         }
     }
 
@@ -70,43 +91,7 @@ public class PatientRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Backend.Patient pt = new Backend.Patient();
-        pt.setName(request.getParameter("name"));
-        pt.setAddress(request.getParameter("address"));
-        
-        pt.setMobile(request.getParameter("mobile"));
-        pt.setPassword(Encrypt.MD5(pt.getMobile()+request.getParameter("psw")));
-        
-        pt.setBdate(Date.valueOf(request.getParameter("timestamp")));
-        
-        String nextJSP = "";
-        String info="";
-        String error="";
-        
-        try {
-            if(!pt.Register())
-            {
-                error="<li>Something went wrong with registration. Try Again.</li>";
-                nextJSP = "/PatientRegister.jsp";
-                request.setAttribute("error",error);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-                dispatcher.forward(request,response);
-                this.destroy();
-            }
-            else
-            {
-                response.sendRedirect("/Hospital-mng-sys/Login?register=1");
-                this.destroy();
-            }
-                
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientRegister.class.getName()).log(Level.SEVERE, null, ex);
-            error="<li>Something went wrong with registration. Try Again.</li>";
-            nextJSP = "/PatientRegister.jsp";
-            request.setAttribute("error",error);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        }
+        processRequest(request, response);
     }
 
     /**

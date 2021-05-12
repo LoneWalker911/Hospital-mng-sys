@@ -61,7 +61,6 @@ public class History extends HttpServlet {
                 Appointment app = new Appointment();
                 app.setPid(Integer.parseInt(login.getUser_id()));
                 HashMap<Integer, String[]> info = app.getApps();
-                System.out.println(info.keySet());
                 request.setAttribute("info", info);
                 RequestDispatcher view = request.getRequestDispatcher("/patient/history.jsp");
                 view.include(request, response);

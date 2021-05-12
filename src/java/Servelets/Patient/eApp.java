@@ -10,9 +10,6 @@ import java.io.*;
 import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -27,10 +24,8 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.output.*;
 
 /**
  *
@@ -73,12 +68,7 @@ public class eApp extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
-            //if(request.getParameter("order_id")!=null && !request.getParameter("order_id").equals(""))
-           //{
-               //request.setAttribute("order_id",request.getParameter("order_id"));
-             //  RequestDispatcher view = request.getRequestDispatcher("/patient/eApp/payment.jsp");
-             //  view.forward(request, response);
-           //}
+           
            if(request.getParameter("time")!=null && request.getParameter("doc")!=null)
            {
                try{
@@ -102,6 +92,7 @@ public class eApp extends HttpServlet {
               dep.setId(Integer.valueOf(request.getParameter("dep")));
               HashMap<Integer, String> Docs = dep.getDocs();
               out.println("<select id=\"doc\" class=\"form-control\" name=\"doctor_id\">");
+              out.println("<option value=\"0\">Select a Doctor</option>");
               for (Integer id: Docs.keySet()) {
                    out.print("<option value=\""+id.toString()+"\">"+Docs.get(id)+"</option>");
                    }
@@ -116,14 +107,15 @@ public class eApp extends HttpServlet {
                else
                    out.print("0");
            }
-           if(request.getParameter("orderr_id")==null&&request.getParameter("dep")==null&&request.getParameter("time")==null&&request.getParameter("isPaid")==null){
+           if(request.getParameter("dep")==null&&request.getParameter("time")==null&&request.getParameter("isPaid")==null){
         
         response.setContentType("text/html;charset=UTF-8");
 
             /* TODO output your page here. You may use following sample code. */
+            Login login = new Login();
+            if(request.getParameter("usr")==null){
             Cookie[] cookies = null;
             Cookie usr = null;
-            Login login = new Login();
             cookies = request.getCookies();
             if( cookies != null ) {
             for(int i = 0; i < cookies.length; i++)
@@ -136,6 +128,11 @@ public class eApp extends HttpServlet {
                     login.getTypenID();
                 }
             }
+            }}
+            else
+            {
+                    login.setLoginstring(request.getParameter("usr"));
+                    login.getTypenID();
             }
             if(login.getUser_type_id()!=2 && login.getUser_type_id()!=6) //change this after development is complete
                 response.sendRedirect("/Hospital-mng-sys/Login");
@@ -188,7 +185,7 @@ public class eApp extends HttpServlet {
        String timestamp=null;
        String doc=null;
        String msg=null;
-       String type=null;
+       String type="0";
        response.setContentType("text/html");
        java.io.PrintWriter out = response.getWriter( );
 
@@ -216,7 +213,6 @@ public class eApp extends HttpServlet {
            FileItem fi = (FileItem)i.next();
            if ( !fi.isFormField () ) {
               // Get the uploaded file parameters
-              app.setVirtual(1);
               int index = 1;
               String fileName = fi.getName();
               if(fileName.isEmpty()) continue;
@@ -246,7 +242,7 @@ public class eApp extends HttpServlet {
                    }
                    rndmfilename=buffer.toString()+extention;
                    
-                   file = new File("C:\\Users\\thisa\\Documents\\NetBeansProjects\\Hospital-mng-sys\\web\\patient\\uploads"+  rndmfilename) ;
+                   file = new File("C:\\Users\\thisa\\Documents\\NetBeansProjects\\Hospital-mng-sys\\web\\patient\\uploads\\"+  rndmfilename) ;
 
                }while(file.exists() && !file.isDirectory());
 
@@ -255,6 +251,7 @@ public class eApp extends HttpServlet {
            }
            else
            {
+               System.out.println(fi.getFieldName());
                if (fi.getFieldName().equals("timestamp")) {
                    timestamp=fi.getString();
                }
@@ -266,13 +263,25 @@ public class eApp extends HttpServlet {
                }
                if (fi.getFieldName().equals("type")) {
                    type=fi.getString();
+                   System.out.println(type);
                }
            }
        }
 
-       if (type.equals("3") && doc == null || doc.equals("")) {
+        if ( type.equals("0") || type.equals("")) {
+         el.add("Select a Type first.");
+        } else {
+            try {
+                app.setType(Integer.parseInt(type));
+            } catch (NumberFormatException nfe) {
+                System.out.println(nfe);
+                el.add("Invalid Type.");
+            }
+       }
+          
+       if ((type.equals("3")) &&  (doc==null || doc.equals(""))) {
            el.add("Select a Doctor.");
-       } else {
+       } else if((type==null && type.equals("3"))) {
            try {
                app.setEmpid(Integer.parseInt(doc));
            } catch (NumberFormatException nfe) {
@@ -280,8 +289,10 @@ public class eApp extends HttpServlet {
                el.add("Invalid Doctor ID");
            }
        }
+       
+       
 
-       if ((msg == null) || (msg.equals(""))) {
+       if ((type.equals("2")) && ((msg == null) || msg.equals(""))) {
            el.add("Provide a brief message for the doctor.");
        }
 
@@ -289,6 +300,7 @@ public class eApp extends HttpServlet {
            el.add("Enter the time and date you want the doctor to connect with you");
        } else {
            try {
+               
                app.setTime(Timestamp.valueOf(timestamp+":00"));
            } catch (Exception ex) {
                System.out.println(ex);
@@ -312,8 +324,20 @@ public class eApp extends HttpServlet {
              
              if(app.Add()>0){
                  Payment pay = new Payment();
+                 pay.setType(app.getType());
                  pay.setApp_id(app.getId());
-                 response.sendRedirect("https://carparknsbm.000webhostapp.com?order_id="+ app.getId() +"&amount="+ pay.Calculate());
+                 if(pay.Calculate()>0.00){
+                   if(app.getType()==2)
+                    response.sendRedirect("https://carparknsbm.000webhostapp.com?order_id="+ app.getId() +"&amount="+ pay.Calculate()+"&type=1");
+                   if(app.getType()==3)
+                    response.sendRedirect("https://carparknsbm.000webhostapp.com?order_id="+ app.getId() +"&amount="+ pay.Calculate()+"&type=2");
+                 }
+                   else
+                 {
+                    el.add("Process failed. Contact admin.");
+                    request.setAttribute("error",(ArrayList) el);
+                    doGet(request, response); 
+                 }
                  this.destroy();
              }
              else

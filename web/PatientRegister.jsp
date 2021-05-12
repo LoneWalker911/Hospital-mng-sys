@@ -68,7 +68,7 @@
 <script src="assets/frontend/default/vendor/jquery/jquery.min.js"></script>
 </head>
 
-    <body>
+    <body onload="chng();">
         <!-- MAIN WRAPPER -->
         <div class="body-wrap">
             <div id="st-container" class="st-container">
@@ -96,23 +96,24 @@
                     action="PatientRegister"
                         method="post">
 
-
-
-
                         <div class="form-group">
                             <label for="" class="text-uppercase  c-gray-light">
                                 Name                            </label>
                             <input type="text" class="form-control input-lg" placeholder=""
                                    name="name">
                         </div>
-
+                        <div class="form-group eChannel eApp">
+                            <label for="" class="text-uppercase c-gray-light">
+                                Date                        </label>
+                            <input type="text" id="date" class="form-control input-lg datepicker" placeholder=""
+                                   onchange="Date1(Date.parse(this.value));" name="timestamp" required readonly="readonly">
+                        </div>
                         <div class="form-group">
                             <label for="" class="text-uppercase  c-gray-light">
                                 Address                            </label>
                             <input type="text" class="form-control input-lg" placeholder=""
                                    name="address">
                         </div>
-
                         <div class="form-group">
                             <label for="" class="text-uppercase c-gray-light">
                                 E-mail                            </label>
@@ -149,6 +150,22 @@
 
 <script>
 
+function Date1(timestamp)
+    {var a = new Date(timestamp);
+        var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var time = year + '-' + month + '-' + date ;
+        document.getElementById("date").value=time;
+    }
+function chng(){
+    var elems = document.getElementsByClassName("flatpickr-time");
+    var i;
+    for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "none";
+    }}
+    
     $(document).ready(function () {
        $('#old_patient').hide();
         $('#code_error').hide();
@@ -199,23 +216,22 @@
 <a href="#" class="back-to-top btn-back-to-top"></a>
 
 <!-- Core -->
-<script src="../assets/frontend/default/vendor/popper/popper.min.js"></script>
-<script src="../assets/frontend/default/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="../assets/frontend/default/js/vendor/jquery.easing.js"></script>
-<script src="../assets/frontend/default/js/ie10-viewport-bug-workaround.js"></script>
-<script src="../assets/frontend/default/js/slidebar/slidebar.js"></script>
-<script src="../assets/frontend/default/js/classie.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/vendor/popper/popper.min.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/js/vendor/jquery.easing.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/js/ie10-viewport-bug-workaround.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/js/slidebar/slidebar.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/js/classie.js"></script>
 
 <!-- Bootstrap Extensions -->
-<script src="../assets/frontend/default/vendor/bootstrap-dropdown-hover/js/bootstrap-dropdown-hover.js"></script>
-
+<script src="/Hospital-mng-sys/assets/frontend/default/vendor/bootstrap-dropdown-hover/js/bootstrap-dropdown-hover.js"></script>
 <!-- Plugins -->
-<script src="../assets/frontend/default/vendor/flatpickr/flatpickr.min.js"></script>
-<script src="../assets/frontend/default/vendor/swiper/js/swiper.min.js"></script>
-<script src="../assets/common/izitoast/js/iziToast.min.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/vendor/flatpickr/flatpickr.min.js"></script>
+<script<script src="/Hospital-mng-sys/assets/frontend/default/vendor/swiper/js/swiper.min.js"></script>
+<script src="/Hospital-mng-sys/assets/common/izitoast/js/iziToast.min.js"></script>
 
 <!-- App JS -->
-<script src="../assets/frontend/default/js/wpx.app.js"></script>
+<script src="/Hospital-mng-sys/assets/frontend/default/js/wpx.app.js"></script>
 
 
     </body>

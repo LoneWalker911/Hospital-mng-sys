@@ -1,10 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  String NextId =(String) request.getAttribute("NextId");
-    String Name =(String) request.getAttribute("Name");
-    String Mobile =(String) request.getAttribute("Mobile");
-    HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
-%>
+<%  HashMap<Integer, String[]> info = (HashMap<Integer, String[]>) request.getAttribute("info"); %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -55,28 +51,32 @@
     </tr>
     </thead>
     <tbody>
-    <tr data-toggle="modal" data-target="#myModal3" href="#" style="cursor:pointer">
-      <th scope="row">2020/04/21 10:05:02</th>
-      <td>Thisara Gunathilaka</td>
-      <td>21 yrs</td>
-    </tr>
-    <tr data-toggle="modal" data-target="#myModal3" href="#" style="cursor:pointer">
-      <th scope="row">2020/04/22 11:25:52</th>
-      <td>Prashan Vimantha</td>
-      <td>22 yrs</td>
-    </tr>
+    <%
+        if(!info.isEmpty()){
+            
+               for (Integer id: info.keySet()) {
+                   out.print("<tr  onclick=\"getApp(");
+                   out.print(info.get(id)[3]);
+                   out.print(");\" href=\"#\" style=\"cursor:pointer\"><th scope=\"row\">");
+                   out.print(info.get(id)[0]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[1]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[2]);
+                   out.print(" yrs</th><td></tr>");
+                    }
+                       }
+    %>
     </tbody>
     </table>
     </div>
 
 
-    <div id="test02" class="" >
+    <div id="test02">
 
     </div>
     <script type="text/javascript">
-    $('#chkwnd').on('load', function() {
-        $('#myModal').modal('show');
-    });
+
     </script>
   </body>
 </html>
