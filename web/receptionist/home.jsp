@@ -288,7 +288,7 @@
         <th scope="col">Address</th>
         <th scope="col">E-mail</th>
         <th scope="col">Mobile</th>
-        <th scope="col">Gender</th>
+
       </tr>
     </thead>
     <tbody>
@@ -298,7 +298,7 @@
         <td>No:128,Isuru Mw,Yakkala</td>
         <td>thisara.gunathilaka@gmail.com</td>
         <td>078-1245789</td>
-        <td>Female</td>
+
         <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
       </tr>
       <tr>
@@ -307,7 +307,7 @@
         <td>No:128,Isuru Mw,Yakkala</td>
         <td>thisara.gunathilaka@gmail.com</td>
         <td>078-1245789</td>
-        <td>Female</td>
+
         <td><button class="btn btn-danger btn-sm" name="cancel"><i class="fa fa-trash-o"/>Delete</button><td>
       </tr>
     </tbody>
