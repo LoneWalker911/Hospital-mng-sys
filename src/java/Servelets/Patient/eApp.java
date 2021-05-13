@@ -273,6 +273,7 @@ public class eApp extends HttpServlet {
         } else {
             try {
                 app.setType(Integer.parseInt(type));
+                app.setEmpid(12);
             } catch (NumberFormatException nfe) {
                 System.out.println(nfe);
                 el.add("Invalid Type.");
@@ -281,7 +282,7 @@ public class eApp extends HttpServlet {
           
        if ((type.equals("3")) &&  (doc==null || doc.equals(""))) {
            el.add("Select a Doctor.");
-       } else if((type==null && type.equals("3"))) {
+       } else if((type!=null && type.equals("3"))) {
            try {
                app.setEmpid(Integer.parseInt(doc));
            } catch (NumberFormatException nfe) {
@@ -289,14 +290,7 @@ public class eApp extends HttpServlet {
                el.add("Invalid Doctor ID");
            }
        }
-       else if((type==null && type.equals("2"))) {
-           try {
-               app.setEmpid(12);
-           } catch (NumberFormatException nfe) {
-               System.out.println(nfe);
-               el.add("Invalid Doctor ID");
-           }
-       }
+       
        
        
 

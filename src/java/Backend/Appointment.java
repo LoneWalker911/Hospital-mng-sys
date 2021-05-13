@@ -329,7 +329,7 @@ public class Appointment {
     {   HashMap<Integer, String[]> ret = new HashMap<>();
         try {
                 
-            try (PreparedStatement st = con.prepareStatement("SELECT appointment.id,DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,emp.name,department.name AS dep_name,appointment.status FROM doctor,appointment,department,emp WHERE appointment.empid=doctor.empid AND appointment.empid=emp.id AND doctor.dept_no=department.id AND appointment.status>0 AND appointment.Pid=? GROUP BY appointment.id order by appointment.app_time DESC")) {
+            try (PreparedStatement st = con.prepareStatement("y")) {
                 st.setInt(1, this.getPid());
 
                 ResultSet rs = st.executeQuery();
