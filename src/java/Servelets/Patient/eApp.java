@@ -303,18 +303,22 @@ public class eApp extends HttpServlet {
        if ((type.equals("2")) && ((msg == null) || msg.equals(""))) {
            el.add("Provide a brief message for the doctor.");
        }
-
+       
+           System.out.println(timestamp);
        if ((timestamp == null) || (timestamp.equals(""))) {
            el.add("Enter the time and date you want the doctor to connect with you");
        } else {
            try {
-               
-               app.setTime(Timestamp.valueOf(timestamp+":00"));
+               if((type.equals("3")))
+                app.setTime(Timestamp.valueOf(timestamp+" 12:00:00"));
+               else
+                   app.setTime(Timestamp.valueOf(timestamp+":00"));
            } catch (Exception ex) {
                System.out.println(ex);
                el.add("Invalid Date and Time.");
            }
        }
+       
 
        if (!el.isEmpty())
        {
