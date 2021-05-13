@@ -6,6 +6,7 @@
 package Servelets.Patient;
 
 import Backend.Appointment;
+import Backend.Prescription;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -74,6 +75,14 @@ public class Payment extends HttpServlet {
             app.setId(Integer.parseInt(request.getParameter("order_id")));
             request.setAttribute("info",(HashMap<String, String>) app.getPayInfo());
             RequestDispatcher view = request.getRequestDispatcher("/payment/channelcom.jsp");
+            view.forward(request, response);
+            }
+            
+            if(request.getParameter("type").equals("3")){
+            Prescription pres = new Prescription();
+            pres.setId(Integer.parseInt(request.getParameter("order_id")));
+            request.setAttribute("info",(HashMap<String, String>) pres.getPayInfo());
+            RequestDispatcher view = request.getRequestDispatcher("/payment/payment.jsp");
             view.forward(request, response);
             }
             

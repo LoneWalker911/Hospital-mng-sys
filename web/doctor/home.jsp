@@ -107,6 +107,26 @@
           xmlhttp.send();
         }
         
+        function getcApp(id)
+        {
+          
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var json = JSON.parse(this.responseText);
+                document.getElementById('id2').innerHTML=json['id'];
+                document.getElementById('name2').innerHTML=json['name'];
+                document.getElementById('age2').innerHTML=json['age'];
+                document.getElementById('date2').innerHTML=json['app_date'];
+                document.getElementById('id2').innerHTML=json['id'];
+                
+                document.getElementById('myModal2').style.display = "block";
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/channelling?getinfo=" + id, true);
+          xmlhttp.send();
+        }
+        
         function send()
         {
             var id = document.getElementById('id1').innerHTML;
@@ -139,18 +159,65 @@
           
         }
         
+        function sendc()
+        {
+            var id = document.getElementById('id2').innerHTML;
+            var drug_1 = document.getElementById('2drug_1').value;
+            var drug_2 = document.getElementById('2drug_2').value;
+            var drug_3 = document.getElementById('2drug_3').value;
+            var qty_1 = document.getElementById('2qty_1').value;
+            var qty_2 = document.getElementById('2qty_2').value;
+            var qty_3 = document.getElementById('2qty_3').value;
+
+
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                if(this.responseText==="1"){
+                setcStatus(3);
+                document.getElementById('myModal2').style.display = "none";
+                document.getElementById('2drug_1').value=0;
+                document.getElementById('2drug_2').value=0;
+                document.getElementById('2drug_3').value=0;
+                document.getElementById('2qty_1').value=0;
+                document.getElementById('2qty_2').value=0;
+                document.getElementById('2qty_3').value=0;
+                channel(0);
+            }}
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/prescription?send=1&app_id=" + id +"&drug_1=" + drug_1 + "&qty_1=" + qty_1 +"&drug_2=" + drug_2 + "&qty_2=" + qty_2 +"&drug_3=" + drug_3 + "&qty_3=" + qty_3 +"&msg=" + msg, true);
+          xmlhttp.send();
+          
+        }
+        
         function setStatus(status)
         {
           var id = document.getElementById('id1').innerHTML;
-          eapp(0);
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 if(this.responseText==="1"){
                 console.out("App: "+id+" Status changed to "+status);
+                eapp(0);
             }}
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/EAppoinment?setStatus=" + status +"&id=" + id, true);
+          xmlhttp.send();
+        }
+        
+        function setcStatus(status)
+        {
+          var id = document.getElementById('id2').innerHTML;
+          
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                if(this.responseText==="1"){
+                console.out("App: "+id+" Status changed to "+status);
+                channel(0);
+            }}
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/channelling?setStatus=" + status +"&id=" + id, true);
           xmlhttp.send();
         }
         
@@ -189,17 +256,18 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
     }
 
 
-        function channel()
+        function channel(loading)
         {
 
           var xmlhttp = new XMLHttpRequest();
+          if(loading===1)
           document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Channeling</h3>"+this.responseText;
             }
           };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/channeling.jsp", true);
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/channelling", true);
           xmlhttp.send();
           // document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/patient/history.jsp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
 
@@ -343,7 +411,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         </li>
 
           <li class="" style="">
-            <a onclick="channel();" href="#">
+            <a onclick="channel(1);" href="#">
               <i class="fa fa-desktop"></i>
                 <span>Channeling</span>
             </a>
@@ -409,7 +477,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" onclick="document.getElementById('myModal2').style.display = 'none'; setcStatus(1);">&times;</button>
           <h3 class="modal-title">Patient Information</h3>
         </div>
         <div class="modal-body">
@@ -418,27 +486,28 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
           <tr>
             <th scope="col">ID</th>
-            <td>01252</td>
+            <td id="id2">01252</td>
           </tr>
 
           <tr>
             <th scope="row">No</th>
-            <td>001</td>
+            <td id="no2">001</td>
           </tr>
 
           <tr>
             <th scope="row">Name</th>
-            <td>Thisara Gunathilaka</td>
+            <td
+                id="name2">Thisara Gunathilaka</td>
           </tr>
 
           <tr>
             <th scope="row">Age</th>
-            <td>21 yrs</td>
+            <td id="age2">21 yrs</td>
           </tr>
 
           <tr>
             <th scope="row">Date</th>
-            <td>20/04/2021</td>
+            <td id="date2">20/04/2021</td>
           </tr>
 
 
@@ -453,7 +522,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
           <tr>
 
-            <td><select class="js-example-basic-single" id="">
+            <td><select class="js-example-basic-single" id="2drug_1">
             <%
         if(!drugs.isEmpty()){
             
@@ -464,12 +533,12 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             %>
                           </select>
             </td>
-            <td><input type="number" id="qty_1" value="" placeholder="Enter Quantity"></td>
+            <td><input type="number" id="2qty_1" value="" placeholder="Enter Quantity"></td>
 
           </tr>
           <tr>
 
-            <td><select class="js-example-basic-single" id="">
+            <td><select class="js-example-basic-single" id="2drug_2">
             <%
         if(!drugs.isEmpty()){
             
@@ -479,7 +548,22 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                        }
             %>
                           </select></td>
-            <td><input type="number" name="" value="" placeholder="Enter Quantity"></td>
+            <td><input type="number" id="2qty_2" value="" placeholder="Enter Quantity"></td>
+
+          </tr>
+          <tr>
+
+            <td><select class="js-example-basic-single" id="2drug_3">
+            <%
+        if(!drugs.isEmpty()){
+            
+               for (Integer id: drugs.keySet()) {
+                   out.print("<option value=\""+ id +"\">"+ drugs.get(id) +"</option>");
+                    }
+                       }
+            %>
+                          </select></td>
+            <td><input type="number" id="2qty_3" value="" placeholder="Enter Quantity"></td>
 
           </tr>
           </table>
@@ -487,7 +571,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
           </div>
           <div class="modal-footer">
-              <button type="submit"  class="btn btn-primary" data-dismiss="modal">Submit</button>
+              <button type="submit"  class="btn btn-primary" onclick="sendc();">Submit</button>
           </div>
         </div>
 

@@ -26,6 +26,90 @@
 <link rel="stylesheet" href="../assets/js/datatables/responsive/css/datatables.responsive.css">
 <script src="../assets/frontend/default/vendor/jquery/jquery.min.js"></script>
 
+<script>
+    function app()
+    {
+        document.getElementById('ad').style.display='none';
+        document.getElementById('patient').style.display='none';
+        document.getElementById('dash').style.display='none';
+        document.getElementById('recep').style.display='none';
+        document.getElementById('app').style.display='block';
+    }
+    
+    function chan()
+    {
+        document.getElementById('ad').style.display='none';
+        document.getElementById('patient').style.display='none';
+        document.getElementById('dash').style.display='none';
+        document.getElementById('recep').style.display='block';
+        document.getElementById('app').style.display='none';
+    }
+    
+    function patient()
+    {
+        document.getElementById('ad').style.display='none';
+        document.getElementById('patient').style.display='block';
+        document.getElementById('dash').style.display='none';
+        document.getElementById('recep').style.display='none';
+        document.getElementById('app').style.display='none';
+    }
+    
+    function ad()
+    {
+        document.getElementById('ad').style.display='block';
+        document.getElementById('patient').style.display='none';
+        document.getElementById('dash').style.display='none';
+        document.getElementById('recep').style.display='none';
+        document.getElementById('app').style.display='none';
+    }
+    
+    function dash()
+    {
+        document.getElementById('ad').style.display='none';
+        document.getElementById('patient').style.display='none';
+        var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('tabledata').innerHTML=this.responseText;
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/receptionist/dashboard", true);
+          xmlhttp.send();
+        document.getElementById('dash').style.display='block';
+        document.getElementById('recep').style.display='none';
+        document.getElementById('app').style.display='none';
+    }
+    
+    const interval = setInterval(function() {
+   var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('tabledata').innerHTML=this.responseText;
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/receptionist/dashboard", true);
+          xmlhttp.send();
+ }, 3000);
+ 
+    function delete(id)
+    {   var status=0;
+        var r = confirm("Are you sure?!");
+        if (r == true) {
+        var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                if(this.responseText==="1"){
+                console.out("App: "+id+" Status changed to "+status);
+                eapp(0);
+            }}
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/EAppoinment?setStatus=" + status +"&id=" + id, true);
+          xmlhttp.send();
+      } else {
+        txt = "You pressed Cancel!";
+      }
+    }
+    </script>
 
 <style>
     .tile-stats .icon
@@ -52,7 +136,7 @@
         <div class="sui-normal">
 
                 <span>Welcome,</span>
-                <strong>Jane Doe                </strong>
+                <strong>Receptionist </strong>
         </div>
     </div>
 
@@ -60,35 +144,35 @@
 
         <!-- DASHBOARD -->
         <li class="">
-            <a href="">
+            <a onclick="dash();" href="#">
                 <i class="fa fa-desktop"></i>
                 <span>Dashboard</span>
             </a>
         </li>
 
         <li class="">
-            <a href="">
+            <a onclick="app();" href="#">
                 <i class="fa fa-edit"></i>
                 <span>Add Appointment</span>
             </a>
         </li>
 
           <li class="">
-            <a href="">
+            <a onclick="chan();" href="#">
               <i class="fa fa-hospital-o"></i>
                 <span>Channeling</span>
             </a>
         </li>
 
         <li class="">
-            <a href="">
+            <a onclick="patient();" href="#">
                 <i class="fa fa-user">
                 </i>Patient</span>
             </a>
         </li>
 
         <li class="">
-            <a href="">
+            <a onclick="ad();" href="#">
                 <i class="fa fa-stethoscope"></i>
                 <span>Active Doctors</span>
             </a>
@@ -115,7 +199,7 @@
         <ul class="list-inline links-list pull-right">
             <li class="sep"></li>
               <li>
-                <a href="../index.php/login/logout">
+                <a onclick="document.cookie = 'usr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/Hospital-mng-sys;'; location.reload();" href="#">
                     Logout &nbsp;<i class="fa fa-sign-out"></i>
                 </a>
             </li>
@@ -129,7 +213,7 @@
 
 
     <!-- Table for receptionist Dashboard-->
-    <div class="receptionist-dashboard" style="">
+    <div class="receptionist-dashboard" id="dash">
       <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
           <i class="entypo-right-circled"></i>
           Receptionist Dashboard                </h3>
@@ -143,7 +227,7 @@
       <th scope="col">Cancel</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tabledata">
     <tr>
       <th scope="row">1</th>
       <td>Thisara Gunathilaka</td>
@@ -161,7 +245,7 @@
 </div>
 
 <!-- Add Appointment -->
-<div class="receptionist-addAppoinment" style="display:none">
+<div class="receptionist-addAppoinment" id="app" style="display:none">
 
   <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
       <i class="entypo-right-circled"></i>
@@ -177,24 +261,11 @@
 
         <div class="form-group">
             <label for="" class="text-uppercase  c-gray-light">
-                ID                            </label>
-            <input type="text" class="form-control input-lg" placeholder="012510"
-                   name="id">
-        </div>
-
-        <div class="form-group">
-            <label for="" class="text-uppercase  c-gray-light">
                 Name                            </label>
             <input type="text" class="form-control input-lg" placeholder="Enter Name"
                    name="name">
         </div>
 
-        <div class="form-group">
-            <label for="" class="text-uppercase c-gray-light">
-                Phone                            </label>
-            <input type="number" class="form-control input-lg" placeholder="07X-XXXXXXX"
-                   name="phone">
-        </div>
 
         <div class="form-group">
             <label for="" class="text-uppercase c-gray-light">
@@ -203,20 +274,7 @@
                    name="age">
         </div>
 
-        <div class="form-group">
-            <label for="" class="text-uppercase c-gray-light">
-                Gender                            </label> <br>
-                <select class="form-control  input-lg" name="" id=""
-                    onchange="">
-                    <option value="0">Select A Gender</option>
-                                                    <option value="1"
-                                                            >
-                            Male                                </option>
-                                                    <option value="2"
-                                                            >
-                            Female                               </option>
-                                            </select>
-        </div><br>
+<br>
 
 
     <button type="submit" class="btn btn-primary btn-lg"
@@ -227,7 +285,7 @@
 </div>
 
 <!-- receptionist-Channeling -->
-<div class="receptionist-channeling" style="display:none">
+<div class="receptionist-channeling" id="recep" style="display:none">
 
   <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
       <i class="entypo-right-circled"></i>
@@ -266,7 +324,7 @@
 </div>
 
 <!-- Patient -->
-<div class="receptionist-patient" style="display:none">
+<div class="receptionist-patient" id="patient" style="display:none">
   <ul class="list-inline links-list pull-left">
     <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
         <i class="entypo-right-circled"></i>
@@ -315,7 +373,7 @@
 </div>
 
 <!-- Active Doctors -->
-<div class="receptionist-actDr" style="display:none">
+<div class="receptionist-actDr" id="ad" style="display:none">
   <h3 style="margin:20px 0px; color:#818da1; font-weight:200;">
       <i class="entypo-right-circled"></i>
       Active Doctors                 </h3>

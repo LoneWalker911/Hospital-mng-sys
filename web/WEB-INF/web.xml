@@ -11,7 +11,7 @@
         <url-pattern>/doctor/*</url-pattern>
         <url-pattern>/patient/*</url-pattern>
         <url-pattern>/pharmacy/*</url-pattern>
-        <url-pattern>/reception/*</url-pattern>
+        <url-pattern>/receptionist/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
@@ -64,6 +64,14 @@
         <servlet-name>channelling</servlet-name>
         <servlet-class>Servelets.Doctor.channelling</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>prescription</servlet-name>
+        <servlet-class>Servelets.Pharmacy.prescription</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>dashboard</servlet-name>
+        <servlet-class>Servelets.Receptionist.dashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -111,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>channelling</servlet-name>
         <url-pattern>/doctor/channelling</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prescription</servlet-name>
+        <url-pattern>/pharmacy/prescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dashboard</servlet-name>
+        <url-pattern>/receptionist/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

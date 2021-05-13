@@ -7,6 +7,7 @@ package Servelets.Patient;
 
 import Backend.Appointment;
 import Backend.Login;
+import Backend.Prescription;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -85,6 +86,14 @@ public class History extends HttpServlet {
             Appointment app = new Appointment();
             app.setId(Integer.parseInt( request.getParameter("getHistory")));
             out.print(app.getInfo());
+            }
+        }
+        if(request.getParameter("getPres")!=null)
+        {
+            try (PrintWriter out = response.getWriter()) {
+            Prescription pres = new Prescription();
+            pres.setApp_id(Integer.parseInt(request.getParameter("getPres")));
+            out.print(pres.getInfo());
             }
         }
         try {

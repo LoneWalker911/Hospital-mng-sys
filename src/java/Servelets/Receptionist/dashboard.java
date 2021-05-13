@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servelets.Doctor;
+package Servelets.Receptionist;
 
 import Backend.Appointment;
-import Backend.Login;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thisa
  */
-public class channelling extends HttpServlet {
+public class dashboard extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,32 +35,26 @@ public class channelling extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Cookie[] cookies = null;
-            Cookie usr = null;
-            Login login = new Login();
-            cookies = request.getCookies();
-            if( cookies != null ) {
-            for(int i = 0; i < cookies.length; i++)
-            {
-                if(cookies[i].getName().equals("usr"))
-                {
-                    usr=cookies[i];
-
-                    login.setLoginstring(usr.getValue());
-                    login.getTypenID();
-                }
-            }
-            }
-            if(login.getUser_type_id()!=5 && login.getUser_type_id()!=6) //change this after development is complete
-                response.sendRedirect("/Hospital-mng-sys/Login");
-            else{
-                Appointment app = new Appointment();
-                app.setEmpid(Integer.parseInt(login.getUser_id()));
-                HashMap<Integer, String[]> info = app.geteApps();
-                request.setAttribute("info", info);
-                RequestDispatcher view = request.getRequestDispatcher("/doctor/channeling.jsp");
-                view.include(request, response);
-            }
+            Appointment app = new Appointment();
+            HashMap<Integer, String[]> info = app.getRecepApps();
+            if(!info.isEmpty()){
+   
+               for (Integer id: info.keySet()) {
+                   out.print("<th scope=\"row\">");
+                   out.print(info.get(id)[0]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[1]);
+                   out.print("</td>");
+                   if(info.get(id)[2].equals("1"))
+                       out.print("<td><button class=\"btn btn-warning btn-sm\"  name=\"cancel\">Waiting</button></td>");
+                   if(info.get(id)[2].equals("2"))
+                       out.print("<td><button class=\"btn btn-success btn-sm\"  name=\"cancel\">Calling</button></td>");
+                   out.print("<td><button class=\"btn btn-danger btn-sm\" onclick=\"delete("+info.get(id)[0]+");\" name=\"cancel\"><i class=\"fa fa-trash-o\"/>Delete</button><td>");
+                   out.print("</tr>");
+                   
+            
+                    }
+                       }
         }
     }
 
@@ -78,22 +70,6 @@ public class channelling extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getParameter("getinfo")!=null)
-        {
-            try (PrintWriter out = response.getWriter()) {
-            Appointment app = new Appointment();
-            app.setId(Integer.parseInt( request.getParameter("getinfo")));
-            out.print(app.getcInfo());
-            }
-        }
-        if(request.getParameter("setStatus")!=null)
-        { try (PrintWriter out = response.getWriter()) {
-            Appointment app = new Appointment();
-            if(app.setStatus(Integer.parseInt(request.getParameter("setStatus")), Integer.parseInt(request.getParameter("id"))))
-                out.print("1");
-                }
-        }
-        else
         processRequest(request, response);
     }
 

@@ -109,7 +109,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                 document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Prescription</h3>"+this.responseText;
             }
           };
-          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/pharmacy/pres.jsp", true);
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/pharmacy/prescription", true);
           xmlhttp.send();
 
         }
@@ -205,7 +205,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         <ul class="list-inline links-list pull-right">
             <li class="sep"></li>
               <li>
-                <a href="../index.php/login/logout">
+                <a onclick="document.cookie = 'usr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/Hospital-mng-sys;'; location.reload();" href="#">
                     Logout &nbsp;<i class="fa fa-sign-out"></i>
                 </a>
             </li>
@@ -228,54 +228,51 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
     <div class="container">
   <!-- Trigger the modal with a button -->
-  <div class="modal shade in" id="myModalpres" role="dialog" style="">
+   <div class="modal shade in" id="myModal" style="overflow:inherit" role="dialog" style="">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3 class="modal-title">Patient Details</h3>
+          <button type="button" class="close" onclick="document.getElementById('myModal').style.display='none';clear1();">&times;</button>
+          <h3 class="modal-title">Patient Information</h3>
         </div>
         <div class="modal-body">
 
           <table class="table table-striped">
 
           <tr>
-            <th scope="col">ID</th>
-            <td>01252</td>
+              <th scope="col">ID</th>
+            <td id="Pid">01252</td>
           </tr>
 
           <tr>
             <th scope="row">Name</th>
-            <td>Thisara Gunathilaka</td>
+            <td id='Pname'>Thisara Gunathilaka</td>
           </tr>
 
           <tr>
             <th scope="row">Date</th>
-            <td>12/01/2021</td>
+            <td id="Pdate">12/01/2021</td>
           </tr>
 
           <tr>
             <th scope="row">Doctor Name</th>
-            <td>Dr. Thisra Gunathialaka</td>
+            <td id="Pdocname">Dr. Thisra Gunathialaka</td>
           </tr>
 
           <tr>
             <th scope="row">Payment</th>
-            <td>LKR 1250</td>
+            <td id="PresCharge"></td>
           </tr>
 
         </table>
                       <hr>
-        <table class="table table-striped">
+                      <table class="table table-striped" id="press">
           <h3>Prescription</h3>
           <tr>
             <th scope="row">Name</th>
             <th scope="row">Qty</th>
           </tr>
-          <tr>
-            <td>Paracetamol 500mg</td>
-            <td>30</td>
-          </tr>
+
           </table>
                       <hr>
           <%-- <table class="table table-striped">
@@ -297,7 +294,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             </table> --%>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-primary" >PAID</button>
+              <button type="button" class="btn btn-primary" onclick="order();">PAID</button>
           </div>
         </div>
 
@@ -305,7 +302,81 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
     </div>
   </div>
 
+<script type="text/javascript">
+        function clear1()
+        {
+            document.getElementById('press').innerHTML="<h3>Prescription</h3><tr><th scope=\"row\">Name</th><th scope=\"row\">Qty</th></tr>";
+        }
+        function getHistory(id)
+        {
+          //document.getElementById("loader").style.display="block";
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var json = JSON.parse(this.responseText);
+                getPres(json['id']);
+                document.getElementById('Pid').innerHTML=json['preid'];
+                document.getElementById('Pname').innerHTML=json['name'];
+                document.getElementById('Pdate').innerHTML=json['app_time'];
+                document.getElementById('Pdocname').innerHTML=json['docname'];
+                document.getElementById("myModal").style.display="block";
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/pharmacy/prescription?getHistory=" + id, true);
+          xmlhttp.send();
+        }
+        var presid=0;
+        function getPres(id)
+        {
+          
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var json = JSON.parse(this.responseText);
+                var out = document.getElementById('press').innerHTML;
+                var price = 0.00;
+                if(json['drug_1']!==null)
+                {out+= "<tr><td>"+ json['drug_1'] +"</td><td>" + json['qty_1'] + "</td></tr>";
+                    price+=parseFloat(json['price_1']);
+            }
+            else return;
+                if(json['drug_2']!==null)
+                {out+= "<tr><td>"+ json['drug_2'] +"</td><td>" + json['qty_2'] + "</td></tr>";
+                    price+=parseFloat(json['price_2']);
+                }
+                if(json['drug_3']!==null)
+                {out+= "<tr><td>"+ json['drug_3'] +"</td><td>" + json['qty_3'] + "</td></tr>";
+                price+=parseFloat(json['price_3']);
+            }
+                
+                    
+                document.getElementById('press').innerHTML=out;
+                document.getElementById('PresCharge').innerHTML=price;
+                presid=json['id'];
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/pharmacy/prescription?getPres=" + id, true);
+          xmlhttp.send();
+        }
+        
+        
+        
+    function order(){
+        var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                if(this.responseText=="1"){
+                clear1();
+                document.getElementById("myModal").style.display="none";
+                pres();
+            }
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/pharmacy/prescription?sent=" + presid, true);
+          xmlhttp.send();
+}
 
+    </script>
                 <!-- Footer -->
 <footer class="main">
 	&copy; 2017 <strong> Hospital Management System</strong>

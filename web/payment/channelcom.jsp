@@ -10,7 +10,7 @@ HashMap<String, String> info = (HashMap<String, String>) request.getAttribute("i
     <meta charset="utf-8">
     <title>Channel Complete</title>
   </head>
-  <body>
+  <body onload="sms();">
     <div class="topbar"></div>
     <div class="text">
       <p2 style="">Your Channeling has completed successfully.</p2><br>
@@ -26,6 +26,20 @@ HashMap<String, String> info = (HashMap<String, String>) request.getAttribute("i
       <img src="payment/pay2.png" class="pay2"  width="45%"  height="45%">
 
     </div>
+<script>
+        function sms()
+        {
+          //document.getElementById("loader").style.display="block";
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
 
+                
+            }
+          };
+          xmlhttp.open("GET", "http://carparknsbm.000webhostapp.com/sms.php?to=94788323221&msg=We%20have%20recieved%20your%20payment.Thank%20you%20and%20Stay%20Safe" + id, true);
+          xmlhttp.send();
+        }
+    </script>
   </body>
 </html>

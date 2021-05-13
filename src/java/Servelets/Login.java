@@ -79,7 +79,12 @@ public class Login extends HttpServlet {
             }
             catch (SQLException ex) {
                 Logger.getLogger(CookieCheck.class.getName()).log(Level.SEVERE, null, ex);
-            }}}else{
+            }}
+            else{
+           RequestDispatcher view = request.getRequestDispatcher("/login.jsp");      
+           view.include(request, response);}
+            }
+            else{
            RequestDispatcher view = request.getRequestDispatcher("/login.jsp");      
            view.include(request, response);}
     }
@@ -134,7 +139,7 @@ public class Login extends HttpServlet {
         login.Login();
         switch(login.getUser_type_id()){
             case 0:error="<li>Invalid credentials</li>";break;
-            case 1:nextJSP = "/reception/home.jsp"; break; //Receptionist HOME
+            case 1:nextJSP = "/receptionist/home.jsp"; break; //Receptionist HOME
             case 2:nextJSP = "/patient/home.jsp"; break;//Patient HOME
             case 3:nextJSP = "/pharmacy/home.jsp"; break;//Pharmacy HOME
             case 4:nextJSP = "/department/home.jsp"; break;//Nurse HOME

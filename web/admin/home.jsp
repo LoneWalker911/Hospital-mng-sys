@@ -57,16 +57,8 @@
 <script>
 function addemp()
 {
+document.getElementById('test').innerHTML="<iframe src=\"http://localhost:8080/Hospital-mng-sys/admin/AddEmp\" style=\"border:none\" width=\"100%\" height=\"1100px\"></iframe>";
 
-  var xmlhttp = new XMLHttpRequest();
-  document.getElementById('test').innerHTML="<center><img src=\"https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif\" alt=\"Loading...\"></center>";
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState === 4 && this.status === 200) {
-        document.getElementById('test').innerHTML="<h3 style=\"margin:20px 0px; color:#818da1; font-weight:200;\"><i class=\"entypo-right-circled\"></i>Add Employee</h3>"+this.responseText;
-    }
-  };
-  xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/admin/AddEmp", true);
-  xmlhttp.send();
 
 }
 
@@ -160,7 +152,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
         <!-- logo -->
         <div class="logo" style="">
-            <a href="../index.php/login">
+            <a href="#">
                 <img src="../uploads/logo.png"  style="max-height:60px;"/>
             </a>
         </div>
@@ -223,7 +215,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         <ul class="list-inline links-list pull-right">
             <li class="sep"></li>
               <li>
-                <a href="../index.php/login/logout">
+                <a onclick="document.cookie = 'usr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/Hospital-mng-sys;'; location.reload();" href="#">
                     Logout &nbsp;<i class="fa fa-sign-out"></i>
                 </a>
             </li>

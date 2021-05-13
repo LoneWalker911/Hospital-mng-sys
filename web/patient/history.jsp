@@ -36,10 +36,21 @@
 
 
   </script>
-
+  <style>
+      .gg{
+    z-index: 9999;
+   display:none;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+      }
+  </style>
 
   </head>
   <body>
+      <img id="loader" class="gg" src="https://ajsupport.com/wp-content/uploads/2020/05/Line-Preloader.gif">
     <div class="receptionist-dashboard" style="">
 
 
@@ -66,11 +77,11 @@
                    out.print("</th><td>");
                    out.print(info.get(id)[2]);
                    out.print("</th><td>");
-                   if(info.get(id)[3].equals("1"))
+                   if(Integer.parseInt(info.get(id)[3])>2)
                    {
                        out.print("<button class=\"btn btn-success btn-sm\" name=\"went\" style=\"cursor:default\">Went</button><td>");
                    }
-                   if(info.get(id)[3].equals("0"))
+                   if(info.get(id)[3].equals("1"))
                    {
                        out.print("<button class=\"btn btn-danger btn-sm\" name=\"missed\" style=\"cursor:default\">Missed</button><td>");                       
                    }
@@ -90,7 +101,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" onclick="document.getElementById('test02').style.display='none'">&times;</button>
+          <button type="button" class="close" onclick="document.getElementById('myModal').style.display='none';clear1();">&times;</button>
           <h3 class="modal-title">Patient Information</h3>
         </div>
         <div class="modal-body">
@@ -135,38 +146,38 @@
 
         </table>
                       <hr>
-        <table class="table table-striped">
+        <table class="table table-striped" id="press">
           <h3>Prescription</h3>
           <tr>
             <th scope="row">Name</th>
             <th scope="row">Qty</th>
           </tr>
-          <tr>
+<!--          <tr>
             <td>Paracetamol 500mg</td>
             <td>30</td>
-          </tr>
+          </tr>-->
           </table>
                       <hr>
           <table class="table table-striped">
             <h3>Payment Information</h3>
             <tr>
               <th scope="row">Doctor Charges</th>
-              <td id="Pdoccharge">LKR 1200</td>
+              <td id="Pdoccharge"></td>
             </tr>
 
             <tr>
               <th scope="row">Prescription</th>
-              <td>LKR 2000</td>
+              <td id="PresCharge"></td>
             </tr>
 
             <tr>
               <th scope="row">Total</th>
-              <td scope="col">LKR 3200</td>
+              <td scope="col" id="tot"></td>
             </tr>
             </table>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Order Prescription</button>
+              <button style="display:none" type="button" id="orderbtn" class="btn btn-primary" onclick="order();">Order Prescription</button>
           </div>
         </div>
 
@@ -176,30 +187,73 @@
 
 
     <script type="text/javascript">
+        function clear1()
+        {
+            document.getElementById('press').innerHTML="<h3>Prescription</h3><tr><th scope=\"row\">Name</th><th scope=\"row\">Qty</th></tr>";
+        }
         function getHistory(id)
         {
-          
+          document.getElementById("loader").style.display="block";
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 var json = JSON.parse(this.responseText);
+                getPres(json['id']);
                 document.getElementById('Pid').innerHTML=json['id'];
                 document.getElementById('Pname').innerHTML=json['name'];
                 document.getElementById('Pdate').innerHTML=json['app_time'];
                 document.getElementById('Pdocname').innerHTML=json['docname'];
                 document.getElementById('Pdept').innerHTML=json['dept'];
-                document.getElementById('Pdoccharge').innerHTML=json['amount']+" LKR";
+                document.getElementById('Pdoccharge').innerHTML=json['amount'];
                 document.getElementById("myModal").style.display="block";
             }
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history?getHistory=" + id, true);
           xmlhttp.send();
         }
+        var presid=0;
+        function getPres(id)
+        {
+          
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var json = JSON.parse(this.responseText);
+                var out = document.getElementById('press').innerHTML;
+                var price = 0.00;
+                if(json['drug_1']!==null)
+                {out+= "<tr><td>"+ json['drug_1'] +"</td><td>" + json['qty_1'] + "</td></tr>";
+                    price+=parseFloat(json['price_1']);
+            }
+            else return;
+                if(json['drug_2']!==null)
+                {out+= "<tr><td>"+ json['drug_2'] +"</td><td>" + json['qty_2'] + "</td></tr>";
+                    price+=parseFloat(json['price_2']);
+                }
+                if(json['drug_3']!==null)
+                {out+= "<tr><td>"+ json['drug_3'] +"</td><td>" + json['qty_3'] + "</td></tr>";
+                price+=parseFloat(json['price_3']);
+            }
+                if(json['status']==0)
+                    document.getElementById("orderbtn").style.display="block";
+                    
+                document.getElementById('press').innerHTML=out;
+                document.getElementById('PresCharge').innerHTML=price;
+                document.getElementById('tot').innerHTML=price+parseFloat(document.getElementById('Pdoccharge').innerHTML);
+                presid=json['id'];
+                document.getElementById("loader").style.display="none";
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/patient/history?getPres=" + id, true);
+          xmlhttp.send();
+        }
+        
+        
+        
     function order(){
-    var myModal = document.getElementById('myModal');
-    document.getElementById('test02').innerHTML = myModal.innerHTML;
-    document.getElementById('test02').style.display = "block";
+    window.location.replace("https://carparknsbm.000webhostapp.com?order_id="+ presid +"&amount="+ document.getElementById('PresCharge').innerHTML+"&type=3");
 }
+
     </script>
 
   </body>

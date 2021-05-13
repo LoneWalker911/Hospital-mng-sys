@@ -217,7 +217,7 @@ public class AddEmp extends HttpServlet {
                         nu.setDep(dep);
                         nu.Register();
                     }
-                    response.sendRedirect("/Hospital-mng-sys/Login?register=1");
+                    response.sendRedirect("/Hospital-mng-sys/admin/AddEmp");
                     this.destroy();
                 }
                 else{

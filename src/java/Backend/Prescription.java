@@ -6,12 +6,17 @@
 package Backend;
 
 import static Backend.Login.con;
+import Model.DbConn;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -49,6 +54,8 @@ public class Prescription {
     private int id,app_id,drug_1,qty_1,drug_2,qty_2,drug_3,qty_3 = 0;
     private Timestamp time;
     private String instruct = "";
+    DbConn db = new DbConn();
+    static Connection con = DbConn.CreateConn();
     /**
      * @return the id
      */
@@ -164,7 +171,7 @@ public class Prescription {
     public boolean Add()
     {
         try {
-            PreparedStatement st = con.prepareStatement("INSERT INTO `prescription`(`app_id`, `instruct`, `drug_1`, `qty_1`, `drug_2`, `qty_2`, `drug_3`, `qty_3`) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement st = con.prepareStatement("INSERT INTO `prescription`(`app_id`, `instruct`, `drug_1`, `qty_1`, `drug_2`, `qty_2`, `drug_3`, `qty_3`, `status`) VALUES (?,?,?,?,?,?,?,?,0)");
             st.setInt(1, this.getApp_id());
             st.setString(2, this.getInstruct());
             
@@ -194,4 +201,110 @@ public class Prescription {
         }
         return false;
     }
+    
+    public String getInfo()
+    {
+        String ret="";
+        JSONObject obj = new JSONObject();
+        try (PreparedStatement st = con.prepareStatement("SELECT instruct,(SELECT drug.price*qty_1 FROM drug WHERE drug.id=drug_1) AS price_1,(SELECT drug.price*qty_2 FROM drug WHERE drug.id=drug_2) AS price_2,(SELECT drug.price*qty_3 FROM drug WHERE drug.id=drug_3) AS price_3,(SELECT drug.name FROM drug WHERE drug.id=drug_1) AS drug_1,qty_1,(SELECT drug.name FROM drug WHERE drug.id=drug_2) AS drug_2,qty_2,(SELECT drug.name FROM drug WHERE drug.id=drug_3) AS drug_3,qty_3,status,prescription.id FROM prescription,drug WHERE drug.id=drug_1  AND prescription.app_id=?")) {
+                st.setInt(1, this.getApp_id());
+                ResultSet rs = st.executeQuery();
+
+                while(rs.next()){
+                    obj.put("msg", rs.getString("instruct"));
+                    obj.put("drug_1", rs.getString("drug_1"));
+                    obj.put("qty_1", rs.getString("qty_1"));
+                    obj.put("drug_2", rs.getString("drug_2"));
+                    obj.put("qty_2", rs.getString("qty_2"));
+                    obj.put("drug_3", rs.getString("drug_3"));
+                    obj.put("qty_3", rs.getString("qty_3"));
+                    obj.put("price_1", rs.getString("price_1"));
+                    obj.put("price_2", rs.getString("price_2"));
+                    obj.put("price_3", rs.getString("price_3"));
+                    obj.put("status", rs.getString("status"));
+                    obj.put("id", rs.getString("id"));
+                }
+                st.close();
+                ret=obj.toString();
+            }
+        catch (SQLException ex) {
+            EventLog.Write("getInfo() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
+    
+    public HashMap<String, String> getPayInfo()
+    {   HashMap<String, String> ret = new HashMap<>();
+        try {
+                
+            try (PreparedStatement st = con.prepareStatement("SELECT patient.address,patient.id FROM patient,appointment,prescription WHERE prescription.app_id=appointment.id AND appointment.Pid=patient.id AND prescription.id = ?")) {
+                st.setInt(1, this.getId());
+                ResultSet rs = st.executeQuery();
+                int i = 0;
+                while(rs.next()){
+                    ret.put("pid", rs.getString("id"));
+                    ret.put("address", rs.getString("address"));
+                }
+                st.close();
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getPayInfo() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
+    
+    public HashMap<Integer, String[]> getPhyInfo()
+    {   HashMap<Integer, String[]> ret = new HashMap<>();
+        try {
+                
+            try (PreparedStatement st = con.prepareStatement("SELECT appointment.id,patient.name,DATE_FORMAT(appointment.app_time, '%Y/%m/%d') AS app_time,emp.name AS dname,TIMESTAMPDIFF(YEAR, patient.bdate, CURDATE()) AS age FROM appointment,emp,patient,payment,prescription WHERE prescription.app_id=appointment.id AND prescription.id=payment.pres_id AND appointment.Pid=patient.id AND appointment.empid=emp.id AND prescription.status=1 order by appointment.app_time DESC")) {
+                System.out.println(st.toString());
+                ResultSet rs = st.executeQuery();
+                String[] obj;
+                int i = 0;
+                while(rs.next()){
+                    obj = new String[5];
+                    obj[0]=rs.getString("id");
+                    obj[1]=rs.getString("name");
+                    obj[2]=rs.getString("app_time");
+                    obj[3]=rs.getString("dname");
+                    obj[4]=rs.getString("age");
+                    ret.put(i++, obj);
+                    obj=null;
+                }
+                st.close();
+            }
+        } catch (SQLException ex) {
+            EventLog.Write("getApps() process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
+    }
+    
+    public boolean setStatus(int status,int id)
+    {
+        boolean ret=false;
+        try {
+                        
+                PreparedStatement st = con.prepareStatement("UPDATE prescription SET status=? WHERE id=?");
+                st.setInt(1, status);
+                st.setInt(2, id);
+                
+                ret = st.executeUpdate()>0;
+
+                st.close();
+                
+                return ret;
+ 
+         
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            EventLog.Write("Set status process failed.");
+            Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 }

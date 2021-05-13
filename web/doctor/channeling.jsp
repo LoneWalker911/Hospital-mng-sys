@@ -51,14 +51,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr data-toggle="modal" data-target="#myModal2" href="#" style="cursor:pointer">
-      <th scope="row">01</th>
-      <td>Thisara Gunathilaka</td>
-    </tr>
-    <tr data-toggle="modal" data-target="#myModal2" href="#" style="cursor:pointer">
-      <th scope="row">02</th>
-      <td>Prashan Vimantha</td>
-    </tr>
+        <%
+        if(!info.isEmpty()){
+            
+               for (Integer id: info.keySet()) {
+                   out.print("<tr  onclick=\"getcApp(");
+                   out.print(info.get(id)[0]);
+                   out.print(");\" href=\"#\" style=\"cursor:pointer\"><th scope=\"row\">");
+                   out.print(id+1);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[1]);
+                   out.print("</th>");
+                    }
+                       }
+    %>
+    
     </tbody>
     </table>
     </div>

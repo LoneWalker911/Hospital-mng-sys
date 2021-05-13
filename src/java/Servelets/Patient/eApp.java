@@ -289,6 +289,14 @@ public class eApp extends HttpServlet {
                el.add("Invalid Doctor ID");
            }
        }
+       else if((type==null && type.equals("2"))) {
+           try {
+               app.setEmpid(12);
+           } catch (NumberFormatException nfe) {
+               System.out.println(nfe);
+               el.add("Invalid Doctor ID");
+           }
+       }
        
        
 

@@ -1,10 +1,5 @@
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  String NextId =(String) request.getAttribute("NextId");
-    String Name =(String) request.getAttribute("Name");
-    String Mobile =(String) request.getAttribute("Mobile");
-    HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
-%>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -42,69 +37,52 @@
 
   </head>
   <body>
-    <form class="form-default" role="form"
-        action="../index.php/home/make_an_appointment"
-            method="post"
-                enctype="multipart/form-data">
+    <form class="form-default" role="form">
 
 
 
 
-            <div class="form-group">
-                <label for="" class="text-uppercase  c-gray-light">
-                    ID                            </label>
-                <input type="text" class="form-control input-lg" placeholder=""
-                       name="id">
-            </div>
+            
 
             <div class="form-group">
                 <label for="" class="text-uppercase  c-gray-light">
                     Name                            </label>
-                <input type="text" class="form-control input-lg" placeholder=""
-                       name="name">
+                <input type="text" class="form-control input-lg" type="text" placeholder="Drug name" id="dname">
             </div>
 
-            <div class="form-group">
-                <label for="" class="text-uppercase c-gray-light">
-                    Generic Name                            </label>
-                <input type="text" class="form-control input-lg" placeholder=""
-                       name="Genname">
-            </div>
-
-            <div class="form-group">
-                <label for="" class="text-uppercase c-gray-light">
-                    Quantity                            </label>
-                <input type="number" class="form-control input-lg" placeholder=""
-                       name="qty">
-            </div>
+          
             <div class="form-group">
                 <label for="" class="text-uppercase c-gray-light">
                     Price                            </label>
-                <input type="number" class="form-control input-lg" placeholder=""
-                       name="price">
-            </div>
-            <div class="form-group">
-                <label for="" class="text-uppercase c-gray-light">
-                    Last Stock Date                            </label>
-                <input type="number" class="form-control input-lg" placeholder=""
-                       name="laststockdate">
+                <input type="number" class="form-control input-lg" type="number" step="0.01" placeholder="200.00" id="dprice">
             </div>
 
         <br>
 
 
-        <button type="submit" class="btn btn-primary btn-lg"
+        <button type="submit" onclick="addDrug();" class="btn btn-primary btn-lg"
                 style="cursor: pointer;">
-            </i> Add Now                    </button>
+            </i> Add Now                    </button><img width="20px" id="dload" style="display:none" src="https://i.gifer.com/ZZ5H.gif"><p id="dstatus"></p>
     </form>
 
-    <%-- <div id="test02" class="" >
-
-    </div>
+  
     <script type="text/javascript">
-    $('#chkwnd').on('load', function() {
-        $('#myModal').modal('show');
-    });
-    </script> --%>
+        function addDrug(id)
+        {
+          document.getElementById("dload").style.display="block";
+          var name = document.getElementById('dname').value;
+          var price = document.getElementById('dprice').value;
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                if(this.responseText=="1"){
+                document.getElementById('dstatus').innerHTML="Drug added to the system";
+                document.getElementById("dload").style.display="none";}
+            }
+          };
+          xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/pharmacy/drug?name=" + name + "&price=" + price, true);
+          xmlhttp.send();
+        }
+    </script> 
   </body>
 </html>

@@ -1,9 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%  String NextId =(String) request.getAttribute("NextId");
-    String Name =(String) request.getAttribute("Name");
-    String Mobile =(String) request.getAttribute("Mobile");
-    HashMap<Integer, String> Deps = (HashMap<Integer, String>) request.getAttribute("Deps");
+<%   
+    HashMap<Integer, String[]> info = (HashMap<Integer, String[]>) request.getAttribute("info");
 %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -47,25 +45,20 @@
 
 
       <tr>
-        <td><select class="form-control  input-sm" name="" id=""
-                onchange="">
+        <td><select class="form-control  input-sm" id="selec">
                 <option value="0">Select The Department</option>
-                                                <option value="1"
-                                                        >
-                        Appoinment ID                                </option>
-                                                <option value="2"
-                                                        >
-                        Mobile No                               </option>
+                <option value="1">Appointment ID </option>
+                <option value="2">Mobile No</option>
                                         </select></td>
 
 
 
     <td>
 
-              <input type="text" class="form-control input-sm" name="search" value="" placeholder="Search here.. ">
+              <input type="text" class="form-control input-sm" id="search" value="" placeholder="Search here.. ">
 
      </td>
-          <td><button type="submit" class="btn btn-primary" >Search</button></td>
+          <td><button type="submit" class="btn btn-primary" onclick="search();">Search</button></td>
 </tr>
   </table>
 
@@ -76,25 +69,29 @@
       <th scope="col">Patient Name</th>
       <th scope="col">Doctor Name</th>
       <th scope="col">Age</th>
-      <th scope="col">Gender</th>
 
     </tr>
     </thead>
     <tbody>
-    <tr data-toggle="modal" data-target="#myModalpres" href="#" style="cursor:pointer">
-      <th scope="row">2020/04/21</th>
-      <td>Thisara Gunathilaka</td>
-      <td>Thisara Gunathilaka</td>
-      <td>21 yrs</td>
-      <td>Male</td>
-    </tr>
-    <tr data-toggle="modal" data-target="#myModalpres" href="#" style="cursor:pointer">
-      <th scope="row">2020/04/21</th>
-      <td>Thisara Gunathilaka</td>
-      <td>Thisara Gunathilaka</td>
-      <td>21 yrs</td>
-      <td>Male</td>
-    </tr>
+        <%
+        if(!info.isEmpty()){
+            
+               for (Integer id: info.keySet()) {
+                   out.print("<tr  onclick=\"getHistory(");
+                   out.print(info.get(id)[0]);
+                   out.print(");\" href=\"#\" style=\"cursor:pointer\"><th scope=\"row\">");
+                   out.print(info.get(id)[2]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[1]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[3]);
+                   out.print("</th><td>");
+                   out.print(info.get(id)[4]);
+                   out.print(" yrs</th><td></tr>");
+                    }
+        }
+    %>
+
     </tbody>
     </table>
     </div>
