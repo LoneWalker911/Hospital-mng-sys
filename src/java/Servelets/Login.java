@@ -143,7 +143,7 @@ public class Login extends HttpServlet {
             case 2:nextJSP = "/patient/home.jsp"; break;//Patient HOME
             case 3:nextJSP = "/pharmacy/home.jsp"; break;//Pharmacy HOME
             case 4:nextJSP = "/department/home.jsp"; break;//Nurse HOME
-            case 5:nextJSP = "/doctor/home.jsp"; break;//Doctor HOME
+            case 5:nextJSP = "/doctor/home"; break;//Doctor HOME
             case 6:nextJSP = "/admin/home.jsp"; break;//Admin HOME
             default: error="<li>Something went WRONG!!!</li>";
         }
