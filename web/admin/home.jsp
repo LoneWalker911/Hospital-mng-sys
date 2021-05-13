@@ -25,7 +25,7 @@
 <html lang="en" dir="">
     <head>
 
-        <title>Patient - Hospital Management System</title>
+        <title>Admin - Hospital Management System</title>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -207,7 +207,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         <ul class="list-inline links-list pull-left">
             <li class="dropdown language-selector">
                 <a class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
-                    <i class="entypo-user"></i> Patient                </a>
+                    <i class="entypo-user"></i> Admin                </a>
             </li>
         </ul>
 
@@ -323,11 +323,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
 
                 <!-- Footer -->
-<footer class="main">
-	&copy; 2017 <strong> Hospital Management System</strong>
-    Developed by
 
-</footer>
 
             </div>
 

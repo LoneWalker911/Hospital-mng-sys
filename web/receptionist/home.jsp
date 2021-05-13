@@ -35,7 +35,7 @@
         document.getElementById('recep').style.display='none';
         document.getElementById('app').style.display='block';
     }
-    
+
     function chan()
     {
         document.getElementById('ad').style.display='none';
@@ -44,7 +44,7 @@
         document.getElementById('recep').style.display='block';
         document.getElementById('app').style.display='none';
     }
-    
+
     function patient()
     {
         document.getElementById('ad').style.display='none';
@@ -53,7 +53,7 @@
         document.getElementById('recep').style.display='none';
         document.getElementById('app').style.display='none';
     }
-    
+
     function ad()
     {
         document.getElementById('ad').style.display='block';
@@ -62,7 +62,7 @@
         document.getElementById('recep').style.display='none';
         document.getElementById('app').style.display='none';
     }
-    
+
     function dash()
     {
         document.getElementById('ad').style.display='none';
@@ -79,7 +79,7 @@
         document.getElementById('recep').style.display='none';
         document.getElementById('app').style.display='none';
     }
-    
+
     const interval = setInterval(function() {
    var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
@@ -90,7 +90,7 @@
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/receptionist/dashboard", true);
           xmlhttp.send();
  }, 3000);
- 
+
     function delete(id)
     {   var status=0;
         var r = confirm("Are you sure?!");
@@ -400,12 +400,7 @@
 
 
 
-                <!-- Footer -->
-<footer class="main">
-	&copy; 2021 <strong> Hospital Management System</strong>
-    Developed by DIGITAL WEB LANKAN
 
-</footer>
 
             </div>
 

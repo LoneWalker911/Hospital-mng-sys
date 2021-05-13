@@ -313,11 +313,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
 
                 <!-- Footer -->
-<footer class="main">
-	&copy; 2017 <strong> Hospital Management System</strong>
-    Developed by
 
-</footer>
 
             </div>
 

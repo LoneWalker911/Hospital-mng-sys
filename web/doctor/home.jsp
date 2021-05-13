@@ -45,7 +45,7 @@
 <html lang="en" dir="">
     <head>
 
-        <title>Patient - Hospital Management System</title>
+        <title>Doctor - Hospital Management System</title>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -78,7 +78,7 @@
 <script>
     function getApp(id)
         {
-          
+
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
@@ -106,10 +106,10 @@
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/EAppoinment?getinfo=" + id, true);
           xmlhttp.send();
         }
-        
+
         function getcApp(id)
         {
-          
+
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
@@ -119,14 +119,14 @@
                 document.getElementById('age2').innerHTML=json['age'];
                 document.getElementById('date2').innerHTML=json['app_date'];
                 document.getElementById('id2').innerHTML=json['id'];
-                
+
                 document.getElementById('myModal2').style.display = "block";
             }
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/channelling?getinfo=" + id, true);
           xmlhttp.send();
         }
-        
+
         function send()
         {
             var id = document.getElementById('id1').innerHTML;
@@ -156,9 +156,9 @@
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/prescription?send=1&app_id=" + id +"&drug_1=" + drug_1 + "&qty_1=" + qty_1 +"&drug_2=" + drug_2 + "&qty_2=" + qty_2 +"&drug_3=" + drug_3 + "&qty_3=" + qty_3 +"&msg=" + msg, true);
           xmlhttp.send();
-          
+
         }
-        
+
         function sendc()
         {
             var id = document.getElementById('id2').innerHTML;
@@ -187,9 +187,9 @@
           };
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/prescription?send=1&app_id=" + id +"&drug_1=" + drug_1 + "&qty_1=" + qty_1 +"&drug_2=" + drug_2 + "&qty_2=" + qty_2 +"&drug_3=" + drug_3 + "&qty_3=" + qty_3 +"&msg=" + msg, true);
           xmlhttp.send();
-          
+
         }
-        
+
         function setStatus(status)
         {
           var id = document.getElementById('id1').innerHTML;
@@ -204,11 +204,11 @@
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/EAppoinment?setStatus=" + status +"&id=" + id, true);
           xmlhttp.send();
         }
-        
+
         function setcStatus(status)
         {
           var id = document.getElementById('id2').innerHTML;
-          
+
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
@@ -220,7 +220,7 @@
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/doctor/channelling?setStatus=" + status +"&id=" + id, true);
           xmlhttp.send();
         }
-        
+
     $(document).ready(function() {
 $('.js-example-basic-single').select2();
 });
@@ -396,7 +396,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         <div class="sui-normal">
 
                 <span>Welcome,</span>
-                <strong>Thisara Gunathilaka                </strong>
+
         </div>
     </div>
 
@@ -525,7 +525,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             <td><select class="js-example-basic-single" id="2drug_1">
             <%
         if(!drugs.isEmpty()){
-            
+
                for (Integer id: drugs.keySet()) {
                    out.print("<option value=\""+ id +"\">"+ drugs.get(id) +"</option>");
                     }
@@ -541,7 +541,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             <td><select class="js-example-basic-single" id="2drug_2">
             <%
         if(!drugs.isEmpty()){
-            
+
                for (Integer id: drugs.keySet()) {
                    out.print("<option value=\""+ id +"\">"+ drugs.get(id) +"</option>");
                     }
@@ -556,7 +556,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             <td><select class="js-example-basic-single" id="2drug_3">
             <%
         if(!drugs.isEmpty()){
-            
+
                for (Integer id: drugs.keySet()) {
                    out.print("<option value=\""+ id +"\">"+ drugs.get(id) +"</option>");
                     }
@@ -651,7 +651,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                            <option value="0">Select</option>
                               <%
         if(!drugs.isEmpty()){
-            
+
                for (Integer id: drugs.keySet()) {
                    out.print("<option value=\""+ id +"\">"+ drugs.get(id) +"</option>");
                     }
@@ -668,7 +668,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                               <option value="0">Select</option>
                               <%
         if(!drugs.isEmpty()){
-            
+
                for (Integer id: drugs.keySet()) {
                    out.print("<option value=\""+ id +"\">"+ drugs.get(id) +"</option>");
                     }
@@ -685,7 +685,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                               <option value="0">Select</option>
                               <%
         if(!drugs.isEmpty()){
-            
+
                for (Integer id: drugs.keySet()) {
                    out.print("<option value=\""+ id +"\">"+ drugs.get(id) +"</option>");
                     }
@@ -734,11 +734,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
 
                 <!-- Footer -->
-<footer class="main">
-	&copy; 2021 <strong> Hospital Management System</strong>
-    Developed by
 
-</footer>
 
             </div>
 
@@ -760,7 +756,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             }
         }
     }
-    
+
     function myFunction2() {
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput2");
@@ -777,7 +773,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
             }
         }
     }
-    
+
     function myFunction3() {
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput3");
@@ -795,7 +791,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         }
 
     }
-    
+
     function showAjaxModal(url)
     {
     $('.customized-modal').css('margin-top', window.scrollY);

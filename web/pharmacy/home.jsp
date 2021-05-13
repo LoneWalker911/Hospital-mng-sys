@@ -328,7 +328,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
         var presid=0;
         function getPres(id)
         {
-          
+
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
@@ -348,8 +348,8 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
                 {out+= "<tr><td>"+ json['drug_3'] +"</td><td>" + json['qty_3'] + "</td></tr>";
                 price+=parseFloat(json['price_3']);
             }
-                
-                    
+
+
                 document.getElementById('press').innerHTML=out;
                 document.getElementById('PresCharge').innerHTML=price;
                 presid=json['id'];
@@ -358,9 +358,9 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
           xmlhttp.open("GET", "http://localhost:8080/Hospital-mng-sys/pharmacy/prescription?getPres=" + id, true);
           xmlhttp.send();
         }
-        
-        
-        
+
+
+
     function order(){
         var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function() {
@@ -378,11 +378,7 @@ document.getElementById('test').innerHTML="<img src=\"https://cdn.dribbble.com/u
 
     </script>
                 <!-- Footer -->
-<footer class="main">
-	&copy; 2017 <strong> Hospital Management System</strong>
-    Developed by
 
-</footer>
 
             </div>
 
